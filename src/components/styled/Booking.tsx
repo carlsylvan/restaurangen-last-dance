@@ -27,6 +27,13 @@ export const Form = styled.form`
   flex-direction: column;
   align-items: center;
   width: 90%;
+
+  @media screen and (min-width: 768px) {
+    width: 60%;
+  }
+  @media screen and (min-width: 1000px) {
+    width: 45%;
+  }
 `;
 
 export const InputWrapper = styled.div`
@@ -74,6 +81,13 @@ export const Button = styled.button`
   width: 100px;
   height: 40px;
   cursor: pointer;
+`;
+
+export const ChooseTime = styled(Button)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const ContactWrapperInput = styled.div`

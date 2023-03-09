@@ -12,6 +12,7 @@ import {
   Button,
   ButtonWrapper,
   ContactWrapperInput,
+  ChooseTime,
 } from "../styled/Booking";
 
 export const Booking = () => {
@@ -21,13 +22,12 @@ export const Booking = () => {
     time: "",
     numberOfGuests: 0,
     customer: {
-        name: "",
-        lastname: "",
-        email: "",
-        phone: "",
-    }
-});
-
+      name: "",
+      lastname: "",
+      email: "",
+      phone: "",
+    },
+  });
 
   return (
     <BookingWrapper>
@@ -55,8 +55,8 @@ export const Booking = () => {
         </InputWrapper>
 
         <ButtonWrapper>
-          <Button>17:00</Button>
-          <Button>21:00</Button>
+          <ChooseTime>17:00</ChooseTime>
+          <ChooseTime>21:00</ChooseTime>
         </ButtonWrapper>
         <ContactWrapperInput>
           <div>
