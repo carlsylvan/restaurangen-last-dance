@@ -11,15 +11,15 @@ export const Menu = () => {
           {Object.values(menu).map((section: MenuSection) => (
             <div key={section.name}>
               <h4>{section.name}</h4>
-              <ul>
+              <div>
                 {section.courses.map((course: Course) => (
-                  <li key={course.name}>
+                  <div key={course.name}>
                     <h5>{course.name}</h5>
                     <p>{course.description}</p>
                     <div>{course.price}kr</div>
-                  </li>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           ))}
         </div>
