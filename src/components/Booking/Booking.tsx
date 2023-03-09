@@ -87,14 +87,15 @@ export const Booking = () => {
         </ButtonWrapper>
         <ContactWrapperInput>
           <div>
-            <Input type="text" placeholder="Förnamn" required />
-            <Input type="text" placeholder="Efternamn" required />
+            <Input type="text" placeholder="Förnamn" name="name" value={booking.customer.name} onChange={handleChange} required />
+            <Input type="text" placeholder="Efternamn" name="lastname" value={booking.customer.lastname} onChange={handleChange} required />
           </div>
-          <Input type="email" placeholder="Epost" required />
-          <Input type="tel" placeholder="Tel" required />
+          <Input type="email" placeholder="Epost" name="email" value={booking.customer.email} onChange={handleChange} required />
+          <Input type="tel" placeholder="Tel" name="phone" value={booking.customer.phone} onChange={handleChange} required />
         </ContactWrapperInput>
         <Button type="submit">Boka</Button>
       </Form>
     </BookingWrapper>
+    
   );
 };
