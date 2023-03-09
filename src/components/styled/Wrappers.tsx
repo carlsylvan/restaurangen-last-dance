@@ -47,7 +47,6 @@ export const HamburgerWrapper = styled.div `
 
 
 export const PageWrapper = styled.main `
-    height: 100vh;
     width: 100%;
     position:relative;
 `;
@@ -62,7 +61,7 @@ export const PageDownIconWrapper = styled.div `
     }
 `;
 export const StartPageWrapper = styled.div `
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
