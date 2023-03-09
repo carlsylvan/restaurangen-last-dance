@@ -27,6 +27,13 @@ export const Form = styled.form`
   flex-direction: column;
   align-items: center;
   width: 90%;
+
+  @media screen and (min-width: 768px) {
+    width: 60%;
+  }
+  @media screen and (min-width: 1000px) {
+    width: 45%;
+  }
 `;
 
 export const InputWrapper = styled.div`
@@ -63,6 +70,24 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const Button = styled.button`
+  text-align: center;
+  background-color: black;
+  color: white;
+  border: 1px black;
+  border-radius: 18px;
+  margin-top: 15px;
+  margin-bottom: 35px;
+  font-size: medium;
+  width: 100px;
+  height: 40px;
+  cursor: pointer;
+`;
+
+export const ChooseTime = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   background-color: black;
   color: white;
