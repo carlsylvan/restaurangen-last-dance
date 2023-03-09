@@ -20,11 +20,16 @@ export const NavWrapper = styled.nav `
         padding-top: 3rem;
         li {
             list-style-type: none;
-            color: white;
-            &:hover {
+
+            a {
+                color: white;
+                text-decoration: none;
+                &:hover {
                 cursor: pointer;
                 text-decoration: underline;
             }
+            }
+
         }
     }
 `;
