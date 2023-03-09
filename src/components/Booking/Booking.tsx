@@ -29,6 +29,27 @@ export const Booking = () => {
     },
   });
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.name);
+    if (e.target.type === "number") {
+      setBooking({ ...booking, [e.target.name]: +e.target.value });
+    }
+
+    if (e.target.type === "text") {
+      setBooking({ ...booking, [e.target.name]: e.target.value });
+    }
+  };
+
+  // const handleSubmit = (e: FormEvent) => {
+  //   e.preventDefault();
+
+  //   if (person.name === "" || person.age === 0) {
+  //     console.log("Validation error occured");
+  //   } else {
+  //     console.log("Submit form: ", person);
+  //   }
+  // };
+
   return (
     <BookingWrapper>
       <div>
@@ -39,15 +60,21 @@ export const Booking = () => {
       <Form>
         <InputWrapper>
           <Label>Antal personer: </Label>
-          <Input type="number" required />
+          <Input
+            type="number"
+            value={booking.numberOfGuests}
+            onChange={handleChange}
+            name="numberOfGuests"
+            required
+          />
         </InputWrapper>
         <InputWrapper>
           <Label htmlFor="start">Datum: </Label>
           <Input
             type="date"
             id="start"
-            name="trip-start"
-            value="2018-07-22"
+            value={booking.date}
+            name="date"
             min="2018-01-01"
             max="2018-12-31"
             required
