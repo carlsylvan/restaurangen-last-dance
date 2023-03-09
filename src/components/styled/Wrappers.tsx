@@ -40,6 +40,36 @@ export const HamburgerWrapper = styled.div `
 `;
 
 
-export const FooterWraper = styled.footer `
+export const PageWrapper = styled.main `
+    height: 100vh;
+    width: 100%;
+`;
+export const FooterWrapper = styled.footer `
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: #525252;
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+    padding: 3rem 0;
+    span {
+        font-size: 24px;
+        color: white;
+    }
+    div {
+        display: flex;
+        gap: 2rem;
+        width: 30%;
+        justify-content: center;
+        
+    }
+`;
+export const SocialIconWrapper = styled.div `
+    font-size: 40px;
+    &:hover {
+        color:white;
+        cursor:pointer;
+    }
 
 `;

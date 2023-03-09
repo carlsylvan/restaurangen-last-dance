@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { Nav } from "./components/Nav/Nav";
 import { Outlet } from "react-router-dom";
 import { Footer } from "./components/Footer/Footer";
 import { HamburgerLogo } from "./components/HamburgerLogo/HamburgerLogo";
-import { HamburgerMenu } from "./components/HamburgerMenu/HamburgerMenu";
-import { FooterWraper, HamburgerWrapper, NavWrapper } from "./components/styled/Wrappers";
+import { FooterWrapper, HamburgerWrapper, NavWrapper, PageWrapper } from "./components/styled/Wrappers";
 
 
 function App() {
@@ -25,10 +24,12 @@ function App() {
           <HamburgerLogo handleOpenMenu = {handleOpenMenu} open = {open}/>
         </HamburgerWrapper>
       </header>
+      <PageWrapper>
         <Outlet></Outlet>
-      <FooterWraper>
+      </PageWrapper>
+      <FooterWrapper>
         <Footer></Footer>
-      </FooterWraper>
+      </FooterWrapper>
     </div>
   );
 }

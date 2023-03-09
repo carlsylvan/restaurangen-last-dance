@@ -17,7 +17,6 @@ export const HamburgerLogo = (props:IHamburgerLogoProps) => {
             <HamburgerLogoLabel htmlFor="hamLogo" open = {props.open}>
                 <div />
                 <div />
-                {/* <div /> */}
             </HamburgerLogoLabel>
             <HamburgerLogoInput type="checkbox" id="hamLogo" onChange={(e)=>{handleCLick(e)}}></HamburgerLogoInput>
         </>
