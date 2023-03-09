@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const Textarea = styled.textarea`
-  width: 70%;
-  height: 70%;
+  width: 70vw;
+  height: 40vh;
 `;
 
 export const Contact = () => {
