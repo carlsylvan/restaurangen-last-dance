@@ -31,28 +31,34 @@ export const Booking = () => {
     customer: customer,
   });
 
+  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   console.log(e.target.name);
+  //   if (e.target.type === "number") {
+  //     setBooking({ ...booking, [e.target.name]: +e.target.value });
+  //   }
+
+  //   if (e.target.type === "text") {
+  //     setCustomer({ ...customer, [e.target.name]: e.target.value });
+  //   }
+
+  //   if (e.target.type === "email") {
+  //     setCustomer({ ...customer, [e.target.name]: e.target.value });
+  //   }
+
+  //   if (e.target.type === "tel") {
+  //     setCustomer({ ...customer, [e.target.name]: e.target.value });
+  //     setBooking({ ...booking, customer: customer });
+  //   }
+
+  //   if (e.target.type === "date") {
+  //     setBooking({ ...booking, [e.target.name]: e.target.value });
+  //   }
+  // };
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.name);
-    if (e.target.type === "number") {
-      setBooking({ ...booking, [e.target.name]: +e.target.value });
-    }
-
-    if (e.target.type === "text") {
-      setCustomer({ ...customer, [e.target.name]: e.target.value });
-    }
-
-    if (e.target.type === "email") {
-      setCustomer({ ...customer, [e.target.name]: e.target.value });
-    }
-
-    if (e.target.type === "tel") {
-      setCustomer({ ...customer, [e.target.name]: e.target.value });
-      setBooking({ ...booking, customer: customer });
-    }
-
-    if (e.target.type === "date") {
-      setBooking({ ...booking, [e.target.name]: e.target.value });
-    }
+    let newCustomer = {...customer, [e.target.name]: e.target.value};
+    setCustomer(newCustomer);
+    setBooking({...booking, [e.target.name]: e.target.value, customer: newCustomer});
   };
 
   const handleChooseTime = (chosenTime: string) => {
