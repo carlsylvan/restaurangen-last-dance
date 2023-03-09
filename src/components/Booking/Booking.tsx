@@ -1,4 +1,5 @@
-import { ChangeEvent, useState } from "react";
+import { time } from "console";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { IBooking } from "../../models/IBooking";
 import {
   BookingWrapper,
@@ -40,15 +41,25 @@ export const Booking = () => {
     }
   };
 
-  // const handleSubmit = (e: FormEvent) => {
-  //   e.preventDefault();
+  const handleChooseTime = (chosenTime: string) => {
+    setBooking({ ...booking, time: chosenTime });
+  };
+  console.log(booking);
 
-  //   if (person.name === "" || person.age === 0) {
-  //     console.log("Validation error occured");
-  //   } else {
-  //     console.log("Submit form: ", person);
-  //   }
-  // };
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
+    // if (person.name === "" || person.age === 0) {
+    //   console.log("Validation error occured");
+    // } else {
+    //   console.log("Submit form: ", person);
+    // }
+  };
+
+  const handleSubmitButton = () => {
+    // sendBooking()
+    console.log(booking);
+  };
 
   return (
     <BookingWrapper>
@@ -57,7 +68,7 @@ export const Booking = () => {
         <H2>Restaurang</H2>
       </div>
       <H3>Bokning</H3>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <InputWrapper>
           <Label>Antal personer: </Label>
           <Input
@@ -75,15 +86,19 @@ export const Booking = () => {
             id="start"
             value={booking.date}
             name="date"
-            min="2018-01-01"
-            max="2018-12-31"
+            min="2023-03-09"
+            max="2023-12-31"
             required
           />
         </InputWrapper>
 
         <ButtonWrapper>
-          <ChooseTime>17:00</ChooseTime>
-          <ChooseTime>21:00</ChooseTime>
+          <ChooseTime onClick={() => handleChooseTime("17:00")}>
+            17:00
+          </ChooseTime>
+          <ChooseTime onClick={() => handleChooseTime("21:00")}>
+            21:00
+          </ChooseTime>
         </ButtonWrapper>
         <ContactWrapperInput>
           <div>
@@ -93,7 +108,9 @@ export const Booking = () => {
           <Input type="email" placeholder="Epost" required />
           <Input type="tel" placeholder="Tel" required />
         </ContactWrapperInput>
-        <Button type="submit">Boka</Button>
+        <Button onClick={handleSubmitButton} type="submit">
+          Boka
+        </Button>
       </Form>
     </BookingWrapper>
   );
