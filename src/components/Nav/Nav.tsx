@@ -1,3 +1,12 @@
+import { useState } from "react";
+import { HamburgerLogo } from "../HamburgerLogo/HamburgerLogo"
+import { HamburgerMenu } from "../HamburgerMenu/HamburgerMenu"
+
 export const Nav = () => {
-    return <div>Hello Nav</div>
+    const [open, setOpen] = useState<boolean>(false);
+    return (
+    <>
+        <HamburgerMenu />
+    </>
+    )
 }
