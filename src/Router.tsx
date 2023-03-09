@@ -5,6 +5,7 @@ import { Booking } from "./components/Booking/Booking";
 import { Contact } from "./components/Contact/Contact";
 import { Home } from "./components/Home/Home";
 import { Menu } from "./components/Menu/Menu";
+import { StartPageWrapper } from "./components/styled/Wrappers";
 
 export const router = createBrowserRouter([
     {
@@ -13,7 +14,7 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <Home></Home>,
+                element: <StartPageWrapper><Home /></StartPageWrapper>,
                 index: true
             },
             {

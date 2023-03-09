@@ -4,8 +4,8 @@ import { Nav } from "./components/Nav/Nav";
 import { Outlet } from "react-router-dom";
 import { Footer } from "./components/Footer/Footer";
 import { HamburgerLogo } from "./components/HamburgerLogo/HamburgerLogo";
-import { FooterWrapper, HamburgerWrapper, NavWrapper, PageWrapper } from "./components/styled/Wrappers";
-
+import { FooterWrapper, HamburgerWrapper, HeaderWrapper, PageDownIconWrapper, PageWrapper } from "./components/styled/Wrappers";
+import {IoIosArrowDown} from "react-icons/io";
 
 function App() {
   const [open, setOpen] = useState<boolean>(false);
@@ -13,19 +13,25 @@ function App() {
   const handleOpenMenu = (status:boolean) =>{
     setOpen(status);
   }
+
+  const handleMoveDown = () => {
+    console.log("move down");
+    
+  }
   console.log(open)
   return (
     <div className="App">
-      <header>
-        <NavWrapper open={open} >
+      <HeaderWrapper open={open} >
           <Nav></Nav>
-        </NavWrapper>
-        <HamburgerWrapper>
-          <HamburgerLogo handleOpenMenu = {handleOpenMenu} open = {open}/>
-        </HamburgerWrapper>
-      </header>
+          <HamburgerWrapper>
+            <HamburgerLogo handleOpenMenu = {handleOpenMenu} open = {open}/>
+          </HamburgerWrapper>
+      </HeaderWrapper>
       <PageWrapper>
         <Outlet></Outlet>
+        <PageDownIconWrapper onClick={handleMoveDown}>
+          <IoIosArrowDown />
+        </PageDownIconWrapper>
       </PageWrapper>
       <FooterWrapper>
         <Footer></Footer>
