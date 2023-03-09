@@ -83,11 +83,22 @@ export const Button = styled.button`
   cursor: pointer;
 `;
 
-export const ChooseTime = styled(Button)`
+export const ChooseTime = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  background-color: black;
+  color: white;
+  border: 1px black;
+  border-radius: 18px;
+  margin-top: 15px;
+  margin-bottom: 35px;
+  font-size: medium;
+  width: 100px;
+  height: 40px;
+  cursor: pointer;
 `;
 
 export const ContactWrapperInput = styled.div`
