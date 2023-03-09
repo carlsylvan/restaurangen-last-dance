@@ -1,3 +1,5 @@
+import { ChangeEvent, useState } from "react";
+import { IBooking } from "../../models/IBooking";
 import {
   BookingWrapper,
   InputWrapper,
@@ -13,6 +15,20 @@ import {
 } from "../styled/Booking";
 
 export const Booking = () => {
+  const [booking, setBooking] = useState<IBooking>({
+    restaurantId: "6408a12376187b915f68e171",
+    date: "",
+    time: "",
+    numberOfGuests: 0,
+    customer: {
+        name: "",
+        lastname: "",
+        email: "",
+        phone: "",
+    }
+});
+
+
   return (
     <BookingWrapper>
       <div>
