@@ -26,6 +26,7 @@ export const AdminBookingDetails = () => {
   
       getData();
     });
+    console.log(bookedTable);
   
     return (
       <>
@@ -35,9 +36,8 @@ export const AdminBookingDetails = () => {
           </>
         ) : (
           <>
-
-            <h3>{bookedTable?.numberOfGuests}</h3>
-            <pre>{bookedTable?.date}</pre>
+            <h3>Hej</h3>
+            <p>{bookedTable?.id}</p>
           </>
         )}
       </>

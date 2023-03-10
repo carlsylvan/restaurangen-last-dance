@@ -39,7 +39,6 @@ export const getBookedTableById = async (id: string): Promise<IApiResponse> => {
     let response = await axios.get<IBookedTable>(
       `${API_URL}/booking/` + id
     );
-
     return { bookedTable: response.data, error: "" };
   } catch {
     return { error: "Ett fel har inträffat" };
