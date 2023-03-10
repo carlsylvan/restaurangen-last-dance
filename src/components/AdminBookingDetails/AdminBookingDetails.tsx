@@ -122,7 +122,7 @@ useEffect(() => {
             />
           </ContactWrapperInput>
           <Button type="submit">Redigera</Button>
-          <Button type="submit">TA BORT</Button>
+          <Button type="submit">Ta bort</Button>
         </Form>
       </BookingWrapper>
     );
