@@ -33,12 +33,10 @@ export const router = createBrowserRouter([
             {
                 path: "/admin",
                 element: <Admin></Admin>,
-                children: [
-                    {
-                        path: "/admin/:id",
-                        element: <AdminBookingDetails></AdminBookingDetails>
-                    }
-                ]
+            },
+            {
+                path: "/admin/:id",
+                element: <AdminBookingDetails></AdminBookingDetails>
             },
         ]
     }
