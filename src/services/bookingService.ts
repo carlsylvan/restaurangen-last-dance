@@ -1,4 +1,6 @@
 import axios from "axios";
+import { IApiResponse } from "../models/IApiResponse";
+import { IBookedTable } from "../models/IBookedTable";
 import { IBooking } from "../models/IBooking";
 
 const RESTAURANT_ID = "6408a12376187b915f68e171";
@@ -29,4 +31,17 @@ export const getBookings = async () => {
     `${API_URL}/booking/restaurant/${RESTAURANT_ID}`
   );
   return response.data;
+};
+
+
+export const getBookedTableById = async (id: string): Promise<IApiResponse> => {
+  try {
+    let response = await axios.get<IBookedTable>(
+      `${API_URL}/booking/` + id
+    );
+
+    return { bookedTable: response.data, error: "" };
+  } catch {
+    return { error: "Ett fel har inträffat" };
+  }
 };
