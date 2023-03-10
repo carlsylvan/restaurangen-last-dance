@@ -2,6 +2,8 @@ import axios from "axios";
 import { IApiResponse } from "../models/IApiResponse";
 import { IBookedTable } from "../models/IBookedTable";
 import { IBooking } from "../models/IBooking";
+import { IBookingCustomer } from "../models/IBookingCustomer";
+import { ICustomer } from "../models/ICustomer";
 
 const RESTAURANT_ID = "6408a12376187b915f68e171";
 const API_URL = "https://school-restaurant-api.azurewebsites.net";
@@ -40,6 +42,17 @@ export const getBookedTableById = async (id: string): Promise<IApiResponse> => {
       `${API_URL}/booking/` + id
     );
     return { bookedTable: response.data[0], error: "" };
+  } catch {
+    return { error: "Ett fel har inträffat" };
+  }
+};
+
+export const getCustomerById = async (id: string): Promise<IApiResponse> => {
+  try {
+    let response = await axios.get<IBookingCustomer[]>(
+      `${API_URL}/customer/` + id
+    );
+    return { bookingCustomer: response.data[0], error: "" };
   } catch {
     return { error: "Ett fel har inträffat" };
   }

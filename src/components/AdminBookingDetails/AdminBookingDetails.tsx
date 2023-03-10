@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { IBookedTable } from "../../models/IBookedTable";
-import { getBookedTableById } from "../../services/bookingService";
+import { IBookingCustomer } from "../../models/IBookingCustomer";
+import { getBookedTableById, getCustomerById } from "../../services/bookingService";
 import { BookingWrapper, Button, ButtonWrapper, ChooseTime, ContactWrapperInput, Form, H1, H2, H3, Input, InputWrapper, Label } from "../styled/Booking";
 
 export const AdminBookingDetails = () => {
     const [bookedTable, setBookedTable] = useState<IBookedTable>();
+    const [customer, setCustomer] = useState<IBookingCustomer>();
     const [error, setError] = useState("");
   
     const { id } = useParams();
+
   
     useEffect(() => {
       const getData = async () => {
@@ -28,6 +31,25 @@ export const AdminBookingDetails = () => {
       }
     }, [id, bookedTable]
 );
+useEffect(() => {
+  const getData = async () => {
+    if (id && bookedTable?.customerId) {
+      let response = await getCustomerById(bookedTable.customerId);
+
+      if (response.bookingCustomer) {
+        setCustomer(response.bookingCustomer);
+      } else {
+        setError(response.error);
+      }
+    }
+  };
+
+  if (!customer) {
+    getData();
+  }
+}, [id, bookedTable, customer]);
+
+
     return (
       <BookingWrapper>
         <div>
@@ -72,14 +94,14 @@ export const AdminBookingDetails = () => {
                 type="text"
                 placeholder="Förnamn"
                 name="name"
-                value={bookedTable?.customerId}
+                value={customer?.name}
                 required
               />
               <Input
                 type="text"
                 placeholder="Efternamn"
                 name="lastname"
-                value={bookedTable?.customerId}
+                value={customer?.lastname}
                 required
               />
             </div>
@@ -87,14 +109,14 @@ export const AdminBookingDetails = () => {
               type="email"
               placeholder="Epost"
               name="email"
-              value={bookedTable?.customerId}
+              value={customer?.email}
               required
             />
             <Input
               type="tel"
               placeholder="Tel-xxxxxxxxxx"
               name="phone"
-              value={bookedTable?.customerId}
+              value={customer?.phone}
               pattern="[0-9]{10}"
               required
             />
