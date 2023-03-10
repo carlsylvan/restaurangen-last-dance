@@ -52,11 +52,7 @@ useEffect(() => {
 
     return (
       <BookingWrapper>
-        <div>
-          <H1>Last Dance</H1>
-          <H2>Restaurang</H2>
-        </div>
-        <H3>Bokning</H3>
+        <H3>Redigera bokning med referensnummer: {id}</H3>
         <Form>
           <InputWrapper>
             <Label>Antal personer: </Label>
