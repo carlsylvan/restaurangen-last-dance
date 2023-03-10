@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { IBooking } from "../../models/IBooking";
 import {
   BookingWrapper,
@@ -15,6 +15,7 @@ import {
   ChooseTime,
 } from "../styled/Booking";
 import { ICustomer } from "../../models/ICustomer";
+import { getBookings, sendBooking } from "../../services/bookingService";
 
 export const Booking = () => {
   const [customer, setCustomer] = useState<ICustomer>({
@@ -31,35 +32,39 @@ export const Booking = () => {
     customer: customer,
   });
 
-  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   console.log(e.target.name);
-  //   if (e.target.type === "number") {
-  //     setBooking({ ...booking, [e.target.name]: +e.target.value });
-  //   }
-
-  //   if (e.target.type === "text") {
-  //     setCustomer({ ...customer, [e.target.name]: e.target.value });
-  //   }
-
-  //   if (e.target.type === "email") {
-  //     setCustomer({ ...customer, [e.target.name]: e.target.value });
-  //   }
-
-  //   if (e.target.type === "tel") {
-  //     setCustomer({ ...customer, [e.target.name]: e.target.value });
-  //     setBooking({ ...booking, customer: customer });
-  //   }
-
-  //   if (e.target.type === "date") {
-  //     setBooking({ ...booking, [e.target.name]: e.target.value });
-  //   }
-  // };
-
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    let newCustomer = {...customer, [e.target.name]: e.target.value};
-    setCustomer(newCustomer);
-    setBooking({...booking, [e.target.name]: e.target.value, customer: newCustomer});
+    console.log(e.target.name);
+    if (e.target.type === "text") {
+      setBooking({ ...booking, [e.target.name]: +e.target.value });
+    }
+
+    if (e.target.type === "text") {
+      setCustomer({ ...customer, [e.target.name]: e.target.value });
+    }
+
+    if (e.target.type === "email") {
+      setCustomer({ ...customer, [e.target.name]: e.target.value });
+    }
+
+    if (e.target.type === "tel") {
+      setCustomer({ ...customer, [e.target.name]: e.target.value });
+      setBooking({ ...booking, customer: customer });
+    }
+
+    if (e.target.type === "date") {
+      setBooking({ ...booking, [e.target.name]: e.target.value });
+    }
   };
+
+  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   let newCustomer = { ...customer, [e.target.name]: e.target.value };
+  //   setCustomer(newCustomer);
+  //   setBooking({
+  //     ...booking,
+  //     [e.target.name]: e.target.value,
+  //     customer: newCustomer,
+  //   });
+  // };
 
   const handleChooseTime = (chosenTime: string) => {
     setBooking({ ...booking, time: chosenTime });
@@ -68,7 +73,7 @@ export const Booking = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    // sendBooking()
+    sendBooking(booking);
     console.log(booking);
 
     // if (person.name === "" || person.age === 0) {
@@ -77,6 +82,14 @@ export const Booking = () => {
     //   console.log("Submit form: ", person);
     // }
   };
+
+  useEffect(() => {
+    const getBookingData = async () => {
+      let bookings = await getBookings();
+      console.log(bookings);
+    };
+    getBookingData();
+  }, []);
 
   return (
     <BookingWrapper>
@@ -89,7 +102,7 @@ export const Booking = () => {
         <InputWrapper>
           <Label>Antal personer: </Label>
           <Input
-            type="number"
+            type="text"
             value={booking.numberOfGuests}
             onChange={handleChange}
             name="numberOfGuests"

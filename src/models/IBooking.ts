@@ -4,6 +4,6 @@ export interface IBooking {
   restaurantId: string;
   date: string;
   time: string;
-  numberOfGuests: number;
+  numberOfGuests: number | undefined;
   customer: ICustomer;
 }
