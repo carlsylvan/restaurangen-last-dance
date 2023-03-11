@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { IBookedTable } from "../../models/IBookedTable";
 import { IBookingCustomer } from "../../models/IBookingCustomer";
-import { getBookedTableById, getCustomerById } from "../../services/bookingService";
+import { deleteBookingById, getBookedTableById, getCustomerById, updateBookingById, updateCustomerById } from "../../services/bookingService";
 import { BookingWrapper, Button, ButtonWrapper, ChooseTime, ContactWrapperInput, Form, H1, H2, H3, Input, InputWrapper, Label } from "../styled/Booking";
 
 export const AdminBookingDetails = () => {
@@ -49,6 +49,18 @@ useEffect(() => {
   }
 }, [id, bookedTable, customer]);
 
+
+
+  const handleUpdateBooking = () => {
+    updateBookingById(bookedTable?._id ?? "");
+    updateCustomerById(customer?.id ?? "");
+    console.log(bookedTable?._id);
+    console.log(customer?.id)
+  };
+
+  const handleDeleteBooking = () => {
+    deleteBookingById(bookedTable?._id ?? "");
+  };
 
     return (
       <BookingWrapper>
@@ -117,8 +129,8 @@ useEffect(() => {
               required
             />
           </ContactWrapperInput>
-          <Button type="submit">Redigera</Button>
-          <Button type="submit">Ta bort</Button>
+          <Button type="submit" onClick={handleUpdateBooking}>Redigera</Button>
+          <Button type="submit" onClick={handleDeleteBooking}>Ta bort</Button>
         </Form>
       </BookingWrapper>
     );

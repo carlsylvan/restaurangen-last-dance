@@ -57,3 +57,18 @@ export const getCustomerById = async (id: string): Promise<IApiResponse> => {
     return { error: "Ett fel har inträffat" };
   }
 };
+
+export const deleteBookingById = async (id: string) => {
+  let response = await axios.delete<IBookedTable>(`${API_URL}/booking/delete/` + id);
+  console.log(response.status);
+};
+
+export const updateBookingById = async (id: string) => {
+  let response = await axios.put<IBookedTable>(`${API_URL}/booking/update/` + id);
+  console.log(response.status);
+}
+
+export const updateCustomerById =async (id: string) => {
+  let response = await axios.put<IBookingCustomer>(`${API_URL}/customer/update/` + id);
+  console.log(response.status);
+}
