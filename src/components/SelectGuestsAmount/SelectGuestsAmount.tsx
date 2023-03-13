@@ -33,7 +33,15 @@ export const SelectGuestsAmount = (props:ISelectGuestsAmountProps) => {
         // if(!isCreated){
             let temp: INumberOfGuest[] = [];
             for(let i=0; i<12; i++){
+                if(i === 0) {
                     temp.push({numberOfGuests: i+1, isSelected: false})
+
+                }
+                else {
+                    temp.push({numberOfGuests: i+1, isSelected: false})
+                    
+                }
+                
             }
             // setIsCreated(true);
         // }

@@ -10,6 +10,7 @@ import { SelectGuestsAmount } from "../SelectGuestsAmount/SelectGuestsAmount";
 import { SelectBookingTime } from "../SelectBookingTime/SelectBookingTime";
 
 
+
 export const Booking = () => {
   const startValueCustomer: ICustomer = {
     name: "",
@@ -30,7 +31,7 @@ export const Booking = () => {
   const [isAvailable, setIsAvailable] = useState<boolean>(true);
   const [numOfBookedTables, setNumOfBookedTables] = useState<number>(0);
   useEffect(()=>{
-    ((numOfBookedTables+Math.ceil(booking.numberOfGuests/6)) > 1) ? setIsAvailable(false):setIsAvailable(true);
+    ((numOfBookedTables+Math.ceil(booking.numberOfGuests/6)) > 30) ? setIsAvailable(false):setIsAvailable(true);
   })
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     let newCustomer = { ...customer, [e.target.name]: e.target.value };
