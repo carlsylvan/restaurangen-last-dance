@@ -45,7 +45,7 @@ export const AdminBookingWrapper = styled.div`
     width: 30%;
   }
   @media screen and (min-width: 1400px) {
-    width: 22%;
+    width: 30%;
   }
 `;
 
@@ -67,10 +67,7 @@ export const AdminBookingInput = styled(Input)`
   }
   @media screen and (min-width: 1000px) {
     width: 30%;
-  }
-  @media screen and (min-width: 1400px) {
-    width: 20%;
-  }
+
 `;
 
 export const AdminBookingButton = styled(Button)`
