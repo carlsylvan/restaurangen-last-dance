@@ -2,29 +2,21 @@ import { useEffect, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { IRestaurantContext } from "../../App";
 import { IBookingsAdmin } from "../../models/IBookingsAdmin";
-import { getBookings } from "../../services/bookingService";
 import {
   AdminBookingButton,
   AdminBookingInput,
+  AdminBookingInputWrapper,
   AdminBookingsWrapper,
   AdminBookingWrapper,
+  AdminForm,
+  AdminWrapper,
 } from "../styled/Admin";
 import { H3 } from "../styled/Booking";
 
 export const Admin = () => {
-  // const [bookings, setBookings] = useState<IBookingsAdmin[]>([]);
   const { bookings } = useOutletContext<IRestaurantContext>();
   const [bookingsByDate, setBookingsByDate] = useState<JSX.Element[]>([]);
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   const getBookingsData = async () => {
-  //     let myBookings = await getBookings();
-  //     setBookings(myBookings);
-  //   };
-  //   if (bookings.length > 0) return;
-  //   getBookingsData();
-  // });
 
   const handleClick = (booking: IBookingsAdmin) => {
     navigate(`/admin/${booking._id}`);
@@ -87,22 +79,26 @@ export const Admin = () => {
   });
 
   return (
-    <div>
+    <AdminWrapper>
       <H3>Administration</H3>
-      <form onSubmit={handleSubmit}>
-        <AdminBookingInput
-          type="text"
-          name="_id"
-          placeholder="Bokningsnummer"></AdminBookingInput>
-        <AdminBookingButton type="submit">Sök</AdminBookingButton>
-        <AdminBookingInput
-          onChange={handleOnChange}
-          type="date"
-          name="date"></AdminBookingInput>
-      </form>
+      <AdminForm onSubmit={handleSubmit}>
+        <div>
+          <AdminBookingInput
+            onChange={handleOnChange}
+            type="date"
+            name="date"></AdminBookingInput>
+          <AdminBookingInputWrapper>
+            <AdminBookingInput
+              type="text"
+              name="_id"
+              placeholder="Bokningsnummer"></AdminBookingInput>
+            <AdminBookingButton type="submit">Sök</AdminBookingButton>
+          </AdminBookingInputWrapper>
+        </div>
+      </AdminForm>
       <AdminBookingsWrapper>
         {bookingsByDate.length > 0 ? bookingsByDate : bookingsHtml}
       </AdminBookingsWrapper>
-    </div>
+    </AdminWrapper>
   );
 };

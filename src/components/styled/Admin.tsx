@@ -1,6 +1,21 @@
 import styled from "styled-components";
 import { Button, Input } from "./Booking";
 
+export const AdminWrapper = styled.main`
+  height: 100%;
+  margin-bottom: 150px;
+`;
+
+export const AdminForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  > div {
+    width: 100%;
+  }
+`;
+
 export const AdminBookingsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -19,6 +34,10 @@ export const AdminBookingWrapper = styled.div`
     0px 10px 5px rgba(151, 149, 149, 0.1);
   border-radius: 18px;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    scale: calc(1.05);
+  }
   @media screen and (min-width: 768px) {
     width: 45%;
   }
@@ -30,8 +49,19 @@ export const AdminBookingWrapper = styled.div`
   }
 `;
 
+export const AdminBookingInputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 18px 0px 5px 0px;
+`;
+
 export const AdminBookingInput = styled(Input)`
   height: 1.4em;
+  width: 60%;
+
   @media screen and (min-width: 768px) {
     width: 35%;
   }
@@ -46,5 +76,11 @@ export const AdminBookingInput = styled(Input)`
 export const AdminBookingButton = styled(Button)`
   width: 75px;
   height: 35px;
-  margin-left: 5px;
+  margin: 0;
+  margin-top: 5px;
+  margin-bottom: 30px;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    opacity: 0.75;
+  }
 `;

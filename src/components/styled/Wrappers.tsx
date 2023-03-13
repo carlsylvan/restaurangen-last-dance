@@ -15,7 +15,7 @@ interface IBookingTimeDivWrapperProps {
 }
 
 export const HeaderWrapper = styled.header`
-  padding-top: 25%;
+  /* padding-top: 25%; */
 `;
 export const NavWrapper = styled.nav`
   position: absolute;
@@ -55,6 +55,9 @@ export const HamburgerWrapper = styled.div`
 export const PageWrapper = styled.main`
   width: 100%;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 export const PageDownIconWrapper = styled.div`
   position: absolute;
@@ -87,6 +90,7 @@ export const FooterWrapper = styled.footer`
   gap: 2rem;
   flex-direction: column;
   padding: 3rem 0;
+  margin-bottom: auto;
   span {
     font-size: 18px;
     color: white;
