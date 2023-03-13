@@ -9,35 +9,39 @@ import { Menu } from "./components/Menu/Menu";
 import { StartPageWrapper } from "./components/styled/Wrappers";
 
 export const router = createBrowserRouter([
-    {
+  {
+    path: "/",
+    element: <App></App>,
+    children: [
+      {
         path: "/",
-        element: <App></App>,
-        children: [
-            {
-                path: "/",
-                element: <StartPageWrapper><Home /></StartPageWrapper>,
-                index: true
-            },
-            {
-                path: "/menu",
-                element: <Menu></Menu>,
-            },
-            {
-                path: "/booking",
-                element: <Booking></Booking>,
-            },
-            {
-                path: "/contact",
-                element: <Contact></Contact>,
-            },
-            {
-                path: "/admin",
-                element: <Admin></Admin>,
-            },
-            {
-                path: "/admin/:id",
-                element: <AdminBookingDetails></AdminBookingDetails>
-            },
-        ]
-    }
+        element: (
+          <StartPageWrapper>
+            <Home />
+          </StartPageWrapper>
+        ),
+        index: true,
+      },
+      {
+        path: "/menu",
+        element: <Menu></Menu>,
+      },
+      {
+        path: "/booking",
+        element: <Booking></Booking>,
+      },
+      {
+        path: "/contact",
+        element: <Contact></Contact>,
+      },
+      {
+        path: "/admin",
+        element: <Admin></Admin>,
+      },
+      {
+        path: "/admin/:id",
+        element: <AdminBookingDetails></AdminBookingDetails>,
+      },
+    ],
+  },
 ]);

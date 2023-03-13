@@ -4,8 +4,15 @@ import { Nav } from "./components/Nav/Nav";
 import { Outlet } from "react-router-dom";
 import { Footer } from "./components/Footer/Footer";
 import { HamburgerLogo } from "./components/HamburgerLogo/HamburgerLogo";
-import { FooterWrapper, HamburgerWrapper, HeaderWrapper, NavWrapper, PageDownIconWrapper, PageWrapper } from "./components/styled/Wrappers";
-import {IoIosArrowDown} from "react-icons/io";
+import {
+  FooterWrapper,
+  HamburgerWrapper,
+  HeaderWrapper,
+  NavWrapper,
+  PageDownIconWrapper,
+  PageWrapper,
+} from "./components/styled/Wrappers";
+import { IoIosArrowDown } from "react-icons/io";
 
 import { getBookings } from "./services/bookingService";
 import { IBooking } from "./models/IBooking";
@@ -13,7 +20,7 @@ import { H1, H4 } from "./components/styled/Booking";
 
 export interface IRestaurantContext {
   bookings: IBooking[];
-  changeLoadedFromApi(): void
+  changeLoadedFromApi(): void;
 }
 
 function App() {
@@ -23,38 +30,38 @@ function App() {
   useEffect(() => {
     const getBookingData = async () => {
       let bookings = await getBookings();
-      setBookings(bookings)
+      setBookings(bookings);
     };
-    if(loadedFromApi){
-      return
+    if (loadedFromApi) {
+      return;
     }
     getBookingData();
     setLoadedFromApi(true);
   });
-  const handleOpenMenu = (status:boolean) =>{
+  const handleOpenMenu = (status: boolean) => {
     setOpen(status);
-  }
+  };
   const changeLoadedFromApi = () => {
     setLoadedFromApi(false);
-  }
+  };
   const handleMoveDown = () => {
     // console.log("move down");
-  }
+  };
   console.log(bookings);
   return (
     <div className="App">
-      <HeaderWrapper  >
-          <H1>Last Dance</H1>
-          <H4>restaurang</H4>
-          <NavWrapper open={open}>
-            <Nav></Nav>
-          </NavWrapper>
-          <HamburgerWrapper>
-            <HamburgerLogo handleOpenMenu = {handleOpenMenu} open = {open}/>
-          </HamburgerWrapper>
+      <HeaderWrapper>
+        <H1>Last Dance</H1>
+        <H4>restaurang</H4>
+        <NavWrapper open={open}>
+          <Nav></Nav>
+        </NavWrapper>
+        <HamburgerWrapper>
+          <HamburgerLogo handleOpenMenu={handleOpenMenu} open={open} />
+        </HamburgerWrapper>
       </HeaderWrapper>
       <PageWrapper>
-        <Outlet context={{bookings, changeLoadedFromApi}}></Outlet>
+        <Outlet context={{ bookings, changeLoadedFromApi }}></Outlet>
         <PageDownIconWrapper onClick={handleMoveDown}>
           <IoIosArrowDown />
         </PageDownIconWrapper>
