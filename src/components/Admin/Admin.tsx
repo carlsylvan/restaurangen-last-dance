@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
+import { IRestaurantContext } from "../../App";
 import { IBookingsAdmin } from "../../models/IBookingsAdmin";
 import { getBookings } from "../../services/bookingService";
 import {
@@ -8,21 +9,22 @@ import {
   AdminBookingsWrapper,
   AdminBookingWrapper,
 } from "../styled/Admin";
-import { H1, H2, H3 } from "../styled/Booking";
+import { H3 } from "../styled/Booking";
 
 export const Admin = () => {
-  const [bookings, setBookings] = useState<IBookingsAdmin[]>([]);
+  // const [bookings, setBookings] = useState<IBookingsAdmin[]>([]);
+  const { bookings } = useOutletContext<IRestaurantContext>();
   const [bookingsByDate, setBookingsByDate] = useState<JSX.Element[]>([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const getBookingsData = async () => {
-      let myBookings = await getBookings();
-      setBookings(myBookings);
-    };
-    if (bookings.length > 0) return;
-    getBookingsData();
-  });
+  // useEffect(() => {
+  //   const getBookingsData = async () => {
+  //     let myBookings = await getBookings();
+  //     setBookings(myBookings);
+  //   };
+  //   if (bookings.length > 0) return;
+  //   getBookingsData();
+  // });
 
   const handleClick = (booking: IBookingsAdmin) => {
     navigate(`/admin/${booking._id}`);
@@ -37,8 +39,7 @@ export const Admin = () => {
       (booking) => booking._id === searchInput.value
     );
     if (foundBooking) {
-      //   navigate(`/admin/${foundBooking._id}`);
-      console.log(foundBooking);
+      navigate(`/admin/${foundBooking._id}`);
     } else {
       alert("Det finns tyvärr ingen bokning med det bokningsnumret");
     }
@@ -87,8 +88,6 @@ export const Admin = () => {
 
   return (
     <div>
-      <H1>Last Dance</H1>
-      <H2>RESTAURANG</H2>
       <H3>Administration</H3>
       <form onSubmit={handleSubmit}>
         <AdminBookingInput

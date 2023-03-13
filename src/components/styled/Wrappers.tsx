@@ -1,4 +1,3 @@
-import { type } from "os";
 import styled from "styled-components";
 import myImage from "../../assets/images/landingPage.jpg";
 

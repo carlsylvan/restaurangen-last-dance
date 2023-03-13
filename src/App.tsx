@@ -17,15 +17,16 @@ import { IoIosArrowDown } from "react-icons/io";
 import { getBookings } from "./services/bookingService";
 import { IBooking } from "./models/IBooking";
 import { H1, H4 } from "./components/styled/Booking";
+import { IBookingsAdmin } from "./models/IBookingsAdmin";
 
 export interface IRestaurantContext {
-  bookings: IBooking[];
+  bookings: IBookingsAdmin[];
   changeLoadedFromApi(): void;
 }
 
 function App() {
   const [open, setOpen] = useState<boolean>(false);
-  const [bookings, setBookings] = useState<IBooking[]>([]);
+  const [bookings, setBookings] = useState<IBookingsAdmin[]>([]);
   const [loadedFromApi, setLoadedFromApi] = useState<boolean>(false);
   useEffect(() => {
     const getBookingData = async () => {
