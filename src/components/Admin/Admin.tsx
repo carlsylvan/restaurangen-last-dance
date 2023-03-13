@@ -53,7 +53,11 @@ export const Admin = () => {
     );
     let bookingsByDate = foundBookings.map((booking: IBookingsAdmin) => {
       return (
-        <AdminBookingWrapper key={booking._id}>
+        <AdminBookingWrapper
+          onClick={() => {
+            handleClick(booking);
+          }}
+          key={booking._id}>
           <h4>
             Sittning: {booking.date} kl {booking.time}
           </h4>
