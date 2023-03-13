@@ -5,8 +5,8 @@ import { HamburgerMenu } from "../HamburgerMenu/HamburgerMenu"
 export const Nav = () => {
     const [open, setOpen] = useState<boolean>(false);
     return (
-    <nav>
+    <>
         <HamburgerMenu />
-    </nav>
+    </>
     )
 }

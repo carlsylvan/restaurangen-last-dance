@@ -1,6 +1,7 @@
 import axios from "axios";
 import { IBooking } from "../models/IBooking";
 
+
 const RESTAURANT_ID = "6408a12376187b915f68e171";
 const API_URL = "https://school-restaurant-api.azurewebsites.net";
 
@@ -25,7 +26,7 @@ export const sendBooking = async (booking: IBooking) => {
 };
 
 export const getBookings = async () => {
-  let response = await axios.get(
+  let response = await axios.get<IBooking[]>(
     `${API_URL}/booking/restaurant/${RESTAURANT_ID}`
   );
   return response.data;

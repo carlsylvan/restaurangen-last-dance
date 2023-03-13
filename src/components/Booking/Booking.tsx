@@ -1,117 +1,82 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { IBooking } from "../../models/IBooking";
-import {
-  BookingWrapper,
-  InputWrapper,
-  Form,
-  H1,
-  H2,
-  H3,
-  Input,
-  Label,
-  Button,
-  ButtonWrapper,
-  ContactWrapperInput,
-  ChooseTime,
-} from "../styled/Booking";
+import { BookingWrapper, H3, H4 } from "../styled/Booking";
 import { ICustomer } from "../../models/ICustomer";
-import { getBookings, sendBooking } from "../../services/bookingService";
+import { sendBooking } from "../../services/bookingService";
+import { useOutletContext } from "react-router";
+import { IRestaurantContext } from "../../App";
+import { BookingTimeDivWrapper, FormWrapper, InputWrapper, NumberOfGuestsWrapper, SubmitButtonWrapper } from "../styled/Wrappers";
+import { SelectGuestsAmount } from "../SelectGuestsAmount/SelectGuestsAmount";
+import { SelectBookingTime } from "../SelectBookingTime/SelectBookingTime";
+
 
 export const Booking = () => {
-  const [customer, setCustomer] = useState<ICustomer>({
+  const startValueCustomer: ICustomer = {
     name: "",
     lastname: "",
     email: "",
     phone: "",
-  });
-  const [booking, setBooking] = useState<IBooking>({
+  }
+  const startValueBooking: IBooking = {
     restaurantId: "6408a12376187b915f68e171",
     date: "",
     time: "",
     numberOfGuests: 1,
-    customer: customer,
-  });
-
+    customer: startValueCustomer,
+  }
+  const [customer, setCustomer] = useState<ICustomer>(startValueCustomer);
+  const [booking, setBooking] = useState<IBooking>(startValueBooking);
+  const { bookings, changeLoadedFromApi } = useOutletContext<IRestaurantContext>();
+  const [isAvailable, setIsAvailable] = useState<boolean>(true);
+  const [numOfBookedTables, setNumOfBookedTables] = useState<number>(0);
+  useEffect(()=>{
+    ((numOfBookedTables+Math.ceil(booking.numberOfGuests/6)) > 1) ? setIsAvailable(false):setIsAvailable(true);
+  })
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.name);
-    if (e.target.type === "text") {
-      setBooking({ ...booking, [e.target.name]: +e.target.value });
-    }
-
-    if (e.target.type === "text") {
-      setCustomer({ ...customer, [e.target.name]: e.target.value });
-    }
-
-    if (e.target.type === "email") {
-      setCustomer({ ...customer, [e.target.name]: e.target.value });
-    }
-
-    if (e.target.type === "tel") {
-      setCustomer({ ...customer, [e.target.name]: e.target.value });
-      setBooking({ ...booking, customer: customer });
-    }
-
-    if (e.target.type === "date") {
+    let newCustomer = { ...customer, [e.target.name]: e.target.value };
+    let numberOfBookedTables: number = 0;
+    setCustomer(newCustomer);
+    setBooking({...booking, customer: newCustomer});
+    if(e.target.type ==="date"){
       setBooking({ ...booking, [e.target.name]: e.target.value });
+    };
+    bookings.map((item)=>{
+    if(item.date===e.target.value){
+       numberOfBookedTables = numOfBookedTables + Math.ceil(item.numberOfGuests/6);
     }
+    setNumOfBookedTables(numberOfBookedTables);
+    });
   };
-
-  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   let newCustomer = { ...customer, [e.target.name]: e.target.value };
-  //   setCustomer(newCustomer);
-  //   setBooking({
-  //     ...booking,
-  //     [e.target.name]: e.target.value,
-  //     customer: newCustomer,
-  //   });
-  // };
-
-  const handleChooseTime = (chosenTime: string) => {
-    setBooking({ ...booking, time: chosenTime });
-  };
-  console.log(booking);
-
+  
+  const handleGuestsNum  = (item: number) => {
+    setBooking({...booking, numberOfGuests:item});
+  }
+  const handleBookingTime  = (bookingTime:string) => {
+    setBooking({...booking, time:bookingTime});
+  }
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    sendBooking(booking);
-    console.log(booking);
-
-    // if (person.name === "" || person.age === 0) {
-    //   console.log("Validation error occured");
-    // } else {
-    //   console.log("Submit form: ", person);
-    // }
+    // sendBooking(booking);
+    setCustomer(startValueCustomer);
+    setBooking(startValueBooking);
+    changeLoadedFromApi();
   };
 
-  useEffect(() => {
-    const getBookingData = async () => {
-      let bookings = await getBookings();
-      console.log(bookings);
-    };
-    getBookingData();
-  }, []);
 
+
+  console.log(bookings);
+  
   return (
     <BookingWrapper>
-      <div>
-        <H1>Last Dance</H1>
-        <H2>Restaurang</H2>
-      </div>
       <H3>Bokning</H3>
-      <Form onSubmit={handleSubmit}>
+      <FormWrapper onSubmit={handleSubmit}>
+        <NumberOfGuestsWrapper>
+          <H4>Antal presoner</H4>
+          <SelectGuestsAmount handleGuestsNum = {handleGuestsNum}/>
+        </NumberOfGuestsWrapper>
         <InputWrapper>
-          <Label>Antal personer: </Label>
-          <Input
-            type="text"
-            value={booking.numberOfGuests}
-            onChange={handleChange}
-            name="numberOfGuests"
-            required
-          />
-        </InputWrapper>
-        <InputWrapper>
-          <Label htmlFor="start">Datum: </Label>
-          <Input
+          <label htmlFor="start">Datum: </label>
+          <input
             type="date"
             id="start"
             value={booking.date}
@@ -122,44 +87,46 @@ export const Booking = () => {
             required
           />
         </InputWrapper>
-
-        <ButtonWrapper>
-          <ChooseTime onClick={() => handleChooseTime("17:00")}>
-            17:00
-          </ChooseTime>
-          <ChooseTime onClick={() => handleChooseTime("21:00")}>
-            21:00
-          </ChooseTime>
-        </ButtonWrapper>
-        <ContactWrapperInput>
-          <div>
-            <Input
+        <BookingTimeDivWrapper isAvailable = {isAvailable}>
+          <SelectBookingTime handleBookingTime={handleBookingTime}/>
+        </BookingTimeDivWrapper>
+        <InputWrapper>
+            <label htmlFor="firstname">Förnamn</label>
+            <input
               type="text"
+              id="firstname"
               placeholder="Förnamn"
               name="name"
               value={customer.name}
               onChange={handleChange}
               required
             />
-            <Input
+            <label htmlFor="lastname">Efternamn</label>
+            <input
               type="text"
+              id="lastname"
               placeholder="Efternamn"
               name="lastname"
-              value={customer.lastname}
+              value={customer.name}
               onChange={handleChange}
               required
             />
-          </div>
-          <Input
+          <label htmlFor="epost">Email</label>
+          <input
             type="email"
+            id="epost"
             placeholder="Epost"
             name="email"
             value={customer.email}
             onChange={handleChange}
+            pattern=".+@+.\.com"
             required
           />
-          <Input
+
+          <label htmlFor="phone">Mobil</label>
+          <input
             type="tel"
+            id="phone"
             placeholder="Tel-xxxxxxxxxx"
             name="phone"
             value={customer.phone}
@@ -167,9 +134,9 @@ export const Booking = () => {
             pattern="[0-9]{10}"
             required
           />
-        </ContactWrapperInput>
-        <Button type="submit">Boka</Button>
-      </Form>
+        </InputWrapper>
+        <SubmitButtonWrapper type ="submit">Boka</SubmitButtonWrapper>
+      </FormWrapper>
     </BookingWrapper>
   );
 };

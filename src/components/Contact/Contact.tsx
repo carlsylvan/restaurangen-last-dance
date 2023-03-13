@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Button, Form, Input, InputWrapper, Label } from "../styled/Booking";
+import { Button, Input, Label } from "../styled/Booking";
+import { FormWrapper, InputWrapper } from "../styled/Wrappers";
 
 const Textarea = styled.textarea`
   width: 70vw;
@@ -15,10 +16,8 @@ const Textarea = styled.textarea`
 export const Contact = () => {
     return (
         <>
-        <h1>LAST DANCE</h1>
-        <h2>RESTAURANG</h2>
         <h3>Kontakta oss</h3>
-        <Form>
+        <FormWrapper>
             <InputWrapper>
                 <Label>Namn</Label>
                 <Input type="text" required />
@@ -36,7 +35,7 @@ export const Contact = () => {
                 <Textarea required></Textarea>
             </InputWrapper>
             <Button type="submit">Send</Button>
-        </Form>
+        </FormWrapper>
         </>
     )
 };

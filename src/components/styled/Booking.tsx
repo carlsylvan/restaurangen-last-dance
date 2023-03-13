@@ -10,11 +10,17 @@ export const BookingWrapper = styled.main`
 export const H1 = styled.h1`
   font-size: 38px;
   font-weight: 700;
+  font-family: 'Satisfy', "cursive";
+  padding: 0;
+  margin: 0;
+
 `;
 
-export const H2 = styled.h2`
-  font-size: 22px;
+export const H4 = styled.h4`
   font-weight: 600;
+  padding: 0;
+  margin: 0;
+  letter-spacing: 1px;
 `;
 
 export const H3 = styled.h3`
@@ -22,27 +28,9 @@ export const H3 = styled.h3`
   font-weight: 700;
 `;
 
-export const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 90%;
 
-  @media screen and (min-width: 768px) {
-    width: 60%;
-  }
-  @media screen and (min-width: 1000px) {
-    width: 45%;
-  }
-`;
 
-export const InputWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: end;
-  width: 100%;
-  margin-bottom: 5px;
-`;
+
 
 export const Input = styled.input`
   width: 45%;

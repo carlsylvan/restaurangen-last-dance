@@ -1,12 +1,9 @@
 import { Course, menu, MenuSection } from "../../assets/menu";
-import { H1, H2 } from "../styled/Booking";
 
 export const Menu = () => {
   
     return (
       <>
-        <H1>LAST DANCE</H1>
-        <H2>RESTAURANG</H2>
         <div>
           <h3>Menu</h3>
           {Object.values(menu).map((section: MenuSection) => (
