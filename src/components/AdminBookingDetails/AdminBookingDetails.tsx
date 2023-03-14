@@ -3,7 +3,7 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { IBookingCustomer } from "../../models/IBookingCustomer";
 import { IBookingsAdmin } from "../../models/IBookingsAdmin";
 import { deleteBookingById, getBookedTableById, getCustomerById, RESTAURANT_ID, updateBookingById, updateCustomerById } from "../../services/bookingService";
-import { AdminBookingDetailsWrapper } from "../styled/AdminBookingDetails";
+import { AdminBookingDetailsWrapper, CoolButton } from "../styled/AdminBookingDetails";
 import { H3, H4 } from "../styled/Booking";
 
 export const AdminBookingDetails = () => {
@@ -91,7 +91,7 @@ const handleUpdateCustomerClick = () => {
 
   return (
     <AdminBookingDetailsWrapper>
-      <button onClick={() => {navigate("/admin")}}>Tillbaka till listan över bokningar</button>
+      <CoolButton onClick={() => {navigate("/admin")}}>Tillbaka till listan över bokningar</CoolButton>
       <H3>Redigera bokning med bokningsnummer: {bookedTable._id}</H3>
       <H4>Bokningsinformation:</H4>
       <label>
@@ -173,7 +173,7 @@ const handleUpdateCustomerClick = () => {
           onChange={handleInputChange}
         />
       </label>
-      <button onClick={handleUpdateCustomerClick}>Uppdatera kundinformation</button>
+      <CoolButton onClick={handleUpdateCustomerClick}>Uppdatera kundinformation</CoolButton>
       </>
       ) : (
         <>
@@ -181,11 +181,11 @@ const handleUpdateCustomerClick = () => {
         <p>Namn: {bookedCustomer.name} {bookedCustomer.lastname}</p>
         <p>E-post: {bookedCustomer.email}</p>
         <p>Telefon: {bookedCustomer.phone}</p>
-        <button onClick={handleEditCustomerClick}>Redigera kund</button>
+        <CoolButton onClick={handleEditCustomerClick}>Redigera kund</CoolButton>
       </>
       )}
-      <button onClick={handleUpdateClick}>Uppdatera bokning</button>
-      <button onClick={handleDeleteClick}>Ta bort bokning</button>
+      <CoolButton onClick={handleUpdateClick}>Uppdatera bokning</CoolButton>
+      <CoolButton onClick={handleDeleteClick}>Ta bort bokning</CoolButton>
     </AdminBookingDetailsWrapper>
   );
 };
