@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { IBookingCustomer } from "../../models/IBookingCustomer";
 import { IBookingsAdmin } from "../../models/IBookingsAdmin";
 import { deleteBookingById, getBookedTableById, getCustomerById, RESTAURANT_ID, updateBookingById, updateCustomerById } from "../../services/bookingService";
@@ -8,7 +8,7 @@ import { H3 } from "../styled/Booking";
 
 export const AdminBookingDetails = () => {
   const [bookedTable, setBookedTable] = useState<IBookingsAdmin>({
-    _id: "",
+    _id: "?",
     restaurantId: RESTAURANT_ID,
     date: "",
     time: "",
@@ -17,26 +17,27 @@ export const AdminBookingDetails = () => {
   });
   const [bookedCustomer, setBookedCustomer] = useState<IBookingCustomer>({
     _id: "",
-    name: "",
-    lastname: "",
-    email: "",
-    phone: "",
+    name: "Namn",
+    lastname: "Namnsson",
+    email: "email@email.com",
+    phone: "0712345678",
 })
 
   const {id} = useParams();
+  const navigate = useNavigate();
   
   useEffect(() => {
     const fetchData = async () => {
       if (id !== undefined) {
         const { bookedTable, error } = await getBookedTableById(id);
         if (error) {
-          console.log("Error fetching booked table: ", error);
+          console.log(error);
         } else {
           setBookedTable(bookedTable!);
           const { bookingCustomer, error: customerError } =
             await getCustomerById(bookedTable!.customerId);
           if (customerError) {
-            console.log("Error fetching customer: ", customerError);
+            console.log(customerError);
           } else {
             setBookedCustomer(bookingCustomer!);
           }
@@ -63,8 +64,15 @@ export const AdminBookingDetails = () => {
     updateCustomerById(bookedCustomer._id, bookedCustomer);
   };
   const handleDeleteClick = () => {
+    const confirmed = window.confirm("Är du säker på att du vill ta bort bokningen?");
+  if (confirmed) {
     deleteBookingById(id!);
-  };
+    alert("Bokningen har tagits bort");
+    navigate("/admin");
+  }
+};
+
+  
 
   return (
     <AdminBookingDetailsWrapper>
