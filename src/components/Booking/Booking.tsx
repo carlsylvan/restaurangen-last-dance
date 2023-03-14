@@ -73,7 +73,7 @@ export const Booking = () => {
       <FormWrapper onSubmit={handleSubmit}>
         <NumberOfGuestsWrapper>
           <H4>Antal presoner</H4>
-          <SelectGuestsAmount handleGuestsNum = {handleGuestsNum}/>
+          <SelectGuestsAmount startNumber={1} handleGuestsNum = {handleGuestsNum}/>
         </NumberOfGuestsWrapper>
         <InputWrapper>
           <label htmlFor="start">Datum: </label>

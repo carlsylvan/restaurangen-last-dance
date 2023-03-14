@@ -1,6 +1,5 @@
 import axios from "axios";
 import { IApiResponse } from "../models/IApiResponse";
-import { IBookedTable } from "../models/IBookedTable";
 import { IBooking } from "../models/IBooking";
 import { IBookingCustomer } from "../models/IBookingCustomer";
 import { IBookingsAdmin } from "../models/IBookingsAdmin";
@@ -38,7 +37,7 @@ export const getBookings = async () => {
 
 export const getBookedTableById = async (id: string): Promise<IApiResponse> => {
   try {
-    let response = await axios.get<IBookedTable[]>(`${API_URL}/booking/` + id);
+    let response = await axios.get<IBookingsAdmin[]>(`${API_URL}/booking/` + id);
     return { bookedTable: response.data[0], error: "" };
   } catch {
     return { error: "Ett fel har inträffat" };
@@ -57,14 +56,14 @@ export const getCustomerById = async (id: string): Promise<IApiResponse> => {
 };
 
 export const deleteBookingById = async (id: string) => {
-  let response = await axios.delete<IBookedTable>(
+  let response = await axios.delete<IBookingsAdmin>(
     `${API_URL}/booking/delete/` + id
   );
   console.log(response.status);
 };
 
 export const updateBookingById = async (id: string) => {
-  let response = await axios.put<IBookedTable>(
+  let response = await axios.put<IBookingsAdmin>(
     `${API_URL}/booking/update/` + id
   );
   console.log(response.status);

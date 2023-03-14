@@ -9,6 +9,7 @@ interface INumberOfGuest {
 
 interface ISelectGuestsAmountProps {
     handleGuestsNum(num:number):void,
+    startNumber:number
 }
 
 export const SelectGuestsAmount = (props:ISelectGuestsAmountProps) => {
@@ -33,8 +34,8 @@ export const SelectGuestsAmount = (props:ISelectGuestsAmountProps) => {
         // if(!isCreated){
             let temp: INumberOfGuest[] = [];
             for(let i=0; i<12; i++){
-                if(i === 0) {
-                    temp.push({numberOfGuests: i+1, isSelected: false})
+                if(i === (props.startNumber-1)) {
+                    temp.push({numberOfGuests: i+1, isSelected: true})
 
                 }
                 else {
