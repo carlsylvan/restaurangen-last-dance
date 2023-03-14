@@ -1,10 +1,11 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { IBookingCustomer } from "../../models/IBookingCustomer";
 import { IBookingsAdmin } from "../../models/IBookingsAdmin";
-import { getBookedTableById, getCustomerById, RESTAURANT_ID } from "../../services/bookingService";
+import { API_URL, deleteBookingById, getBookedTableById, getCustomerById, RESTAURANT_ID, updateBookingById } from "../../services/bookingService";
 
-export const AdminBookingDetails: React.FC = () => {
+export const AdminBookingDetails = () => {
   const [bookedTable, setBookedTable] = useState<IBookingsAdmin>({
     _id: "",
     restaurantId: RESTAURANT_ID,
@@ -53,7 +54,11 @@ export const AdminBookingDetails: React.FC = () => {
   };
 
   const handleUpdateClick = () => {
-    console.log("uppdaterat", bookedTable);
+    updateBookingById(bookedTable._id, bookedTable);
+    console.log(bookedTable);
+  };
+  const handleDeleteClick = () => {
+    deleteBookingById(id!);
   };
 
   return (
@@ -61,7 +66,7 @@ export const AdminBookingDetails: React.FC = () => {
       <label>
         Date:
         <input
-          type="text"
+          type="date"
           name="date"
           value={bookedTable.date}
           onChange={handleInputChange}
@@ -141,7 +146,8 @@ export const AdminBookingDetails: React.FC = () => {
           }
         />
       </label>
-      <button onClick={handleUpdateClick}>Update Table</button>
+      <button onClick={handleUpdateClick}>Uppdatera bokning</button>
+      <button onClick={handleDeleteClick}>Ta bort bokning</button>
     </div>
   );
 };
