@@ -62,6 +62,7 @@ export const deleteBookingById = async (id: string) => {
   console.log(response.status);
 };
 
+
 export const updateBookingById = async (id: string, bookedTable: IBookingsAdmin) => {
   try {
     const updatedBooking = {
@@ -79,9 +80,19 @@ export const updateBookingById = async (id: string, bookedTable: IBookingsAdmin)
   }
 };
 
-export const updateCustomerById = async (id: string) => {
-  let response = await axios.put<IBookingCustomer>(
-    `${API_URL}/customer/update/` + id
-  );
-  console.log(response.status);
+export const updateCustomerById = async (id: string, bookedCustomer: IBookingCustomer) => {
+  try {
+    const updatedCustomer = {
+      ...bookedCustomer,
+      id: bookedCustomer._id,
+      _id: undefined,
+    };
+    const response = await axios.put<IBookingCustomer>(
+      `${API_URL}/customer/update/` + id,
+      updatedCustomer
+    );
+    console.log(response.status);
+  } catch (error) {
+    console.log(error);
+  }
 };
