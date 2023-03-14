@@ -63,9 +63,9 @@ function App() {
       </HeaderWrapper>
       <PageWrapper>
         <Outlet context={{ bookings, changeLoadedFromApi }}></Outlet>
-        <PageDownIconWrapper onClick={handleMoveDown}>
+        {/* <PageDownIconWrapper onClick={handleMoveDown}>
           <IoIosArrowDown />
-        </PageDownIconWrapper>
+        </PageDownIconWrapper> */}
       </PageWrapper>
       <FooterWrapper>
         <Footer></Footer>

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { IBookingCustomer } from "../../models/IBookingCustomer";
 import { IBookingsAdmin } from "../../models/IBookingsAdmin";
 import { API_URL, deleteBookingById, getBookedTableById, getCustomerById, RESTAURANT_ID, updateBookingById } from "../../services/bookingService";
+import { AdminBookingDetailsWrapper } from "../styled/AdminBookingDetails";
 
 export const AdminBookingDetails = () => {
   const [bookedTable, setBookedTable] = useState<IBookingsAdmin>({
@@ -62,9 +63,9 @@ export const AdminBookingDetails = () => {
   };
 
   return (
-    <div>
+    <AdminBookingDetailsWrapper>
       <label>
-        Date:
+        Datum:
         <input
           type="date"
           name="date"
@@ -73,7 +74,7 @@ export const AdminBookingDetails = () => {
         />
       </label>
       <label>
-        Time:
+        Tid:
         <input
           type="text"
           name="time"
@@ -82,7 +83,7 @@ export const AdminBookingDetails = () => {
         />
       </label>
       <label>
-        Number of Guests:
+        Antal gäster:
         <input
           type="number"
           name="numberOfGuests"
@@ -91,7 +92,7 @@ export const AdminBookingDetails = () => {
         />
       </label>
       <label>
-        Name:
+        Namn:
         <input
           type="text"
           name="name"
@@ -105,7 +106,7 @@ export const AdminBookingDetails = () => {
         />
       </label>
       <label>
-        Lastname:
+        Efternamn:
         <input
           type="text"
           name="lastname"
@@ -133,7 +134,7 @@ export const AdminBookingDetails = () => {
         />
       </label>
       <label>
-        Phone:
+        Telefon:
         <input
           type="tel"
           name="phone"
@@ -148,6 +149,6 @@ export const AdminBookingDetails = () => {
       </label>
       <button onClick={handleUpdateClick}>Uppdatera bokning</button>
       <button onClick={handleDeleteClick}>Ta bort bokning</button>
-    </div>
+    </AdminBookingDetailsWrapper>
   );
 };
