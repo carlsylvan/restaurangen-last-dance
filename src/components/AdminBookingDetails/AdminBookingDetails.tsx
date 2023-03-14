@@ -93,6 +93,7 @@ const handleUpdateCustomerClick = () => {
     <AdminBookingDetailsWrapper>
       <button onClick={() => {navigate("/admin")}}>Tillbaka till listan över bokningar</button>
       <H3>Redigera bokning med bokningsnummer: {bookedTable._id}</H3>
+      <H4>Bokningsinformation:</H4>
       <label>
         Datum:
         <input
