@@ -14,19 +14,19 @@ export const AdminBookingDetailsWrapper = styled.div`
 `;
 
 export const CoolButton = styled.button`
-  background-color: darkgray;
-  border: none;
-  border-radius: 20px;
-  color: #fff;
-  font-size: 18px;
-  transition: all 0.2s ease-in-out;
+  background-color: #FFFFFF;
+  color: #000000;
+  border: 2px solid #000000;
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 
   &:hover {
-    background-color: darkgreen;
-    cursor: pointer;
-  }
-
-  &:active {
-    transform: scale(0.95);
+    background-color: #000000;
+    color: #FFFFFF;
+    border-color: #FFFFFF;
   }
 `;
