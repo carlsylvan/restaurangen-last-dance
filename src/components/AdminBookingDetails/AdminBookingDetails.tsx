@@ -1,32 +1,47 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { IBookingCustomer } from "../../models/IBookingCustomer";
 import { IBookingsAdmin } from "../../models/IBookingsAdmin";
-import { getBookedTableById } from "../../services/bookingService";
+import { getBookedTableById, getCustomerById, RESTAURANT_ID } from "../../services/bookingService";
 
 export const AdminBookingDetails: React.FC = () => {
   const [bookedTable, setBookedTable] = useState<IBookingsAdmin>({
     _id: "",
-    restaurantId: "",
+    restaurantId: RESTAURANT_ID,
     date: "",
     time: "",
-    numberOfGuests: 0,
+    numberOfGuests: 1,
     customerId: "",
   });
+  const [bookedCustomer, setBookedCustomer] = useState<IBookingCustomer>({
+    _id: "",
+    name: "",
+    lastname: "",
+    email: "",
+    phone: "",
+})
 
   const {id} = useParams();
   
   useEffect(() => {
-    if (id !== undefined) { // check if id is defined
-      const fetchBookedTable = async () =>  {
+    const fetchData = async () => {
+      if (id !== undefined) {
         const { bookedTable, error } = await getBookedTableById(id);
         if (error) {
           console.log("Error fetching booked table: ", error);
         } else {
           setBookedTable(bookedTable!);
+          const { bookingCustomer, error: customerError } =
+            await getCustomerById(bookedTable!.customerId);
+          if (customerError) {
+            console.log("Error fetching customer: ", customerError);
+          } else {
+            setBookedCustomer(bookingCustomer!);
+          }
         }
-      };
-      fetchBookedTable();
-    }
+      }
+    };
+    fetchData();
   }, [id]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,8 +53,7 @@ export const AdminBookingDetails: React.FC = () => {
   };
 
   const handleUpdateClick = () => {
-    // Call API service to update the booked table here
-    console.log("Updated table: ", bookedTable);
+    console.log("uppdaterat", bookedTable);
   };
 
   return (
@@ -69,6 +83,62 @@ export const AdminBookingDetails: React.FC = () => {
           name="numberOfGuests"
           value={bookedTable.numberOfGuests}
           onChange={handleInputChange}
+        />
+      </label>
+      <label>
+        Name:
+        <input
+          type="text"
+          name="name"
+          value={bookedCustomer.name}
+          onChange={(e) =>
+            setBookedCustomer((prevState) => ({
+              ...prevState,
+              lastname: e.target.value,
+            }))
+          }
+        />
+      </label>
+      <label>
+        Lastname:
+        <input
+          type="text"
+          name="lastname"
+          value={bookedCustomer.lastname}
+          onChange={(e) =>
+            setBookedCustomer((prevState) => ({
+              ...prevState,
+              lastname: e.target.value,
+            }))
+          }
+        />
+      </label>
+      <label>
+        Email:
+        <input
+          type="email"
+          name="email"
+          value={bookedCustomer.email}
+          onChange={(e) =>
+            setBookedCustomer((prevState) => ({
+              ...prevState,
+              lastname: e.target.value,
+            }))
+          }
+        />
+      </label>
+      <label>
+        Phone:
+        <input
+          type="tel"
+          name="phone"
+          value={bookedCustomer.email}
+          onChange={(e) =>
+            setBookedCustomer((prevState) => ({
+              ...prevState,
+              lastname: e.target.value,
+            }))
+          }
         />
       </label>
       <button onClick={handleUpdateClick}>Update Table</button>

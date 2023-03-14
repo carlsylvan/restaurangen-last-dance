@@ -5,8 +5,8 @@ import { IBookingCustomer } from "../models/IBookingCustomer";
 import { IBookingsAdmin } from "../models/IBookingsAdmin";
 import { ICustomer } from "../models/ICustomer";
 
-const RESTAURANT_ID = "6408a12376187b915f68e171";
-const API_URL = "https://school-restaurant-api.azurewebsites.net";
+export const RESTAURANT_ID = "6408a12376187b915f68e171";
+export const API_URL = "https://school-restaurant-api.azurewebsites.net";
 
 // export const getRestaurant = async () => {
 //   let response = await axios.post(
