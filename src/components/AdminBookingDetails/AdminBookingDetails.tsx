@@ -4,7 +4,7 @@ import { IBookingCustomer } from "../../models/IBookingCustomer";
 import { IBookingsAdmin } from "../../models/IBookingsAdmin";
 import { deleteBookingById, getBookedTableById, getCustomerById, RESTAURANT_ID, updateBookingById, updateCustomerById } from "../../services/bookingService";
 import { AdminBookingDetailsWrapper } from "../styled/AdminBookingDetails";
-import { H3 } from "../styled/Booking";
+import { H3, H4 } from "../styled/Booking";
 
 export const AdminBookingDetails = () => {
   const [bookedTable, setBookedTable] = useState<IBookingsAdmin>({
@@ -22,12 +22,13 @@ export const AdminBookingDetails = () => {
     email: "email@email.com",
     phone: "0712345678",
 })
+const [editCustomer, setEditCustomer] = useState(false);
 
   const {id} = useParams();
   const navigate = useNavigate();
   
   useEffect(() => {
-    const fetchData = async () => {
+    const getBookings = async () => {
       if (id !== undefined) {
         const { bookedTable, error } = await getBookedTableById(id);
         if (error) {
@@ -44,7 +45,7 @@ export const AdminBookingDetails = () => {
         }
       }
     };
-    fetchData();
+    getBookings();
   }, [id]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
@@ -60,22 +61,37 @@ export const AdminBookingDetails = () => {
   };
 
   const handleUpdateClick = () => {
-    updateBookingById(bookedTable._id, bookedTable);
-    updateCustomerById(bookedCustomer._id, bookedCustomer);
+    const confirmed = window.confirm(`Bokningen kommer att uppdateras till ${bookedTable.date}, ${bookedTable.time}, ${bookedTable.numberOfGuests} personer.`);
+    if (confirmed) {
+      updateBookingById(bookedTable._id, bookedTable);
+      updateCustomerById(bookedCustomer._id, bookedCustomer);
+      alert("Bokningen har uppdaterats.");
+    }
   };
   const handleDeleteClick = () => {
     const confirmed = window.confirm("Är du säker på att du vill ta bort bokningen?");
   if (confirmed) {
     deleteBookingById(id!);
-    alert("Bokningen har tagits bort");
+    alert("Bokningen har tagits bort.");
     navigate("/admin");
   }
+};
+
+const handleEditCustomerClick = () => {
+  setEditCustomer(true);
+};
+
+const handleUpdateCustomerClick = () => {
+  setEditCustomer(false);
+  updateCustomerById(bookedCustomer._id, bookedCustomer);
+  alert("Kundinformationen har uppdaterats.");
 };
 
   
 
   return (
     <AdminBookingDetailsWrapper>
+      <button onClick={() => {navigate("/admin")}}>Tillbaka till listan över bokningar</button>
       <H3>Redigera bokning med bokningsnummer: {bookedTable._id}</H3>
       <label>
         Datum:
@@ -118,6 +134,8 @@ export const AdminBookingDetails = () => {
           <option value="12">12</option>
         </select>
       </label>
+      {editCustomer ? (
+        <>
       <label>
         Namn:
         <input
@@ -154,6 +172,17 @@ export const AdminBookingDetails = () => {
           onChange={handleInputChange}
         />
       </label>
+      <button onClick={handleUpdateCustomerClick}>Uppdatera kundinformation</button>
+      </>
+      ) : (
+        <>
+        <H4>Kundinformation:</H4>
+        <p>Namn: {bookedCustomer.name} {bookedCustomer.lastname}</p>
+        <p>E-post: {bookedCustomer.email}</p>
+        <p>Telefon: {bookedCustomer.phone}</p>
+        <button onClick={handleEditCustomerClick}>Redigera kund</button>
+      </>
+      )}
       <button onClick={handleUpdateClick}>Uppdatera bokning</button>
       <button onClick={handleDeleteClick}>Ta bort bokning</button>
     </AdminBookingDetailsWrapper>
