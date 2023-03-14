@@ -48,12 +48,12 @@ export const AdminBookingDetails = () => {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
-    setBookedTable((prevState) => ({
-      ...prevState,
+    setBookedTable((bookedTable) => ({
+      ...bookedTable,
       [name]: value,
     }));
-    setBookedCustomer((prevState) => ({
-      ...prevState,
+    setBookedCustomer((bookedCustomer) => ({
+      ...bookedCustomer,
       [name]: value,
     }));
   };
