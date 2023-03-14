@@ -11,7 +11,7 @@ import {
   AdminForm,
   AdminWrapper,
 } from "../styled/Admin";
-import { H3 } from "../styled/Booking";
+import { H1, H3, H4 } from "../styled/Booking";
 
 export const Admin = () => {
   const { bookings } = useOutletContext<IRestaurantContext>();
@@ -80,21 +80,21 @@ export const Admin = () => {
 
   return (
     <AdminWrapper>
+      <H1>Last Dance</H1>
+      <H4>restaurang</H4>
       <H3>Administration</H3>
       <AdminForm onSubmit={handleSubmit}>
-        <div>
+        <AdminBookingInput
+          onChange={handleOnChange}
+          type="date"
+          name="date"></AdminBookingInput>
+        <AdminBookingInputWrapper>
           <AdminBookingInput
-            onChange={handleOnChange}
-            type="date"
-            name="date"></AdminBookingInput>
-          <AdminBookingInputWrapper>
-            <AdminBookingInput
-              type="text"
-              name="_id"
-              placeholder="Bokningsnummer"></AdminBookingInput>
-            <AdminBookingButton type="submit">Sök</AdminBookingButton>
-          </AdminBookingInputWrapper>
-        </div>
+            type="text"
+            name="_id"
+            placeholder="Bokningsnummer"></AdminBookingInput>
+          <AdminBookingButton type="submit">Sök</AdminBookingButton>
+        </AdminBookingInputWrapper>
       </AdminForm>
       <AdminBookingsWrapper>
         {bookingsByDate.length > 0 ? bookingsByDate : bookingsHtml}

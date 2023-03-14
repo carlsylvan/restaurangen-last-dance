@@ -5,15 +5,16 @@ export const BookingWrapper = styled.main`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  text-align: center;
 `;
 
 export const H1 = styled.h1`
-  font-size: 38px;
+  font-size: 45px;
   font-weight: 700;
-  font-family: 'Satisfy', "cursive";
+  font-family: "Satisfy", "cursive";
   padding: 0;
   margin: 0;
-
+  margin-top: 25px;
 `;
 
 export const H4 = styled.h4`
@@ -26,11 +27,8 @@ export const H4 = styled.h4`
 export const H3 = styled.h3`
   font-size: 18px;
   font-weight: 700;
+  text-align: center;
 `;
-
-
-
-
 
 export const Input = styled.input`
   width: 45%;

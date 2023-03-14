@@ -4,6 +4,8 @@ import { Button, Input } from "./Booking";
 export const AdminWrapper = styled.main`
   height: 100%;
   margin-bottom: 150px;
+  width: 100%;
+  text-align: center;
 `;
 
 export const AdminForm = styled.form`
@@ -45,7 +47,7 @@ export const AdminBookingWrapper = styled.div`
     width: 30%;
   }
   @media screen and (min-width: 1400px) {
-    width: 30%;
+    width: 25%;
   }
 `;
 
@@ -61,13 +63,17 @@ export const AdminBookingInputWrapper = styled.div`
 export const AdminBookingInput = styled(Input)`
   height: 1.4em;
   width: 60%;
+  text-align: center;
 
   @media screen and (min-width: 768px) {
     width: 35%;
   }
   @media screen and (min-width: 1000px) {
     width: 30%;
-
+  }
+  @media screen and (min-width: 1400px) {
+    width: 25%;
+  }
 `;
 
 export const AdminBookingButton = styled(Button)`

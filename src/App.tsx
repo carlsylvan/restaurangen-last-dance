@@ -52,8 +52,6 @@ function App() {
   return (
     <div className="App">
       <HeaderWrapper>
-        <H1>Last Dance</H1>
-        <H4>restaurang</H4>
         <NavWrapper open={open}>
           <Nav></Nav>
         </NavWrapper>

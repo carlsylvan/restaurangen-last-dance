@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button, Input, Label } from "../styled/Booking";
+import { Button, H1, H4, Input, Label } from "../styled/Booking";
 import { FormWrapper, InputWrapper } from "../styled/Wrappers";
 
 const Textarea = styled.textarea`
@@ -14,28 +14,30 @@ const Textarea = styled.textarea`
 `;
 
 export const Contact = () => {
-    return (
-        <>
-        <h3>Kontakta oss</h3>
-        <FormWrapper>
-            <InputWrapper>
-                <Label>Namn</Label>
-                <Input type="text" required />
-            </InputWrapper>
-            <InputWrapper>
-                <Label>Email</Label>
-                <Input type="email"required />
-            </InputWrapper>
-            <InputWrapper>
-                <Label>Bokningsnummer</Label>
-                <Input type="text" required />
-            </InputWrapper>
-            <InputWrapper>
-                <Label>Meddelande</Label>
-                <Textarea required></Textarea>
-            </InputWrapper>
-            <Button type="submit">Send</Button>
-        </FormWrapper>
-        </>
-    )
+  return (
+    <>
+      <H1>Last Dance</H1>
+      <H4>restaurang</H4>
+      <h3>Kontakta oss</h3>
+      <FormWrapper>
+        <InputWrapper>
+          <Label>Namn</Label>
+          <Input type="text" required />
+        </InputWrapper>
+        <InputWrapper>
+          <Label>Email</Label>
+          <Input type="email" required />
+        </InputWrapper>
+        <InputWrapper>
+          <Label>Bokningsnummer</Label>
+          <Input type="text" required />
+        </InputWrapper>
+        <InputWrapper>
+          <Label>Meddelande</Label>
+          <Textarea required></Textarea>
+        </InputWrapper>
+        <Button type="submit">Send</Button>
+      </FormWrapper>
+    </>
+  );
 };
