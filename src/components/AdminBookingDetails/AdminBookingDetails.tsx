@@ -4,6 +4,7 @@ import { IBookingCustomer } from "../../models/IBookingCustomer";
 import { IBookingsAdmin } from "../../models/IBookingsAdmin";
 import { deleteBookingById, getBookedTableById, getCustomerById, RESTAURANT_ID, updateBookingById, updateCustomerById } from "../../services/bookingService";
 import { AdminBookingDetailsWrapper } from "../styled/AdminBookingDetails";
+import { H3 } from "../styled/Booking";
 
 export const AdminBookingDetails = () => {
   const [bookedTable, setBookedTable] = useState<IBookingsAdmin>({
@@ -67,6 +68,7 @@ export const AdminBookingDetails = () => {
 
   return (
     <AdminBookingDetailsWrapper>
+      <H3>Redigera bokning med bokningsnummer: {bookedTable._id}</H3>
       <label>
         Datum:
         <input
