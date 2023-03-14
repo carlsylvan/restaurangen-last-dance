@@ -94,18 +94,17 @@ const handleUpdateCustomerClick = () => {
       <CoolButton onClick={() => {navigate("/admin")}}>Tillbaka till listan över bokningar</CoolButton>
       <H3>Redigera bokning med bokningsnummer: {bookedTable._id}</H3>
       <H4>Bokningsinformation:</H4>
-      <label>
-        Datum:
+      <label htmlFor="date">Datum:</label>
         <input
+          id="date"
           type="date"
           name="date"
           value={bookedTable.date}
           onChange={handleInputChange}
         />
-      </label>
-      <label>
-        Tid:
+      <label htmlFor="time">Tid:</label>
         <select
+          id="time"
           name="time"
           value={bookedTable.time}
           onChange={handleInputChange}
@@ -113,9 +112,7 @@ const handleUpdateCustomerClick = () => {
           <option value="17:00">17:00</option>
           <option value="21:00">21:00</option>
         </select>
-      </label>
-      <label>
-        Antal personer
+      <label htmlFor="numberOfGuests">Antal personer</label>
         <select
           name="numberOfGuests"
           value={bookedTable.numberOfGuests}
@@ -134,45 +131,43 @@ const handleUpdateCustomerClick = () => {
           <option value="11">11</option>
           <option value="12">12</option>
         </select>
-      </label>
       {editCustomer ? (
         <>
-      <label>
-        Namn:
+      <label htmlFor="name">Namn</label>
         <input
+          id="name"
           type="text"
           name="name"
           value={bookedCustomer.name}
           onChange={handleInputChange}
         />
-      </label>
-      <label>
+      <label htmlFor="lastname"></label>
         Efternamn:
         <input
+          id="lastname"
           type="text"
           name="lastname"
           value={bookedCustomer.lastname}
           onChange={handleInputChange}
         />
-      </label>
-      <label>
+      <label htmlFor="email"></label>
         Email:
         <input
+          id="email"
           type="email"
           name="email"
           value={bookedCustomer.email}
           onChange={handleInputChange}
         />
-      </label>
-      <label>
+      <label htmlFor="email"></label>
         Telefon:
         <input
+          id="email"
           type="tel"
           name="phone"
           value={bookedCustomer.phone}
           onChange={handleInputChange}
         />
-      </label>
       <CoolButton onClick={handleUpdateCustomerClick}>Uppdatera kundinformation</CoolButton>
       </>
       ) : (
