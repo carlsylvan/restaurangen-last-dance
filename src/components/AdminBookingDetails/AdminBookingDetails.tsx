@@ -1,6 +1,7 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { IRestaurantContext } from "../../App";
+import { checkedAvailableTables } from "../../functions/checkedAvailableTables";
 import { IBooking } from "../../models/IBooking";
 import { IBookingCustomer } from "../../models/IBookingCustomer";
 import { IBookingsAdmin } from "../../models/IBookingsAdmin";
@@ -34,6 +35,7 @@ const [booking, setBooking] = useState<IBooking>({
   numberOfGuests: 1,
   customer: {name: "", lastname: "", email: "", phone: ""},
 });
+const [editIsPossible, setEditIsPossible] = useState(true);
 
   const {id} = useParams();
   const navigate = useNavigate();
@@ -46,13 +48,13 @@ const [booking, setBooking] = useState<IBooking>({
     setBooking(newBooking);
     let bookingsCopy = [...bookings];
     let filteredList = bookingsCopy.filter((booking) => booking._id != bookedTable._id);
-    // console.log(filteredList)
-    // console.log(bookings);
-    
+    let availabilityStatus = checkedAvailableTables(filteredList, newBooking);
+    setEditIsPossible(availabilityStatus);
+    console.log(availabilityStatus);
+  
   }, [bookedTable]);
-  console.log(booking);
 
-
+    console.log(editIsPossible);
   useEffect(() => {
     const getBookings = async () => {
       if (id !== undefined) {
@@ -115,6 +117,7 @@ const handleUpdateCustomerClick = () => {
 
 const handleSubmit = (e: FormEvent) => {
   e.preventDefault();
+  changeLoadedFromApi();
 }
   
 
@@ -225,7 +228,7 @@ const handleSubmit = (e: FormEvent) => {
         <SubmitButtonWrapper onClick={handleEditCustomerClick}>Redigera kund</SubmitButtonWrapper>
       </>
       )}
-      <SubmitButtonWrapper onClick={handleUpdateClick}>Uppdatera bokning</SubmitButtonWrapper>
+      {editIsPossible ? (<SubmitButtonWrapper onClick={handleUpdateClick}>Uppdatera bokning</SubmitButtonWrapper>) : (<p>Det finns inga lediga bord den tiden</p>)}
       <SubmitButtonWrapper onClick={handleDeleteClick}>Ta bort bokning</SubmitButtonWrapper>
     </FormWrapper>
     </>
