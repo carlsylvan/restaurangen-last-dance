@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { IBookingCustomer } from "../../models/IBookingCustomer";
 import { IBookingsAdmin } from "../../models/IBookingsAdmin";
 import { deleteBookingById, getBookedTableById, getCustomerById, RESTAURANT_ID, updateBookingById, updateCustomerById } from "../../services/bookingService";
-import { H3, H4 } from "../styled/Booking";
+import { H1, H3, H4 } from "../styled/Booking";
 import { FormWrapper, InputWrapper, SubmitButtonWrapper } from "../styled/Wrappers";
 
 export const AdminBookingDetails = () => {
@@ -93,6 +93,9 @@ const handleSubmit = (e: FormEvent) => {
   
 
   return (
+    <>
+    <H1>Last Dance</H1>
+    <H4>restaurang</H4>
     <FormWrapper onSubmit={handleSubmit}>
       <SubmitButtonWrapper type="button" onClick={() => {navigate("/admin")}}>Tillbaka till listan över bokningar</SubmitButtonWrapper>
       <H3>Redigera bokning med bokningsnummer: {bookedTable._id}</H3>
@@ -199,5 +202,6 @@ const handleSubmit = (e: FormEvent) => {
       <SubmitButtonWrapper onClick={handleUpdateClick}>Uppdatera bokning</SubmitButtonWrapper>
       <SubmitButtonWrapper onClick={handleDeleteClick}>Ta bort bokning</SubmitButtonWrapper>
     </FormWrapper>
+    </>
   );
 };
