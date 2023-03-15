@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { IBookingCustomer } from "../../models/IBookingCustomer";
 import { IBookingsAdmin } from "../../models/IBookingsAdmin";
@@ -87,11 +87,14 @@ const handleUpdateCustomerClick = () => {
   alert("Kundinformationen har uppdaterats.");
 };
 
+const handleSubmit = (e: FormEvent) => {
+  e.preventDefault();
+}
   
 
   return (
-    <FormWrapper>
-      <SubmitButtonWrapper onClick={() => {navigate("/admin")}}>Tillbaka till listan över bokningar</SubmitButtonWrapper>
+    <FormWrapper onSubmit={handleSubmit}>
+      <SubmitButtonWrapper type="button" onClick={() => {navigate("/admin")}}>Tillbaka till listan över bokningar</SubmitButtonWrapper>
       <H3>Redigera bokning med bokningsnummer: {bookedTable._id}</H3>
       <H4>Bokningsinformation:</H4>
       <InputWrapper>
@@ -182,7 +185,7 @@ const handleUpdateCustomerClick = () => {
           onChange={handleInputChange}
         />
         </InputWrapper>
-      <SubmitButtonWrapper onClick={handleUpdateCustomerClick}>Uppdatera kundinformation</SubmitButtonWrapper>
+      <SubmitButtonWrapper type="button" onClick={handleUpdateCustomerClick}>Uppdatera kundinformation</SubmitButtonWrapper>
       </>
       ) : (
         <>
