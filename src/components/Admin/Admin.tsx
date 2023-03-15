@@ -54,21 +54,25 @@ export const Admin = () => {
         ? bookings
         : bookings.filter((booking) => booking.date === findMatchingDates);
 
-    let bookingsByDate = foundBookings.map((booking: IBookingsAdmin) => {
-      return (
-        <AdminBookingWrapper
-          onClick={() => {
-            handleClick(booking);
-          }}
-          key={booking._id}>
-          <h4>
-            Sittning: {booking.date} kl {booking.time}
-          </h4>
-          <p>Antal gäster: {booking.numberOfGuests}</p>
-          <h5>Bokningsnummer: {booking._id}</h5>
-        </AdminBookingWrapper>
-      );
-    });
+    let bookingsByDate = foundBookings
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      .map((booking: IBookingsAdmin) => {
+        console.log(booking.date);
+
+        return (
+          <AdminBookingWrapper
+            onClick={() => {
+              handleClick(booking);
+            }}
+            key={booking._id}>
+            <h4>
+              Sittning: {booking.date} kl {booking.time}
+            </h4>
+            <p>Antal gäster: {booking.numberOfGuests}</p>
+            <h5>Bokningsnummer: {booking._id}</h5>
+          </AdminBookingWrapper>
+        );
+      });
     setfilteredBookings(bookingsByDate);
   }
 
