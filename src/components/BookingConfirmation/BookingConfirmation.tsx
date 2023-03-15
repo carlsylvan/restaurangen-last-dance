@@ -15,9 +15,10 @@ export const BookingConfirmation = () => {
     align-items: center;
     width: 100%;
     text-align: center;
+
     margin: 25px 0px 50px 0px;
     > div {
-      width: 90%;
+      width: 85%;
       padding: 0px 15px;
       box-shadow: 1px 0px 20px rgba(151, 149, 149, 0.8),
         0px 10px 5px rgba(151, 149, 149, 0.1);
