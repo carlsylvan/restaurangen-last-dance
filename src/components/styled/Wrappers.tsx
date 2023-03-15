@@ -250,6 +250,10 @@ export const InputWrapper = styled.div`
     width: 60%;
     padding: 0.2rem;
   }
+  select {
+    width: 60%;
+    padding: 0.2rem;
+  }
 `;
 
 export const SubmitButtonWrapper = styled.button`
