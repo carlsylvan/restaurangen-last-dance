@@ -8,7 +8,8 @@ interface IWrappersNumberOfGuestsProps {
   selected: boolean;
 }
 interface IWrappersBookingTimeProps {
-  selected: boolean;
+  selected: boolean,
+  isAvailable: boolean
 }
 interface IBookingTimeDivWrapperProps {
   isAvailable: boolean;
@@ -55,6 +56,9 @@ export const HamburgerWrapper = styled.div`
 export const PageWrapper = styled.main`
   width: 100%;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 export const PageDownIconWrapper = styled.div`
   position: absolute;
@@ -137,8 +141,6 @@ export const AmountGuestsNumberWrapper = styled.div`
 `;
 
 export const BookingTimeDivWrapper = styled.div`
-  visibility: ${(props: IBookingTimeDivWrapperProps) =>
-    !props.isAvailable ? "hidden" : "visible"};
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -149,16 +151,40 @@ export const BookingTimeWrapper = styled.div`
   width: 40%;
   border: 1px solid black;
   border-radius: 2px;
-  background-color: ${(props: IWrappersBookingTimeProps) =>
-    props.selected ? "black" : "none"};
+  background-color: ${(props: IWrappersBookingTimeProps) => {
+    if(props.isAvailable){
+      return props.selected ? "black" : "none"}
+    else {return "none"};  
+    }
+  };
+  border: ${(props: IWrappersBookingTimeProps) => {
+    if(props.isAvailable){
+      return "1px solid black"}
+    else {return "1px solid gray"};  
+    }
+  };
+  opacity: ${(props: IWrappersBookingTimeProps) => 
+    props.isAvailable ? "1" : "0.5"
+  };
+  color: ${(props: IWrappersBookingTimeProps) => {
+    if(props.isAvailable){
+      return props.selected ? "white" : "black"}
+    else {return "gray"};  
+    }
+  };
   color: ${(props: IWrappersBookingTimeProps) =>
     props.selected ? "white" : "black"};
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
   padding: 0.5rem 0;
   &:hover {
-    cursor: pointer;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
-    transform: scale(1.01);
+    cursor: ${(props: IWrappersBookingTimeProps)=>
+      props.selected ? "pointer" : "none"};
+    box-shadow: ${(props: IWrappersBookingTimeProps)=>
+      props.selected ? "0 0 5px rgba(0, 0, 0, 0.7)" : "none"};
+    transform: ${(props: IWrappersBookingTimeProps)=>
+      props.selected ? "scale(1.01)" : "scale(1)"};
+    /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+    transform: scale(1.01); */
   }
 `;
 

@@ -8,6 +8,7 @@ import { IRestaurantContext } from "../../App";
 import { BookingTimeDivWrapper, FormWrapper, InputWrapper, NumberOfGuestsWrapper, SubmitButtonWrapper } from "../styled/Wrappers";
 import { SelectGuestsAmount } from "../SelectGuestsAmount/SelectGuestsAmount";
 import { SelectBookingTime } from "../SelectBookingTime/SelectBookingTime";
+import { IAvailableTimes } from "../../models/IAvailableTimes";
 
 
 
@@ -28,25 +29,40 @@ export const Booking = () => {
   const [customer, setCustomer] = useState<ICustomer>(startValueCustomer);
   const [booking, setBooking] = useState<IBooking>(startValueBooking);
   const { bookings, changeLoadedFromApi } = useOutletContext<IRestaurantContext>();
-  const [isAvailable, setIsAvailable] = useState<boolean>(true);
-  const [numOfBookedTables, setNumOfBookedTables] = useState<number>(0);
+  const [availableTimes, setAvailableTime] = useState<IAvailableTimes[]>([
+    {bookingTime: "17:00", numberOfBookedTables: 0, isAvailable: true},
+    {bookingTime: "21:00", numberOfBookedTables: 0, isAvailable: true},
+  ]);
   useEffect(()=>{
-    ((numOfBookedTables+Math.ceil(booking.numberOfGuests/6)) > 30) ? setIsAvailable(false):setIsAvailable(true);
-  })
+    let numberOfTableAtFive = 0;
+    let numberOfTablesAtNine = 0;
+    let temp = [...availableTimes];
+    bookings.map((item)=>{
+    if(item.date===booking.date){
+       if(item.time==="17:00"){
+        numberOfTableAtFive=numberOfTableAtFive+Math.ceil(item.numberOfGuests/6);
+      }
+      else if(item.time==="21:00") {        
+        numberOfTablesAtNine=numberOfTablesAtNine+Math.ceil(item.numberOfGuests/6);
+      }
+    }
+  });
+    temp[0].numberOfBookedTables=numberOfTableAtFive;
+    temp[1].numberOfBookedTables=numberOfTablesAtNine;
+    ((temp[0].numberOfBookedTables+Math.ceil(booking.numberOfGuests/6))>1) ? temp[0].isAvailable = false : temp[0].isAvailable = true;
+    ((temp[1].numberOfBookedTables+Math.ceil(booking.numberOfGuests/6))>1) ? temp[1].isAvailable = false : temp[1].isAvailable = true;
+    setAvailableTime(temp);
+   
+  }, [booking]);
+
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     let newCustomer = { ...customer, [e.target.name]: e.target.value };
-    let numberOfBookedTables: number = 0;
     setCustomer(newCustomer);
     setBooking({...booking, customer: newCustomer});
     if(e.target.type ==="date"){
       setBooking({ ...booking, [e.target.name]: e.target.value });
     };
-    bookings.map((item)=>{
-    if(item.date===e.target.value){
-       numberOfBookedTables = numOfBookedTables + Math.ceil(item.numberOfGuests/6);
-    }
-    setNumOfBookedTables(numberOfBookedTables);
-    });
   };
   
   const handleGuestsNum  = (item: number) => {
@@ -57,23 +73,23 @@ export const Booking = () => {
   }
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    // sendBooking(booking);
+    sendBooking(booking);
     setCustomer(startValueCustomer);
     setBooking(startValueBooking);
     changeLoadedFromApi();
   };
 
 
-
+  console.log(availableTimes);
   console.log(bookings);
   
   return (
-    <BookingWrapper>
+    <>
       <H3>Bokning</H3>
       <FormWrapper onSubmit={handleSubmit}>
         <NumberOfGuestsWrapper>
           <H4>Antal presoner</H4>
-          <SelectGuestsAmount handleGuestsNum = {handleGuestsNum}/>
+          <SelectGuestsAmount handleGuestsNum = {handleGuestsNum} startNumber = {1}/>
         </NumberOfGuestsWrapper>
         <InputWrapper>
           <label htmlFor="start">Datum: </label>
@@ -88,10 +104,12 @@ export const Booking = () => {
             required
           />
         </InputWrapper>
-        <BookingTimeDivWrapper isAvailable = {isAvailable}>
-          <SelectBookingTime handleBookingTime={handleBookingTime}/>
+        <BookingTimeDivWrapper>
+          <SelectBookingTime handleBookingTime={handleBookingTime} firstTime = {availableTimes[0].isAvailable} secondTime = {availableTimes[1].isAvailable}/>
         </BookingTimeDivWrapper>
-        <InputWrapper>
+        {availableTimes[0].isAvailable || availableTimes[1].isAvailable ?
+        <>
+          <InputWrapper>
             <label htmlFor="firstname">Förnamn</label>
             <input
               type="text"
@@ -135,9 +153,12 @@ export const Booking = () => {
             pattern="[0-9]{10}"
             required
           />
-        </InputWrapper>
-        <SubmitButtonWrapper type ="submit">Boka</SubmitButtonWrapper>
+          </InputWrapper>
+          <SubmitButtonWrapper type ="submit">Boka</SubmitButtonWrapper>
+        </>:
+        <h4>Det finns inga lediga bord</h4>
+        }
       </FormWrapper>
-    </BookingWrapper>
+    </>
   );
 };

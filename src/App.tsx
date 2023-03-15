@@ -18,6 +18,7 @@ import { getBookings } from "./services/bookingService";
 import { IBooking } from "./models/IBooking";
 import { H1, H4 } from "./components/styled/Booking";
 import { IBookingsAdmin } from "./models/IBookingsAdmin";
+import { IAvailableTimes } from "./models/IAvailableTimes";
 
 export interface IRestaurantContext {
   bookings: IBookingsAdmin[];
@@ -28,6 +29,7 @@ function App() {
   const [open, setOpen] = useState<boolean>(false);
   const [bookings, setBookings] = useState<IBookingsAdmin[]>([]);
   const [loadedFromApi, setLoadedFromApi] = useState<boolean>(false);
+
   useEffect(() => {
     const getBookingData = async () => {
       let bookings = await getBookings();
@@ -45,9 +47,7 @@ function App() {
   const changeLoadedFromApi = () => {
     setLoadedFromApi(false);
   };
-  const handleMoveDown = () => {
-    // console.log("move down");
-  };
+
   console.log(bookings);
   return (
     <div className="App">
@@ -63,9 +63,6 @@ function App() {
       </HeaderWrapper>
       <PageWrapper>
         <Outlet context={{ bookings, changeLoadedFromApi }}></Outlet>
-        <PageDownIconWrapper onClick={handleMoveDown}>
-          <IoIosArrowDown />
-        </PageDownIconWrapper>
       </PageWrapper>
       <FooterWrapper>
         <Footer></Footer>
