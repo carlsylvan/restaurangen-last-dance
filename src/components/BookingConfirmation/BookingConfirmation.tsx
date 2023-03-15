@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { IBooking } from "../../models/IBooking";
 import { H1, H3, H4 } from "../styled/Booking";
 
 export const BookingConfirmation = () => {
   const [booking, setBooking] = useState<IBooking>();
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const ConfirmationPageWrapper = styled.main`
@@ -40,6 +41,22 @@ export const BookingConfirmation = () => {
         }
       }
     }
+    button {
+      width: 200px;
+      height: 45px;
+      font-size: 16px;
+      margin-top: 5px;
+      margin-bottom: 30px;
+      background-color: black;
+      color: white;
+      border: 1px black;
+      border-radius: 18px;
+      transition: all 0.2s ease-in-out;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.75;
+      }
+    }
   `;
 
   useEffect(() => {
@@ -49,6 +66,10 @@ export const BookingConfirmation = () => {
 
     setBooking(myBooking);
   }, []);
+
+  const handleClick = () => {
+    navigate("/");
+  };
 
   return (
     <ConfirmationPageWrapper>
@@ -80,6 +101,7 @@ export const BookingConfirmation = () => {
         </p>
         <p>En bokningsbekräftelse har skickats till din E-post</p>
       </div>
+      <button onClick={handleClick}>Tillbaka till Startsidan</button>
     </ConfirmationPageWrapper>
   );
 };
