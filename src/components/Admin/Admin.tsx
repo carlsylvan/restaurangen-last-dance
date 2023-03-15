@@ -15,8 +15,12 @@ import { H1, H3, H4 } from "../styled/Booking";
 
 export const Admin = () => {
   const { bookings } = useOutletContext<IRestaurantContext>();
-  const [bookingsByDate, setBookingsByDate] = useState<JSX.Element[]>([]);
+  const [filteredBookings, setfilteredBookings] = useState<JSX.Element[]>([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    handleFilter("");
+  }, [bookings]);
 
   const handleClick = (booking: IBookingsAdmin) => {
     navigate(`/admin/${booking._id}`);
@@ -41,53 +45,32 @@ export const Admin = () => {
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const findMatchingDates = e.target.value;
-    const foundBookings = bookings.filter(
-      (booking) => booking.date === findMatchingDates
-    );
-    let bookingsByDate = foundBookings.map((booking: IBookingsAdmin) => {
-      console.log(booking);
 
-      if (booking) {
-        return (
-          <AdminBookingWrapper
-            onClick={() => {
-              handleClick(booking);
-            }}
-            key={booking._id}>
-            <h4>
-              Sittning: {booking.date} kl {booking.time}
-            </h4>
-            <p>Antal gäster: {booking.numberOfGuests}</p>
-            <h5>Bokningsnummer: {booking._id}</h5>
-          </AdminBookingWrapper>
-        );
-      } else {
-        return (
-          <>
-            {console.log("Hello")}
-            <p>Inga bokningar hittades det här datumet</p>
-          </>
-        );
-      }
-    });
-    setBookingsByDate(bookingsByDate);
+    handleFilter(findMatchingDates);
   };
+  function handleFilter(findMatchingDates: string) {
+    const foundBookings =
+      findMatchingDates === ""
+        ? bookings
+        : bookings.filter((booking) => booking.date === findMatchingDates);
 
-  const bookingsHtml = bookings.map((booking: IBookingsAdmin) => {
-    return (
-      <AdminBookingWrapper
-        onClick={() => {
-          handleClick(booking);
-        }}
-        key={booking._id}>
-        <h4>
-          Sittning: {booking.date} kl {booking.time}
-        </h4>
-        <p>Antal gäster: {booking.numberOfGuests}</p>
-        <h5>Bokningsnummer: {booking._id}</h5>
-      </AdminBookingWrapper>
-    );
-  });
+    let bookingsByDate = foundBookings.map((booking: IBookingsAdmin) => {
+      return (
+        <AdminBookingWrapper
+          onClick={() => {
+            handleClick(booking);
+          }}
+          key={booking._id}>
+          <h4>
+            Sittning: {booking.date} kl {booking.time}
+          </h4>
+          <p>Antal gäster: {booking.numberOfGuests}</p>
+          <h5>Bokningsnummer: {booking._id}</h5>
+        </AdminBookingWrapper>
+      );
+    });
+    setfilteredBookings(bookingsByDate);
+  }
 
   return (
     <AdminWrapper>
@@ -108,7 +91,11 @@ export const Admin = () => {
         </AdminBookingInputWrapper>
       </AdminForm>
       <AdminBookingsWrapper>
-        {bookingsByDate.length > 0 ? bookingsByDate : bookingsHtml}
+        {filteredBookings.length > 0 ? (
+          filteredBookings
+        ) : (
+          <p>Hittade inga bokningar</p>
+        )}
       </AdminBookingsWrapper>
     </AdminWrapper>
   );
