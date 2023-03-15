@@ -15,8 +15,7 @@ import {
 import { SelectGuestsAmount } from "../SelectGuestsAmount/SelectGuestsAmount";
 import { SelectBookingTime } from "../SelectBookingTime/SelectBookingTime";
 import { IAvailableTimes } from "../../models/IAvailableTimes";
-
-
+import { useNavigate } from "react-router-dom";
 
 export const Booking = () => {
   const startValueCustomer: ICustomer = {
@@ -34,33 +33,38 @@ export const Booking = () => {
   };
   const [customer, setCustomer] = useState<ICustomer>(startValueCustomer);
   const [booking, setBooking] = useState<IBooking>(startValueBooking);
-  const { bookings, changeLoadedFromApi } = useOutletContext<IRestaurantContext>();
+  const { bookings, changeLoadedFromApi } =
+    useOutletContext<IRestaurantContext>();
   const [availableTimes, setAvailableTime] = useState<IAvailableTimes[]>([
-    {bookingTime: "17:00", numberOfBookedTables: 0, isAvailable: true},
-    {bookingTime: "21:00", numberOfBookedTables: 0, isAvailable: true},
+    { bookingTime: "17:00", numberOfBookedTables: 0, isAvailable: true },
+    { bookingTime: "21:00", numberOfBookedTables: 0, isAvailable: true },
   ]);
-  useEffect(()=>{
+  const navigate = useNavigate();
+  useEffect(() => {
     let numberOfTableAtFive = 0;
     let numberOfTablesAtNine = 0;
     let temp = [...availableTimes];
-    bookings.map((item)=>{
-    if(item.date===booking.date){
-       if(item.time==="17:00"){
-        numberOfTableAtFive=numberOfTableAtFive+Math.ceil(item.numberOfGuests/6);
+    bookings.map((item) => {
+      if (item.date === booking.date) {
+        if (item.time === "17:00") {
+          numberOfTableAtFive =
+            numberOfTableAtFive + Math.ceil(item.numberOfGuests / 6);
+        } else if (item.time === "21:00") {
+          numberOfTablesAtNine =
+            numberOfTablesAtNine + Math.ceil(item.numberOfGuests / 6);
+        }
       }
-      else if(item.time==="21:00") {        
-        numberOfTablesAtNine=numberOfTablesAtNine+Math.ceil(item.numberOfGuests/6);
-      }
-    }
-  });
-    temp[0].numberOfBookedTables=numberOfTableAtFive;
-    temp[1].numberOfBookedTables=numberOfTablesAtNine;
-    ((temp[0].numberOfBookedTables+Math.ceil(booking.numberOfGuests/6))>1) ? temp[0].isAvailable = false : temp[0].isAvailable = true;
-    ((temp[1].numberOfBookedTables+Math.ceil(booking.numberOfGuests/6))>1) ? temp[1].isAvailable = false : temp[1].isAvailable = true;
+    });
+    temp[0].numberOfBookedTables = numberOfTableAtFive;
+    temp[1].numberOfBookedTables = numberOfTablesAtNine;
+    temp[0].numberOfBookedTables + Math.ceil(booking.numberOfGuests / 6) > 1
+      ? (temp[0].isAvailable = false)
+      : (temp[0].isAvailable = true);
+    temp[1].numberOfBookedTables + Math.ceil(booking.numberOfGuests / 6) > 1
+      ? (temp[1].isAvailable = false)
+      : (temp[1].isAvailable = true);
     setAvailableTime(temp);
-   
   }, [booking]);
-
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     let newCustomer = { ...customer, [e.target.name]: e.target.value };
@@ -68,7 +72,7 @@ export const Booking = () => {
     setBooking({ ...booking, customer: newCustomer });
     if (e.target.type === "date") {
       setBooking({ ...booking, [e.target.name]: e.target.value });
-    };
+    }
   };
 
   const handleGuestsNum = (item: number) => {
@@ -77,14 +81,16 @@ export const Booking = () => {
   const handleBookingTime = (bookingTime: string) => {
     setBooking({ ...booking, time: bookingTime });
   };
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    sendBooking(booking);
+    let response = await sendBooking(booking);
+    let id = response.insertedId;
     setCustomer(startValueCustomer);
     setBooking(startValueBooking);
     changeLoadedFromApi();
+    localStorage.setItem("booking", JSON.stringify(booking));
+    navigate(`/booking/${id}`);
   };
-
 
   console.log(availableTimes);
   console.log(bookings);
@@ -97,7 +103,10 @@ export const Booking = () => {
       <FormWrapper onSubmit={handleSubmit}>
         <NumberOfGuestsWrapper>
           <H4>Antal personer</H4>
-          <SelectGuestsAmount handleGuestsNum = {handleGuestsNum} startNumber = {1}/>
+          <SelectGuestsAmount
+            handleGuestsNum={handleGuestsNum}
+            startNumber={1}
+          />
         </NumberOfGuestsWrapper>
         <InputWrapper>
           <label htmlFor="start">Datum: </label>
@@ -113,59 +122,63 @@ export const Booking = () => {
           />
         </InputWrapper>
         <BookingTimeDivWrapper>
-          <SelectBookingTime handleBookingTime={handleBookingTime} firstTime = {availableTimes[0].isAvailable} secondTime = {availableTimes[1].isAvailable}/>
+          <SelectBookingTime
+            handleBookingTime={handleBookingTime}
+            firstTime={availableTimes[0].isAvailable}
+            secondTime={availableTimes[1].isAvailable}
+          />
         </BookingTimeDivWrapper>
-        {availableTimes[0].isAvailable || availableTimes[1].isAvailable ?
-        <>
-          <InputWrapper>
-            <label htmlFor="firstname">Förnamn</label>
-            <input
-              type="text"
-              id="firstname"
-              placeholder="Förnamn"
-              name="name"
-              value={customer.name}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor="lastname">Efternamn</label>
-            <input
-              type="text"
-              id="lastname"
-              placeholder="Efternamn"
-              name="lastname"
-              value={customer.name}
-              onChange={handleChange}
-              required
-            />
-          <label htmlFor="epost">Email</label>
-          <input
-            type="email"
-            id="epost"
-            placeholder="Epost"
-            name="email"
-            value={customer.email}
-            onChange={handleChange}
-            pattern=".+@+.\.com"
-            required
-          />
+        {availableTimes[0].isAvailable || availableTimes[1].isAvailable ? (
+          <>
+            <InputWrapper>
+              <label htmlFor="firstname">Förnamn</label>
+              <input
+                type="text"
+                id="firstname"
+                placeholder="Förnamn"
+                name="name"
+                value={customer.name}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="lastname">Efternamn</label>
+              <input
+                type="text"
+                id="lastname"
+                placeholder="Efternamn"
+                name="lastname"
+                value={customer.lastname}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="epost">Email</label>
+              <input
+                type="email"
+                id="epost"
+                placeholder="Epost"
+                name="email"
+                value={customer.email}
+                onChange={handleChange}
+                required
+              />
 
-          <label htmlFor="phone">Mobil</label>
-          <input
-            type="tel"
-            id="phone"
-            placeholder="Tel-xxxxxxxxxx"
-            name="phone"
-            value={customer.phone}
-            onChange={handleChange}
-            pattern="[0-9]{10}"
-            required
-          />
-          </InputWrapper>
-          <SubmitButtonWrapper type ="submit">Boka</SubmitButtonWrapper>
-        </>:
-        <h4>Det finns inga lediga bord</h4>
-        }
+              <label htmlFor="phone">Mobil</label>
+              <input
+                type="tel"
+                id="phone"
+                placeholder="Tel-xxxxxxxxxx"
+                name="phone"
+                value={customer.phone}
+                onChange={handleChange}
+                pattern="[0-9]{10}"
+                required
+              />
+            </InputWrapper>
+            <SubmitButtonWrapper type="submit">Boka</SubmitButtonWrapper>
+          </>
+        ) : (
+          <h4>Det finns inga lediga bord</h4>
+        )}
       </FormWrapper>
     </>
   );
