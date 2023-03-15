@@ -8,8 +8,8 @@ interface IBookingTime {
 
 interface ISelectBookingTimeProps {
     handleBookingTime(bookingTime:string):void,
-    firstTime:boolean,
-    secondTime:boolean
+    isTableAvailable:boolean,
+
 }
 
 export const SelectBookingTime = (props:ISelectBookingTimeProps) => {
@@ -25,41 +25,33 @@ export const SelectBookingTime = (props:ISelectBookingTimeProps) => {
         !options[options.findIndex((o)=>o.bookingTime===item.bookingTime)].isSelected;
     setTime(options);
     }
-    console.log(props.firstTime);
+   
     
     const html = time.map((item,i)=>{
-        if(item.bookingTime==="17:00"){
-            if(props.firstTime)
-                return (
-                    <BookingTimeWrapper key={i} onClick={()=>{handleClick(item)}} selected = {item.isSelected} isAvailable = {props.firstTime}>
-                        {item.bookingTime}
-                    </BookingTimeWrapper>
-            )
-            else {
-                return (
-                    <BookingTimeWrapper key={i} selected = {false} isAvailable = {props.firstTime}>
-                        {item.bookingTime}
-                    </BookingTimeWrapper>  
-                )
-            }
 
-        }
-        else if(item.bookingTime==="21:00"){
-            if(props.secondTime)
-                return (
-                    <BookingTimeWrapper key={i} onClick={()=>{handleClick(item)}} selected = {item.isSelected} isAvailable = {props.secondTime}>
+        return (
+            <BookingTimeWrapper key={i} onClick={()=>{handleClick(item)}} selected = {item.isSelected} isAvailable = {props.isTableAvailable}>
                         {item.bookingTime}
-                    </BookingTimeWrapper>
-                )
-            else {
-                return (
-                    <BookingTimeWrapper key={i}  selected = {false} isAvailable = {props.secondTime}>
-                        {item.bookingTime}
-                    </BookingTimeWrapper>
-                )
-            }
+            </BookingTimeWrapper>
 
-        }
+        )
+    
+        // if(item.bookingTime==="21:00"){
+        //     if(props.isTableAvailable)
+        //         return (
+        //             <BookingTimeWrapper key={i} onClick={()=>{handleClick(item)}} selected = {item.isSelected} isAvailable = {props.isTableAvailable}>
+        //                 {item.bookingTime}
+        //             </BookingTimeWrapper>
+        //     )
+        //     else {
+        //         return (
+        //             <BookingTimeWrapper key={i} selected = {false} isAvailable = {props.isTableAvailable}>
+        //                 {item.bookingTime}
+        //             </BookingTimeWrapper>  
+        //         )
+        //     }
+
+        // }
     })
     return (
         <>

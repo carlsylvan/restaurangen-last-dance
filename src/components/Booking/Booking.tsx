@@ -15,6 +15,7 @@ import {
 import { SelectGuestsAmount } from "../SelectGuestsAmount/SelectGuestsAmount";
 import { SelectBookingTime } from "../SelectBookingTime/SelectBookingTime";
 import { IAvailableTimes } from "../../models/IAvailableTimes";
+import { checkedAvailableTables } from "../../functions/checkedAvailableTables";
 
 
 
@@ -28,36 +29,42 @@ export const Booking = () => {
   const startValueBooking: IBooking = {
     restaurantId: "6408a12376187b915f68e171",
     date: "",
-    time: "",
+    time: "17:00",
     numberOfGuests: 1,
     customer: startValueCustomer,
   };
   const [customer, setCustomer] = useState<ICustomer>(startValueCustomer);
   const [booking, setBooking] = useState<IBooking>(startValueBooking);
   const { bookings, changeLoadedFromApi } = useOutletContext<IRestaurantContext>();
-  const [availableTimes, setAvailableTime] = useState<IAvailableTimes[]>([
-    {bookingTime: "17:00", numberOfBookedTables: 0, isAvailable: true},
-    {bookingTime: "21:00", numberOfBookedTables: 0, isAvailable: true},
-  ]);
+  const [isTableAvailable, setIsTableAvailable] = useState<boolean>(true)
+  // const [availableTimes, setAvailableTime] = useState<IAvailableTimes[]>([
+  //   {bookingTime: "17:00", numberOfBookedTables: 0, isAvailable: true},
+  //   {bookingTime: "21:00", numberOfBookedTables: 0, isAvailable: true},
+  // ]);
   useEffect(()=>{
-    let numberOfTableAtFive = 0;
-    let numberOfTablesAtNine = 0;
-    let temp = [...availableTimes];
-    bookings.map((item)=>{
-    if(item.date===booking.date){
-       if(item.time==="17:00"){
-        numberOfTableAtFive=numberOfTableAtFive+Math.ceil(item.numberOfGuests/6);
-      }
-      else if(item.time==="21:00") {        
-        numberOfTablesAtNine=numberOfTablesAtNine+Math.ceil(item.numberOfGuests/6);
-      }
-    }
-  });
-    temp[0].numberOfBookedTables=numberOfTableAtFive;
-    temp[1].numberOfBookedTables=numberOfTablesAtNine;
-    ((temp[0].numberOfBookedTables+Math.ceil(booking.numberOfGuests/6))>1) ? temp[0].isAvailable = false : temp[0].isAvailable = true;
-    ((temp[1].numberOfBookedTables+Math.ceil(booking.numberOfGuests/6))>1) ? temp[1].isAvailable = false : temp[1].isAvailable = true;
-    setAvailableTime(temp);
+    // let status = checkedAvailableTables(bookings, booking)
+    // setIsTableAvailable(status);
+    console.log(isTableAvailable);
+    // let numberOfTableAtFive = 0;
+    // let numberOfTablesAtNine = 0;
+    // let temp = [...availableTimes];
+    // bookings.map((item)=>{
+    // if(item.date===booking.date){
+    //    if(item.time==="17:00"){
+    //     numberOfTableAtFive=numberOfTableAtFive+Math.ceil(item.numberOfGuests/6);
+    //   }
+    //   else if(item.time==="21:00") {        
+    //     numberOfTablesAtNine=numberOfTablesAtNine+Math.ceil(item.numberOfGuests/6);
+    //   }
+    // }
+    // });
+    // temp[0].numberOfBookedTables=numberOfTableAtFive;
+    // temp[1].numberOfBookedTables=numberOfTablesAtNine;
+    // ((temp[0].numberOfBookedTables+Math.ceil(booking.numberOfGuests/6))>1) ? temp[0].isAvailable = false : temp[0].isAvailable = true;
+    // ((temp[1].numberOfBookedTables+Math.ceil(booking.numberOfGuests/6))>1) ? temp[1].isAvailable = false : temp[1].isAvailable = true;
+    // setAvailableTime(temp);
+    let status = checkedAvailableTables(bookings, booking);
+    setIsTableAvailable(status);
    
   }, [booking]);
 
@@ -86,7 +93,7 @@ export const Booking = () => {
   };
 
 
-  console.log(availableTimes);
+  console.log(isTableAvailable);
   console.log(bookings);
 
   return (
@@ -113,9 +120,9 @@ export const Booking = () => {
           />
         </InputWrapper>
         <BookingTimeDivWrapper>
-          <SelectBookingTime handleBookingTime={handleBookingTime} firstTime = {availableTimes[0].isAvailable} secondTime = {availableTimes[1].isAvailable}/>
+          <SelectBookingTime handleBookingTime={handleBookingTime} isTableAvailable = {isTableAvailable}/>
         </BookingTimeDivWrapper>
-        {availableTimes[0].isAvailable || availableTimes[1].isAvailable ?
+        {isTableAvailable ?
         <>
           <InputWrapper>
             <label htmlFor="firstname">Förnamn</label>
