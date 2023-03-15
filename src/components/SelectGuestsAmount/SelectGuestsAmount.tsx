@@ -10,6 +10,7 @@ interface INumberOfGuest {
 interface ISelectGuestsAmountProps {
     handleGuestsNum(num:number):void,
     startNumber:number
+    startNumber:number
 }
 
 export const SelectGuestsAmount = (props:ISelectGuestsAmountProps) => {

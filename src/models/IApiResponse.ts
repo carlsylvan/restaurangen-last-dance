@@ -1,8 +1,8 @@
-import { IBookedTable } from "./IBookedTable";
 import { IBookingCustomer } from "./IBookingCustomer";
+import { IBookingsAdmin } from "./IBookingsAdmin";
 
 export interface IApiResponse {
-  bookedTable?: IBookedTable;
+  bookedTable?: IBookingsAdmin;
   error: string;
   bookingCustomer?: IBookingCustomer
 }
