@@ -26,6 +26,10 @@ export const Admin = () => {
     navigate(`/admin/${booking._id}`);
   };
 
+  const handleClickLink = () => {
+    navigate("/booking");
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const searchInput = e.currentTarget.elements.namedItem(
@@ -77,30 +81,33 @@ export const Admin = () => {
   }
 
   return (
-    <AdminWrapper>
-      <H1>Last Dance</H1>
-      <H4>restaurang</H4>
-      <H3>Administration</H3>
-      <AdminForm onSubmit={handleSubmit}>
-        <AdminBookingInput
-          onChange={handleOnChange}
-          type="date"
-          name="date"></AdminBookingInput>
-        <AdminBookingInputWrapper>
+    <>
+      <AdminWrapper>
+        <H1>Last Dance</H1>
+        <H4>restaurang</H4>
+        <H3>Administration</H3>
+        <button onClick={handleClickLink}>Boka nytt bord</button>
+        <AdminForm onSubmit={handleSubmit}>
           <AdminBookingInput
-            type="text"
-            name="_id"
-            placeholder="Bokningsnummer"></AdminBookingInput>
-          <AdminBookingButton type="submit">Sök</AdminBookingButton>
-        </AdminBookingInputWrapper>
-      </AdminForm>
-      <AdminBookingsWrapper>
-        {filteredBookings.length > 0 ? (
-          filteredBookings
-        ) : (
-          <p>Hittade inga bokningar</p>
-        )}
-      </AdminBookingsWrapper>
-    </AdminWrapper>
+            onChange={handleOnChange}
+            type="date"
+            name="date"></AdminBookingInput>
+          <AdminBookingInputWrapper>
+            <AdminBookingInput
+              type="text"
+              name="_id"
+              placeholder="Bokningsnummer"></AdminBookingInput>
+            <AdminBookingButton type="submit">Sök</AdminBookingButton>
+          </AdminBookingInputWrapper>
+        </AdminForm>
+        <AdminBookingsWrapper>
+          {filteredBookings.length > 0 ? (
+            filteredBookings
+          ) : (
+            <p>Hittade inga bokningar</p>
+          )}
+        </AdminBookingsWrapper>
+      </AdminWrapper>
+    </>
   );
 };

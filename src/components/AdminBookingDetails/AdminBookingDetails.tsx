@@ -1,5 +1,8 @@
 import React, { FormEvent, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
+import { IRestaurantContext } from "../../App";
+import { checkedAvailableTables } from "../../functions/checkedAvailableTables";
+import { IBooking } from "../../models/IBooking";
 import { IBookingCustomer } from "../../models/IBookingCustomer";
 import { IBookingsAdmin } from "../../models/IBookingsAdmin";
 import { deleteBookingById, getBookedTableById, getCustomerById, RESTAURANT_ID, updateBookingById, updateCustomerById } from "../../services/bookingService";
@@ -22,11 +25,36 @@ export const AdminBookingDetails = () => {
     email: "email@email.com",
     phone: "0712345678",
 })
+const { bookings, changeLoadedFromApi } = useOutletContext<IRestaurantContext>();
 const [editCustomer, setEditCustomer] = useState(false);
+const [isAvailable, setIsAvailable] = useState(true);
+const [booking, setBooking] = useState<IBooking>({
+  restaurantId: "6408a12376187b915f68e171",
+  date: "",
+  time: "",
+  numberOfGuests: 1,
+  customer: {name: "", lastname: "", email: "", phone: ""},
+});
+const [editIsPossible, setEditIsPossible] = useState(true);
 
   const {id} = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    let newBooking = {...booking};
+    newBooking.date = bookedTable.date;
+    newBooking.time = bookedTable.time;
+    newBooking.numberOfGuests = bookedTable.numberOfGuests;
+    setBooking(newBooking);
+    let bookingsCopy = [...bookings];
+    let filteredList = bookingsCopy.filter((booking) => booking._id != bookedTable._id);
+    let availabilityStatus = checkedAvailableTables(filteredList, newBooking);
+    setEditIsPossible(availabilityStatus);
+    console.log(availabilityStatus);
   
+  }, [bookedTable]);
+
+    console.log(editIsPossible);
   useEffect(() => {
     const getBookings = async () => {
       if (id !== undefined) {
@@ -89,6 +117,7 @@ const handleUpdateCustomerClick = () => {
 
 const handleSubmit = (e: FormEvent) => {
   e.preventDefault();
+  changeLoadedFromApi();
 }
   
 
@@ -199,7 +228,7 @@ const handleSubmit = (e: FormEvent) => {
         <SubmitButtonWrapper onClick={handleEditCustomerClick}>Redigera kund</SubmitButtonWrapper>
       </>
       )}
-      <SubmitButtonWrapper onClick={handleUpdateClick}>Uppdatera bokning</SubmitButtonWrapper>
+      {editIsPossible ? (<SubmitButtonWrapper onClick={handleUpdateClick}>Uppdatera bokning</SubmitButtonWrapper>) : (<p>Det finns inga lediga bord den tiden</p>)}
       <SubmitButtonWrapper onClick={handleDeleteClick}>Ta bort bokning</SubmitButtonWrapper>
     </FormWrapper>
     </>
