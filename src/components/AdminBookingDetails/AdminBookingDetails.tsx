@@ -4,7 +4,8 @@ import { IBookingCustomer } from "../../models/IBookingCustomer";
 import { IBookingsAdmin } from "../../models/IBookingsAdmin";
 import { deleteBookingById, getBookedTableById, getCustomerById, RESTAURANT_ID, updateBookingById, updateCustomerById } from "../../services/bookingService";
 import { AdminBookingDetailsWrapper, CoolButton } from "../styled/AdminBookingDetails";
-import { H3, H4 } from "../styled/Booking";
+import { BookingWrapper, H3, H4 } from "../styled/Booking";
+import { FormWrapper, InputWrapper, SubmitButtonWrapper } from "../styled/Wrappers";
 
 export const AdminBookingDetails = () => {
   const [bookedTable, setBookedTable] = useState<IBookingsAdmin>({
@@ -90,10 +91,11 @@ const handleUpdateCustomerClick = () => {
   
 
   return (
-    <AdminBookingDetailsWrapper>
-      <CoolButton onClick={() => {navigate("/admin")}}>Tillbaka till listan över bokningar</CoolButton>
+    <FormWrapper>
+      <SubmitButtonWrapper onClick={() => {navigate("/admin")}}>Tillbaka till listan över bokningar</SubmitButtonWrapper>
       <H3>Redigera bokning med bokningsnummer: {bookedTable._id}</H3>
       <H4>Bokningsinformation:</H4>
+      <InputWrapper>
       <label htmlFor="date">Datum:</label>
         <input
           id="date"
@@ -102,6 +104,8 @@ const handleUpdateCustomerClick = () => {
           value={bookedTable.date}
           onChange={handleInputChange}
         />
+        </InputWrapper>
+        <InputWrapper>
       <label htmlFor="time">Tid:</label>
         <select
           id="time"
@@ -112,6 +116,8 @@ const handleUpdateCustomerClick = () => {
           <option value="17:00">17:00</option>
           <option value="21:00">21:00</option>
         </select>
+        </InputWrapper>
+        <InputWrapper>
       <label htmlFor="numberOfGuests">Antal personer</label>
         <select
           name="numberOfGuests"
@@ -131,8 +137,10 @@ const handleUpdateCustomerClick = () => {
           <option value="11">11</option>
           <option value="12">12</option>
         </select>
+        </InputWrapper>
       {editCustomer ? (
         <>
+        <InputWrapper>
       <label htmlFor="name">Namn</label>
         <input
           id="name"
@@ -141,6 +149,8 @@ const handleUpdateCustomerClick = () => {
           value={bookedCustomer.name}
           onChange={handleInputChange}
         />
+        </InputWrapper>
+        <InputWrapper>
       <label htmlFor="lastname"></label>
         Efternamn:
         <input
@@ -150,6 +160,8 @@ const handleUpdateCustomerClick = () => {
           value={bookedCustomer.lastname}
           onChange={handleInputChange}
         />
+        </InputWrapper>
+        <InputWrapper>
       <label htmlFor="email"></label>
         Email:
         <input
@@ -159,6 +171,8 @@ const handleUpdateCustomerClick = () => {
           value={bookedCustomer.email}
           onChange={handleInputChange}
         />
+        </InputWrapper>
+        <InputWrapper>
       <label htmlFor="email"></label>
         Telefon:
         <input
@@ -168,7 +182,8 @@ const handleUpdateCustomerClick = () => {
           value={bookedCustomer.phone}
           onChange={handleInputChange}
         />
-      <CoolButton onClick={handleUpdateCustomerClick}>Uppdatera kundinformation</CoolButton>
+        </InputWrapper>
+      <SubmitButtonWrapper onClick={handleUpdateCustomerClick}>Uppdatera kundinformation</SubmitButtonWrapper>
       </>
       ) : (
         <>
@@ -176,11 +191,11 @@ const handleUpdateCustomerClick = () => {
         <p>Namn: {bookedCustomer.name} {bookedCustomer.lastname}</p>
         <p>E-post: {bookedCustomer.email}</p>
         <p>Telefon: {bookedCustomer.phone}</p>
-        <CoolButton onClick={handleEditCustomerClick}>Redigera kund</CoolButton>
+        <SubmitButtonWrapper onClick={handleEditCustomerClick}>Redigera kund</SubmitButtonWrapper>
       </>
       )}
-      <CoolButton onClick={handleUpdateClick}>Uppdatera bokning</CoolButton>
-      <CoolButton onClick={handleDeleteClick}>Ta bort bokning</CoolButton>
-    </AdminBookingDetailsWrapper>
+      <SubmitButtonWrapper onClick={handleUpdateClick}>Uppdatera bokning</SubmitButtonWrapper>
+      <SubmitButtonWrapper onClick={handleDeleteClick}>Ta bort bokning</SubmitButtonWrapper>
+    </FormWrapper>
   );
 };

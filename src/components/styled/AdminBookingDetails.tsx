@@ -5,6 +5,7 @@ export const AdminBookingDetailsWrapper = styled.div`
     flex-direction: column;
     gap: 15px;
     font-size: large;
+    
     input {
         cursor: pointer;
     }
