@@ -9,7 +9,8 @@ interface IBookingTime {
 interface ISelectBookingTimeProps {
     handleBookingTime(bookingTime:string):void,
     isTableAvailable:boolean,
-
+    isAvailableAtFive: boolean,
+    isAvailableAtNine: boolean
 }
 
 export const SelectBookingTime = (props:ISelectBookingTimeProps) => {
@@ -28,11 +29,73 @@ export const SelectBookingTime = (props:ISelectBookingTimeProps) => {
    
     
     const html = time.map((item,i)=>{
-        return (
-            <BookingTimeWrapper key={i} onClick={()=>{handleClick(item)}} selected = {item.isSelected} isAvailable = {props.isTableAvailable}>
-                {item.bookingTime}
-            </BookingTimeWrapper>
-        )
+        if(i===0){
+            if(props.isAvailableAtFive){
+                return (
+                    
+                    <BookingTimeWrapper 
+                        key={i} 
+                        onClick={()=>{handleClick(item)}} 
+                        selected = {item.isSelected} 
+                        isAvailable = {props.isTableAvailable}
+                        isAvailableTable = {props.isAvailableAtFive}>
+                        {item.bookingTime}
+                    </BookingTimeWrapper>
+                )
+            }
+            else {
+                return (
+                    
+                    <BookingTimeWrapper 
+                        key={i} 
+                        selected = {false} 
+                        isAvailable = {false}
+                        isAvailableTable = {props.isAvailableAtFive}>
+                        {item.bookingTime}
+                    </BookingTimeWrapper>
+                )
+            }
+        }
+        else if(i===1){
+            if(props.isAvailableAtNine){
+                return (
+                    
+                    <BookingTimeWrapper 
+                        key={i} 
+                        onClick={()=>{handleClick(item)}} 
+                        selected = {item.isSelected} 
+                        isAvailable = {props.isTableAvailable}
+                        isAvailableTable = {props.isAvailableAtNine}>
+                        {item.bookingTime}
+                    </BookingTimeWrapper>
+                )
+            }
+            else {
+                return (
+                    
+                    <BookingTimeWrapper 
+                        key={i} 
+                        selected = {false} 
+                        isAvailable = {false}
+                        isAvailableTable = {props.isAvailableAtNine}>
+                        {item.bookingTime}
+                    </BookingTimeWrapper>
+                )
+            }
+        }
+        // else {
+        //     return (
+                
+        //         <BookingTimeWrapper 
+        //             key={i} 
+        //             onClick={()=>{handleClick(item)}} 
+        //             selected = {item.isSelected} 
+        //             isAvailable = {props.isTableAvailable}
+        //             isAvailableTable = {props.isAvailableAtNine}>
+        //             {item.bookingTime}
+        //         </BookingTimeWrapper>
+        //     )           
+        // }
     })
     return (
         <>

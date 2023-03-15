@@ -9,7 +9,8 @@ interface IWrappersNumberOfGuestsProps {
 }
 interface IWrappersBookingTimeProps {
   selected: boolean,
-  isAvailable: boolean
+  isAvailable: boolean,
+  isAvailableTable: boolean,
 }
 
 
@@ -178,22 +179,19 @@ export const BookingTimeWrapper = styled.div`
   border: 1px solid black;
   border-radius: 2px;
   text-align: center;
-  background-color: ${(props: IWrappersBookingTimeProps) => 
-
-      props.selected ? "black" : "none"
-
-  };
-  border: 1px solid black;
-  color: ${(props: IWrappersBookingTimeProps) => props.selected ? "white" : "black"
-  };
-  color: ${(props: IWrappersBookingTimeProps) =>
-    props.selected ? "white" : "black"};
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  background-color: ${(props: IWrappersBookingTimeProps) => props.isAvailableTable ?  (props.selected ? "black" : "none") :"none"};
+  border: ${(props: IWrappersBookingTimeProps)=> props.isAvailableTable ? "1px solid black" : "1px solid gray"};
+  color: ${(props: IWrappersBookingTimeProps)=> props.isAvailableTable ? (props.selected ? "white" : "black") : "gray"};
+  /* border: 1px solid black;
+  color: ${(props: IWrappersBookingTimeProps) => 
+    props.selected ? "white" : "black"}; */
   padding: 0.5rem 0;
   &:hover {
-    cursor: pointer;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
-    transform: scale(1.01);
+    cursor: ${(props: IWrappersBookingTimeProps)=> props.isAvailableTable ? "pointer" : "auto"};
+    box-shadow: ${(props: IWrappersBookingTimeProps)=> props.isAvailableTable ? "0 0 5px rgba(0, 0, 0, 0.7)" : "none"};
+    transform: ${(props: IWrappersBookingTimeProps)=> props.isAvailableTable ? "scale(1.01)pointer" : "scale(1)"};
+    /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+    transform: scale(1.01); */
   }
 `;
 
