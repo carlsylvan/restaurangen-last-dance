@@ -1,6 +1,7 @@
 import axios from "axios";
 import { IApiResponse } from "../models/IApiResponse";
 import { IBooking } from "../models/IBooking";
+import { IBookingConfirmationId } from "../models/IBookingConfirmationId";
 import { IBookingCustomer } from "../models/IBookingCustomer";
 import { IBookingsAdmin } from "../models/IBookingsAdmin";
 import { ICustomer } from "../models/ICustomer";
@@ -23,7 +24,9 @@ export const API_URL = "https://school-restaurant-api.azurewebsites.net";
 //   return response.data;
 // };
 
-export const sendBooking = async (booking: IBooking) => {
+export const sendBooking = async (
+  booking: IBooking
+): Promise<IBookingConfirmationId> => {
   let response = await axios.post(`${API_URL}/booking/create`, booking);
   return response.data;
 };
@@ -37,7 +40,9 @@ export const getBookings = async () => {
 
 export const getBookedTableById = async (id: string): Promise<IApiResponse> => {
   try {
-    let response = await axios.get<IBookingsAdmin[]>(`${API_URL}/booking/` + id);
+    let response = await axios.get<IBookingsAdmin[]>(
+      `${API_URL}/booking/` + id
+    );
     return { bookedTable: response.data[0], error: "" };
   } catch {
     return { error: "Ett fel har inträffat" };
@@ -62,8 +67,10 @@ export const deleteBookingById = async (id: string) => {
   console.log(response.status);
 };
 
-
-export const updateBookingById = async (id: string, bookedTable: IBookingsAdmin) => {
+export const updateBookingById = async (
+  id: string,
+  bookedTable: IBookingsAdmin
+) => {
   try {
     const updatedBooking = {
       ...bookedTable,
@@ -80,7 +87,10 @@ export const updateBookingById = async (id: string, bookedTable: IBookingsAdmin)
   }
 };
 
-export const updateCustomerById = async (id: string, bookedCustomer: IBookingCustomer) => {
+export const updateCustomerById = async (
+  id: string,
+  bookedCustomer: IBookingCustomer
+) => {
   try {
     const updatedCustomer = {
       ...bookedCustomer,
