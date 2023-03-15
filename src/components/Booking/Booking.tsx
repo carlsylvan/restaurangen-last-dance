@@ -36,7 +36,7 @@ export const Booking = () => {
   const [booking, setBooking] = useState<IBooking>(startValueBooking);
   const { bookings, changeLoadedFromApi } = useOutletContext<IRestaurantContext>();
   const [isTableAvailable, setIsTableAvailable] = useState<boolean>(true)
-
+  const navigate = useNavigate();
   useEffect(()=>{
     let status = checkedAvailableTables(bookings, booking);
     setIsTableAvailable(status);
@@ -102,7 +102,7 @@ export const Booking = () => {
           <SelectBookingTime handleBookingTime={handleBookingTime} isTableAvailable = {isTableAvailable}/>
         </BookingTimeDivWrapper>
         {isTableAvailable ?
-        <>
+          <>
           <InputWrapper>
             <label htmlFor="firstname">Förnamn</label>
             <input
@@ -124,16 +124,16 @@ export const Booking = () => {
               onChange={handleChange}
               required
             />
-          <label htmlFor="epost">Email</label>
-          <input
-            type="email"
-            id="epost"
-            placeholder="Epost"
-            name="email"
-            value={customer.email}
-            onChange={handleChange}
-            required
-          />
+            <label htmlFor="epost">Email</label>
+            <input
+              type="email"
+              id="epost"
+              placeholder="Epost"
+              name="email"
+              value={customer.email}
+              onChange={handleChange}
+              required
+            />
 
               <label htmlFor="phone">Mobil</label>
               <input
@@ -146,12 +146,13 @@ export const Booking = () => {
                 pattern="[0-9]{10}"
                 required
               />
+            
             </InputWrapper>
             <SubmitButtonWrapper type="submit">Boka</SubmitButtonWrapper>
           </>
-        ) : (
+         : 
           <h4>Det finns inga lediga bord</h4>
-        )}
+        }
       </FormWrapper>
     </>
   );
