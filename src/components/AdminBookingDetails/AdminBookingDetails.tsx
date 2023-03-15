@@ -3,8 +3,7 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { IBookingCustomer } from "../../models/IBookingCustomer";
 import { IBookingsAdmin } from "../../models/IBookingsAdmin";
 import { deleteBookingById, getBookedTableById, getCustomerById, RESTAURANT_ID, updateBookingById, updateCustomerById } from "../../services/bookingService";
-import { AdminBookingDetailsWrapper, CoolButton } from "../styled/AdminBookingDetails";
-import { BookingWrapper, H3, H4 } from "../styled/Booking";
+import { H3, H4 } from "../styled/Booking";
 import { FormWrapper, InputWrapper, SubmitButtonWrapper } from "../styled/Wrappers";
 
 export const AdminBookingDetails = () => {
