@@ -45,19 +45,30 @@ export const Admin = () => {
       (booking) => booking.date === findMatchingDates
     );
     let bookingsByDate = foundBookings.map((booking: IBookingsAdmin) => {
-      return (
-        <AdminBookingWrapper
-          onClick={() => {
-            handleClick(booking);
-          }}
-          key={booking._id}>
-          <h4>
-            Sittning: {booking.date} kl {booking.time}
-          </h4>
-          <p>Antal gäster: {booking.numberOfGuests}</p>
-          <h5>Bokningsnummer: {booking._id}</h5>
-        </AdminBookingWrapper>
-      );
+      console.log(booking);
+
+      if (booking) {
+        return (
+          <AdminBookingWrapper
+            onClick={() => {
+              handleClick(booking);
+            }}
+            key={booking._id}>
+            <h4>
+              Sittning: {booking.date} kl {booking.time}
+            </h4>
+            <p>Antal gäster: {booking.numberOfGuests}</p>
+            <h5>Bokningsnummer: {booking._id}</h5>
+          </AdminBookingWrapper>
+        );
+      } else {
+        return (
+          <>
+            {console.log("Hello")}
+            <p>Inga bokningar hittades det här datumet</p>
+          </>
+        );
+      }
     });
     setBookingsByDate(bookingsByDate);
   };
