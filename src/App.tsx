@@ -28,10 +28,7 @@ function App() {
   const [open, setOpen] = useState<boolean>(false);
   const [bookings, setBookings] = useState<IBookingsAdmin[]>([]);
   const [loadedFromApi, setLoadedFromApi] = useState<boolean>(false);
-  // const [availableTimes, setAvailableTime] = useState<IAvailableTimes[]>([
-  //   {bookingTime: "17:00", numberOfBookedTables: 0, isAvailable: true},
-  //   {bookingTime: "21:00", numberOfBookedTables: 0, isAvailable: true},
-  // ]);
+
 
   useEffect(() => {
     const getBookingData = async () => {

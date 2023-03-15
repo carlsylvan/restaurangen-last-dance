@@ -11,9 +11,7 @@ interface IWrappersBookingTimeProps {
   selected: boolean,
   isAvailable: boolean
 }
-// interface IBookingTimeDivWrapperProps {
-//   isAvailable: boolean;
-// }
+
 
 export const HeaderWrapper = styled.header`
   /* padding-top: 25%; */

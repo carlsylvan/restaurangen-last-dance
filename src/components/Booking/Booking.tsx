@@ -37,35 +37,10 @@ export const Booking = () => {
   const [booking, setBooking] = useState<IBooking>(startValueBooking);
   const { bookings, changeLoadedFromApi } = useOutletContext<IRestaurantContext>();
   const [isTableAvailable, setIsTableAvailable] = useState<boolean>(true)
-  // const [availableTimes, setAvailableTime] = useState<IAvailableTimes[]>([
-  //   {bookingTime: "17:00", numberOfBookedTables: 0, isAvailable: true},
-  //   {bookingTime: "21:00", numberOfBookedTables: 0, isAvailable: true},
-  // ]);
+
   useEffect(()=>{
-    // let status = checkedAvailableTables(bookings, booking)
-    // setIsTableAvailable(status);
-    console.log(isTableAvailable);
-    // let numberOfTableAtFive = 0;
-    // let numberOfTablesAtNine = 0;
-    // let temp = [...availableTimes];
-    // bookings.map((item)=>{
-    // if(item.date===booking.date){
-    //    if(item.time==="17:00"){
-    //     numberOfTableAtFive=numberOfTableAtFive+Math.ceil(item.numberOfGuests/6);
-    //   }
-    //   else if(item.time==="21:00") {        
-    //     numberOfTablesAtNine=numberOfTablesAtNine+Math.ceil(item.numberOfGuests/6);
-    //   }
-    // }
-    // });
-    // temp[0].numberOfBookedTables=numberOfTableAtFive;
-    // temp[1].numberOfBookedTables=numberOfTablesAtNine;
-    // ((temp[0].numberOfBookedTables+Math.ceil(booking.numberOfGuests/6))>1) ? temp[0].isAvailable = false : temp[0].isAvailable = true;
-    // ((temp[1].numberOfBookedTables+Math.ceil(booking.numberOfGuests/6))>1) ? temp[1].isAvailable = false : temp[1].isAvailable = true;
-    // setAvailableTime(temp);
     let status = checkedAvailableTables(bookings, booking);
     setIsTableAvailable(status);
-   
   }, [booking]);
 
 
@@ -141,7 +116,7 @@ export const Booking = () => {
               id="lastname"
               placeholder="Efternamn"
               name="lastname"
-              value={customer.name}
+              value={customer.lastname}
               onChange={handleChange}
               required
             />
@@ -153,7 +128,6 @@ export const Booking = () => {
             name="email"
             value={customer.email}
             onChange={handleChange}
-            pattern=".+@+.\.com"
             required
           />
 

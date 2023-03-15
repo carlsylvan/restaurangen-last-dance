@@ -28,30 +28,11 @@ export const SelectBookingTime = (props:ISelectBookingTimeProps) => {
    
     
     const html = time.map((item,i)=>{
-
         return (
             <BookingTimeWrapper key={i} onClick={()=>{handleClick(item)}} selected = {item.isSelected} isAvailable = {props.isTableAvailable}>
-                        {item.bookingTime}
+                {item.bookingTime}
             </BookingTimeWrapper>
-
         )
-    
-        // if(item.bookingTime==="21:00"){
-        //     if(props.isTableAvailable)
-        //         return (
-        //             <BookingTimeWrapper key={i} onClick={()=>{handleClick(item)}} selected = {item.isSelected} isAvailable = {props.isTableAvailable}>
-        //                 {item.bookingTime}
-        //             </BookingTimeWrapper>
-        //     )
-        //     else {
-        //         return (
-        //             <BookingTimeWrapper key={i} selected = {false} isAvailable = {props.isTableAvailable}>
-        //                 {item.bookingTime}
-        //             </BookingTimeWrapper>  
-        //         )
-        //     }
-
-        // }
     })
     return (
         <>

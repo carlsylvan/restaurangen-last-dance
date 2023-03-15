@@ -11,7 +11,7 @@ export const checkedAvailableTables = (bookings: IBookingsAdmin[], booking: IBoo
       }
     }
     });
-  if(numberOfTables+Math.ceil(booking.numberOfGuests/6)>2){
+  if(numberOfTables+Math.ceil(booking.numberOfGuests/6)>3){
     return false
   }
   else {
