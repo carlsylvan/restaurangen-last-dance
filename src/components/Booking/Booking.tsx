@@ -91,10 +91,12 @@ export const Booking = () => {
 
   return (
     <>
+      <H1>Last Dance</H1>
+      <H4>restaurang</H4>
       <H3>Bokning</H3>
       <FormWrapper onSubmit={handleSubmit}>
         <NumberOfGuestsWrapper>
-          <H4>Antal presoner</H4>
+          <H4>Antal personer</H4>
           <SelectGuestsAmount handleGuestsNum = {handleGuestsNum} startNumber = {1}/>
         </NumberOfGuestsWrapper>
         <InputWrapper>

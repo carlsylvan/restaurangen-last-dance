@@ -94,16 +94,7 @@ export const PageWrapper = styled.main`
   flex-direction: column;
   align-items: center;
 `;
-export const PageDownIconWrapper = styled.div`
-  position: absolute;
-  bottom: 0.2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 30px;
-  &:hover {
-    color: #525252;
-  }
-`;
+
 export const StartPageWrapper = styled.div`
   height: 75vh;
   width: 100%;
@@ -165,6 +156,7 @@ export const AmountGuestsNumberWrapper = styled.div`
   border: 1px solid black;
   border-radius: 2px;
   padding: 0.4rem 0;
+  text-align: center;
   background-color: ${(props: IWrappersNumberOfGuestsProps) =>
     props.selected ? "black" : "none"};
   color: ${(props: IWrappersNumberOfGuestsProps) =>
@@ -187,6 +179,7 @@ export const BookingTimeWrapper = styled.div`
   width: 40%;
   border: 1px solid black;
   border-radius: 2px;
+  text-align: center;
   background-color: ${(props: IWrappersBookingTimeProps) => {
     if(props.isAvailable){
       return props.selected ? "black" : "none"}
@@ -214,7 +207,7 @@ export const BookingTimeWrapper = styled.div`
   padding: 0.5rem 0;
   &:hover {
     cursor: ${(props: IWrappersBookingTimeProps)=>
-      props.selected ? "pointer" : "none"};
+      props.isAvailable ? "pointer" : "auto"};
     box-shadow: ${(props: IWrappersBookingTimeProps)=>
       props.selected ? "0 0 5px rgba(0, 0, 0, 0.7)" : "none"};
     transform: ${(props: IWrappersBookingTimeProps)=>

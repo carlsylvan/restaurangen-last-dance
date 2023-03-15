@@ -9,7 +9,6 @@ import {
   HamburgerWrapper,
   HeaderWrapper,
   NavWrapper,
-  PageDownIconWrapper,
   PageWrapper,
 } from "./components/styled/Wrappers";
 import { IoIosArrowDown } from "react-icons/io";

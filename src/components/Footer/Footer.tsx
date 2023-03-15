@@ -6,7 +6,7 @@ import { SocialIconWrapper } from '../styled/Wrappers';
 export const Footer = () => {
     return (
         <>
-            <span>Adress: Stopvägen 64, 138 35 Bromma</span>
+            <span>Adress: Stopvägen 67, 138 35 Bromma</span>
             <span>Öppettider: Ons-Sön 17-24</span>
             <div>
                 <SocialIconWrapper>
