@@ -7,6 +7,7 @@ export const HamburgerLogoLabel = styled.label`
     display: flex;
     flex-direction: column;
     gap: 10px;
+    padding: 1rem;
     div {
       width: 2em;
       background-color: black;

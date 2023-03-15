@@ -48,19 +48,21 @@ function App() {
     setLoadedFromApi(false);
   };
 
-
+  const handleClick = () => {
+    setOpen(false);
+  }
   console.log(bookings);
   return (
     <div className="App">
       <HeaderWrapper>
         <NavWrapper open={open}>
-          <Nav></Nav>
+          <Nav handleOpenMenu={handleOpenMenu} open={open}></Nav>
         </NavWrapper>
         <HamburgerWrapper>
           <HamburgerLogo handleOpenMenu={handleOpenMenu} open={open} />
         </HamburgerWrapper>
       </HeaderWrapper>
-      <PageWrapper>
+      <PageWrapper onClick={handleClick}>
         <Outlet context={{ bookings, changeLoadedFromApi }}></Outlet>
       </PageWrapper>
       <FooterWrapper>
