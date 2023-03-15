@@ -29,6 +29,7 @@ function App() {
   const [bookings, setBookings] = useState<IBookingsAdmin[]>([]);
   const [loadedFromApi, setLoadedFromApi] = useState<boolean>(false);
 
+
   useEffect(() => {
     const getBookingData = async () => {
       let bookings = await getBookings();
@@ -46,6 +47,7 @@ function App() {
   const changeLoadedFromApi = () => {
     setLoadedFromApi(false);
   };
+
 
   console.log(bookings);
   return (

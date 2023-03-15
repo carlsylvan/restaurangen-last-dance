@@ -11,9 +11,7 @@ interface IWrappersBookingTimeProps {
   selected: boolean,
   isAvailable: boolean
 }
-interface IBookingTimeDivWrapperProps {
-  isAvailable: boolean;
-}
+
 
 export const HeaderWrapper = styled.header`
   /* padding-top: 25%; */
@@ -180,40 +178,22 @@ export const BookingTimeWrapper = styled.div`
   border: 1px solid black;
   border-radius: 2px;
   text-align: center;
-  background-color: ${(props: IWrappersBookingTimeProps) => {
-    if(props.isAvailable){
-      return props.selected ? "black" : "none"}
-    else {return "none"};  
-    }
+  background-color: ${(props: IWrappersBookingTimeProps) => 
+
+      props.selected ? "black" : "none"
+
   };
-  border: ${(props: IWrappersBookingTimeProps) => {
-    if(props.isAvailable){
-      return "1px solid black"}
-    else {return "1px solid gray"};  
-    }
-  };
-  opacity: ${(props: IWrappersBookingTimeProps) => 
-    props.isAvailable ? "1" : "0.5"
-  };
-  color: ${(props: IWrappersBookingTimeProps) => {
-    if(props.isAvailable){
-      return props.selected ? "white" : "black"}
-    else {return "gray"};  
-    }
+  border: 1px solid black;
+  color: ${(props: IWrappersBookingTimeProps) => props.selected ? "white" : "black"
   };
   color: ${(props: IWrappersBookingTimeProps) =>
     props.selected ? "white" : "black"};
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
   padding: 0.5rem 0;
   &:hover {
-    cursor: ${(props: IWrappersBookingTimeProps)=>
-      props.isAvailable ? "pointer" : "auto"};
-    box-shadow: ${(props: IWrappersBookingTimeProps)=>
-      props.selected ? "0 0 5px rgba(0, 0, 0, 0.7)" : "none"};
-    transform: ${(props: IWrappersBookingTimeProps)=>
-      props.selected ? "scale(1.01)" : "scale(1)"};
-    /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
-    transform: scale(1.01); */
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+    transform: scale(1.01);
   }
 `;
 
