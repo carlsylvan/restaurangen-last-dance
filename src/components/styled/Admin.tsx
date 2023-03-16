@@ -118,5 +118,14 @@ export const AvailableTables = styled.div `
     color: black;
     border: 6px solid black;
     font-size: 16px;
+    @media screen and (min-width: 768px) {
+      width: 35%;
+    }
+    @media screen and (min-width: 1000px) {
+      width: 30%;
+    }
+    @media screen and (min-width: 1400px) {
+      width: 25%;
+    }
   }
 `;
