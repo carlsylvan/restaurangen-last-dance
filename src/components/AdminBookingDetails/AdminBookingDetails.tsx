@@ -153,7 +153,7 @@ const handleSubmit = (e: FormEvent) => {
         </select>
         </InputWrapper>
         <InputWrapper>
-      <label htmlFor="numberOfGuests">Antal personer</label>
+      <label htmlFor="numberOfGuests">Antal personer:</label>
         <select
           name="numberOfGuests"
           value={bookedTable.numberOfGuests}
@@ -176,7 +176,7 @@ const handleSubmit = (e: FormEvent) => {
       {editCustomer ? (
         <>
         <InputWrapper>
-      <label htmlFor="name">Namn</label>
+      <label htmlFor="name">Namn:</label>
         <input
           id="name"
           type="text"
@@ -186,8 +186,7 @@ const handleSubmit = (e: FormEvent) => {
         />
         </InputWrapper>
         <InputWrapper>
-      <label htmlFor="lastname"></label>
-        Efternamn:
+      <label htmlFor="lastname">Efternamn:</label>
         <input
           id="lastname"
           type="text"
@@ -197,8 +196,7 @@ const handleSubmit = (e: FormEvent) => {
         />
         </InputWrapper>
         <InputWrapper>
-      <label htmlFor="email"></label>
-        Email:
+      <label htmlFor="email">Email:</label>
         <input
           id="email"
           type="email"
@@ -208,10 +206,9 @@ const handleSubmit = (e: FormEvent) => {
         />
         </InputWrapper>
         <InputWrapper>
-      <label htmlFor="email"></label>
-        Telefon:
+      <label htmlFor="phone">Telefon:</label>
         <input
-          id="email"
+          id="phone"
           type="tel"
           name="phone"
           value={bookedCustomer.phone}
@@ -229,7 +226,7 @@ const handleSubmit = (e: FormEvent) => {
         <SubmitButtonWrapper onClick={handleEditCustomerClick}>Redigera kund</SubmitButtonWrapper>
       </>
       )}
-      {isTableAvailable ? (<SubmitButtonWrapper onClick={handleUpdateClick}>Uppdatera bokning</SubmitButtonWrapper>) : (<p style={{color: "red"}}>Det finns inga lediga bord den tiden</p>)}
+      {isTableAvailable ? (<SubmitButtonWrapper onClick={handleUpdateClick}>Uppdatera bokning</SubmitButtonWrapper>) : (<SubmitButtonWrapper style={{color: "red"}}>Det finns inga lediga bord den tiden</SubmitButtonWrapper>)}
       <SubmitButtonWrapper onClick={handleDeleteClick}>Ta bort bokning</SubmitButtonWrapper>
     </FormWrapper>
     </>
