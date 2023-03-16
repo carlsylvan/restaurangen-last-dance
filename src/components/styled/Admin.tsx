@@ -110,22 +110,19 @@ export const AvailableTables = styled.div `
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
+
   padding: 1rem 0;
+  h4 {
+    width: 100%;
+    padding: 1rem 0;
+  }
   div {
-    width: 60%;
-    border-radius: 18px;
-    color: black;
-    border: 6px solid black;
-    font-size: 16px;
+    width: 100%;
     @media screen and (min-width: 768px) {
-      width: 35%;
+      width: 20%;
     }
-    @media screen and (min-width: 1000px) {
-      width: 30%;
-    }
-    @media screen and (min-width: 1400px) {
-      width: 25%;
+    span {
+      font-size: 24px;
     }
   }
 `;

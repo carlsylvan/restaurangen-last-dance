@@ -107,13 +107,14 @@ export const Admin = () => {
           </AdminBookingInputWrapper>
         </AdminForm>
         <AvailableTables>
+          <H4>Tilgängliga bord</H4>
         <div>
-          <span>17:00-</span>
-          <span>Tillgängliga bord: {availableTables[0].numOfAvailableTables}</span>
+          <span>17:00 -</span>
+          <span> {availableTables[0].numOfAvailableTables}st</span>
         </div>
         <div>
-          <span>21:00-</span>
-          <span>Tillgängliga bord: {availableTables[1].numOfAvailableTables}</span>
+          <span>21:00 -</span>
+          <span> {availableTables[1].numOfAvailableTables}st</span>
         </div>
         </AvailableTables>
         <AdminBookingsWrapper>
