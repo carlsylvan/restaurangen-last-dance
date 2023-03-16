@@ -103,3 +103,20 @@ export const AdminBookingButton = styled(Button)`
     opacity: 0.75;
   }
 `;
+
+export const AvailableTables = styled.div `
+  width: 100%;
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 1rem 0;
+  div {
+    width: 60%;
+    border-radius: 18px;
+    color: black;
+    border: 6px solid black;
+    font-size: 16px;
+  }
+`;
