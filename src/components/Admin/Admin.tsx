@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { IRestaurantContext } from "../../App";
+import { checkedAvailableTables } from "../../functions/checkedAvailableTables";
+import { IAvailableTime } from "../../models/IAvailableTime";
 import { IBookingsAdmin } from "../../models/IBookingsAdmin";
 import {
   AdminBookingButton,
@@ -10,13 +12,17 @@ import {
   AdminBookingWrapper,
   AdminForm,
   AdminWrapper,
+  AvailableTables,
 } from "../styled/Admin";
 import { H1, H3, H4 } from "../styled/Booking";
+
 
 export const Admin = () => {
   const { bookings } = useOutletContext<IRestaurantContext>();
   const [filteredBookings, setfilteredBookings] = useState<JSX.Element[]>([]);
+  const [availableTables, setAvailableTables] = useState<IAvailableTime[]>([{bookingTime:"17:00", numOfAvailableTables: 0, isAvailable: true},{bookingTime:"21:00", numOfAvailableTables: 0, isAvailable: true}]);
   const navigate = useNavigate();
+
 
   useEffect(() => {
     handleFilter("");
@@ -49,7 +55,8 @@ export const Admin = () => {
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const findMatchingDates = e.target.value;
-
+    let response = checkedAvailableTables(bookings, e.target.value, 0);
+    setAvailableTables(response);
     handleFilter(findMatchingDates);
   };
   function handleFilter(findMatchingDates: string) {
@@ -78,7 +85,7 @@ export const Admin = () => {
       });
     setfilteredBookings(bookingsByDate);
   }
-
+  console.log(availableTables);
   return (
     <>
       <AdminWrapper>
@@ -99,6 +106,16 @@ export const Admin = () => {
             <AdminBookingButton type="submit">Sök</AdminBookingButton>
           </AdminBookingInputWrapper>
         </AdminForm>
+        <AvailableTables>
+        <div>
+          <span>17:00-</span>
+          <span>Tillgängliga bord: {availableTables[0].numOfAvailableTables}</span>
+        </div>
+        <div>
+          <span>21:00-</span>
+          <span>Tillgängliga bord: {availableTables[1].numOfAvailableTables}</span>
+        </div>
+        </AvailableTables>
         <AdminBookingsWrapper>
           {filteredBookings.length > 0 ? (
             filteredBookings

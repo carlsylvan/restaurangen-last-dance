@@ -37,7 +37,7 @@ export const Booking = () => {
   const [customer, setCustomer] = useState<ICustomer>(startValueCustomer);
   const [booking, setBooking] = useState<IBooking>(startValueBooking);
   const { bookings, changeLoadedFromApi } = useOutletContext<IRestaurantContext>();
-  const [availableTimes, setAvailableTimes] = useState<IAvailableTime[]>([{bookingTime:"17:00", isAvailable:true},{bookingTime:"21:00", isAvailable:true}]);
+  const [availableTimes, setAvailableTimes] = useState<IAvailableTime[]>([{bookingTime:"17:00", numOfAvailableTables: 0,  isAvailable:true},{bookingTime:"21:00",numOfAvailableTables: 0, isAvailable:true}]);
   const navigate = useNavigate();
 
   useEffect(()=>{
@@ -70,7 +70,8 @@ export const Booking = () => {
     localStorage.setItem("booking", JSON.stringify(booking));
     navigate(`/booking/${id}`);
   };
-
+  console.log(availableTimes);
+  
   return (
     <>
       <H1>Last Dance</H1>
