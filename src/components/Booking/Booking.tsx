@@ -15,8 +15,9 @@ import {
 import { SelectGuestsAmount } from "../SelectGuestsAmount/SelectGuestsAmount";
 import { SelectBookingTime } from "../SelectBookingTime/SelectBookingTime";
 import { IAvailableTimes } from "../../models/IAvailableTimes";
-import { checkedAvailableTables, checkedAvailableTablesTest, IAvailableTime } from "../../functions/checkedAvailableTables";
+import { checkedAvailableTables } from "../../functions/checkedAvailableTables";
 import { useNavigate } from "react-router-dom";
+import { IAvailableTime } from "../../models/IAvailableTime";
 
 export const Booking = () => {
   const startValueCustomer: ICustomer = {
@@ -41,11 +42,8 @@ export const Booking = () => {
 
 
   useEffect(()=>{
-    let status = checkedAvailableTables(bookings, booking);
-    let list = checkedAvailableTablesTest(bookings,booking);
+    let list = checkedAvailableTables(bookings,booking.date, booking.numberOfGuests);
     setAvailableTimes(list);
-    
-    setIsTableAvailable(status);
   }, [booking]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

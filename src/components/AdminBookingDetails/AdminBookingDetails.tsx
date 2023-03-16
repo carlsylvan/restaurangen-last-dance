@@ -2,6 +2,7 @@ import React, { FormEvent, useEffect, useState } from "react";
 import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { IRestaurantContext } from "../../App";
 import { checkedAvailableTables } from "../../functions/checkedAvailableTables";
+import { IAvailableTime } from "../../models/IAvailableTime";
 import { IBooking } from "../../models/IBooking";
 import { IBookingCustomer } from "../../models/IBookingCustomer";
 import { IBookingsAdmin } from "../../models/IBookingsAdmin";
@@ -27,7 +28,6 @@ export const AdminBookingDetails = () => {
 })
 const { bookings, changeLoadedFromApi } = useOutletContext<IRestaurantContext>();
 const [editCustomer, setEditCustomer] = useState(false);
-const [isAvailable, setIsAvailable] = useState(true);
 const [booking, setBooking] = useState<IBooking>({
   restaurantId: "6408a12376187b915f68e171",
   date: "",
@@ -35,26 +35,22 @@ const [booking, setBooking] = useState<IBooking>({
   numberOfGuests: 1,
   customer: {name: "", lastname: "", email: "", phone: ""},
 });
-const [editIsPossible, setEditIsPossible] = useState(true);
+const [isTableAvailable, setIsTableAvailable] = useState<boolean>(true);
+// const [availableTimes, setAvailableTimes] = useState<IAvailableTime[]>([{bookingTime:"17:00", isAvailable:true},{bookingTime:"21:00", isAvailable:true}]);
+
 
   const {id} = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    let newBooking = {...booking};
-    newBooking.date = bookedTable.date;
-    newBooking.time = bookedTable.time;
-    newBooking.numberOfGuests = bookedTable.numberOfGuests;
-    setBooking(newBooking);
     let bookingsCopy = [...bookings];
     let filteredList = bookingsCopy.filter((booking) => booking._id != bookedTable._id);
-    let availabilityStatus = checkedAvailableTables(filteredList, newBooking);
-    setEditIsPossible(availabilityStatus);
-    console.log(availabilityStatus);
-  
+    let availableTimes: IAvailableTime[] = checkedAvailableTables(filteredList, bookedTable.date, bookedTable.numberOfGuests);
+    let status = availableTimes.filter((item) => item.bookingTime === bookedTable.time);
+
+    status.length > 0 ? setIsTableAvailable(status[0].isAvailable) : setIsTableAvailable(true);
   }, [bookedTable]);
 
-    console.log(editIsPossible);
   useEffect(() => {
     const getBookings = async () => {
       if (id !== undefined) {
@@ -152,7 +148,7 @@ const handleSubmit = (e: FormEvent) => {
         </select>
         </InputWrapper>
         <InputWrapper>
-      <label htmlFor="numberOfGuests">Antal personer</label>
+      <label htmlFor="numberOfGuests">Antal personer:</label>
         <select
           name="numberOfGuests"
           value={bookedTable.numberOfGuests}
@@ -175,7 +171,7 @@ const handleSubmit = (e: FormEvent) => {
       {editCustomer ? (
         <>
         <InputWrapper>
-      <label htmlFor="name">Namn</label>
+      <label htmlFor="name">Namn:</label>
         <input
           id="name"
           type="text"
@@ -185,8 +181,7 @@ const handleSubmit = (e: FormEvent) => {
         />
         </InputWrapper>
         <InputWrapper>
-      <label htmlFor="lastname"></label>
-        Efternamn:
+      <label htmlFor="lastname">Efternamn:</label>
         <input
           id="lastname"
           type="text"
@@ -196,8 +191,7 @@ const handleSubmit = (e: FormEvent) => {
         />
         </InputWrapper>
         <InputWrapper>
-      <label htmlFor="email"></label>
-        Email:
+      <label htmlFor="email">Email:</label>
         <input
           id="email"
           type="email"
@@ -207,10 +201,9 @@ const handleSubmit = (e: FormEvent) => {
         />
         </InputWrapper>
         <InputWrapper>
-      <label htmlFor="email"></label>
-        Telefon:
+      <label htmlFor="phone">Telefon:</label>
         <input
-          id="email"
+          id="phone"
           type="tel"
           name="phone"
           value={bookedCustomer.phone}
@@ -222,13 +215,13 @@ const handleSubmit = (e: FormEvent) => {
       ) : (
         <>
         <H4>Kundinformation:</H4>
-        <p>Namn: {bookedCustomer.name} {bookedCustomer.lastname}</p>
-        <p>E-post: {bookedCustomer.email}</p>
-        <p>Telefon: {bookedCustomer.phone}</p>
+        <InputWrapper>Namn: {bookedCustomer.name} {bookedCustomer.lastname}</InputWrapper>
+        <InputWrapper>E-post: {bookedCustomer.email}</InputWrapper>
+        <InputWrapper>Telefon: {bookedCustomer.phone}</InputWrapper>
         <SubmitButtonWrapper onClick={handleEditCustomerClick}>Redigera kund</SubmitButtonWrapper>
       </>
       )}
-      {editIsPossible ? (<SubmitButtonWrapper onClick={handleUpdateClick}>Uppdatera bokning</SubmitButtonWrapper>) : (<p>Det finns inga lediga bord den tiden</p>)}
+      {isTableAvailable ? (<SubmitButtonWrapper onClick={handleUpdateClick}>Uppdatera bokning</SubmitButtonWrapper>) : (<SubmitButtonWrapper style={{background:"white", color: "black"}}>Det finns inga lediga bord den tiden</SubmitButtonWrapper>)}
       <SubmitButtonWrapper onClick={handleDeleteClick}>Ta bort bokning</SubmitButtonWrapper>
     </FormWrapper>
     </>

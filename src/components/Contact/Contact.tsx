@@ -14,12 +14,17 @@ const Textarea = styled.textarea`
 `;
 
 export const Contact = () => {
+  const handleSubmit = () => {
+    alert(
+      "Tack för ditt meddelande! Vi återkommer till dig så fort som möjligt."
+    );
+  };
   return (
     <>
       <H1>Last Dance</H1>
       <H4>restaurang</H4>
       <h3>Kontakta oss</h3>
-      <FormWrapper>
+      <FormWrapper onSubmit={handleSubmit}>
         <InputWrapper>
           <Label>Namn</Label>
           <Input type="text" required />
