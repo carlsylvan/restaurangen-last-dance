@@ -15,7 +15,7 @@ import {
 import { SelectGuestsAmount } from "../SelectGuestsAmount/SelectGuestsAmount";
 import { SelectBookingTime } from "../SelectBookingTime/SelectBookingTime";
 import { IAvailableTimes } from "../../models/IAvailableTimes";
-import { checkedAvailableTables } from "../../functions/checkedAvailableTables";
+import { checkedAvailableTables, checkedAvailableTablesTest, IAvailableTime } from "../../functions/checkedAvailableTables";
 import { useNavigate } from "react-router-dom";
 
 export const Booking = () => {
@@ -35,10 +35,16 @@ export const Booking = () => {
   const [customer, setCustomer] = useState<ICustomer>(startValueCustomer);
   const [booking, setBooking] = useState<IBooking>(startValueBooking);
   const { bookings, changeLoadedFromApi } = useOutletContext<IRestaurantContext>();
-  const [isTableAvailable, setIsTableAvailable] = useState<boolean>(true)
+  const [isTableAvailable, setIsTableAvailable] = useState<boolean>(true);
+  const [availableTimes, setAvailableTimes] = useState<IAvailableTime[]>([{bookingTime:"17:00", isAvailable:true},{bookingTime:"21:00", isAvailable:true}]);
   const navigate = useNavigate();
+
+
   useEffect(()=>{
     let status = checkedAvailableTables(bookings, booking);
+    let list = checkedAvailableTablesTest(bookings,booking);
+    setAvailableTimes(list);
+    
     setIsTableAvailable(status);
   }, [booking]);
 
@@ -69,7 +75,7 @@ export const Booking = () => {
   };
 
 
-  console.log(isTableAvailable);
+  console.log(availableTimes);
   console.log(bookings);
 
   return (
@@ -99,7 +105,11 @@ export const Booking = () => {
           />
         </InputWrapper>
         <BookingTimeDivWrapper>
-          <SelectBookingTime handleBookingTime={handleBookingTime} isTableAvailable = {isTableAvailable}/>
+          <SelectBookingTime 
+            handleBookingTime={handleBookingTime} 
+            isTableAvailable = {isTableAvailable} 
+            isAvailableAtFive = {availableTimes[0].isAvailable}
+            isAvailableAtNine = {availableTimes[1].isAvailable}/>
         </BookingTimeDivWrapper>
         {isTableAvailable ?
           <>
