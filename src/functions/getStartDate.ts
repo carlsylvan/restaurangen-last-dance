@@ -6,9 +6,6 @@ export const getStartDate = () => {
     let yearToString = "";
     let monthToString = "";
     let dayToString = "";
-    console.log(year);
-    console.log(month);
-    console.log(day);
     month<10 ? monthToString="0"+month.toString() : monthToString=month.toString(); 
     day<10 ? dayToString="0"+day.toString() : dayToString=day.toString(); 
     yearToString=year.toString();

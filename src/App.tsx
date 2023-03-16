@@ -51,7 +51,6 @@ function App() {
   const handleClick = () => {
     setOpen(false);
   }
-  console.log(bookings);
   return (
     <div className="App">
       <HeaderWrapper>

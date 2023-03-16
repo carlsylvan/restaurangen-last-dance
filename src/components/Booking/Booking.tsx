@@ -71,10 +71,6 @@ export const Booking = () => {
     navigate(`/booking/${id}`);
   };
 
-
-  console.log(availableTimes);
-  console.log(bookings);
-
   return (
     <>
       <H1>Last Dance</H1>
