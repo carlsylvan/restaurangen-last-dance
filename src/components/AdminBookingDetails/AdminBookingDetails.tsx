@@ -1,7 +1,8 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { IRestaurantContext } from "../../App";
-import { checkedAvailableTables, checkedAvailableTablesTest, IAvailableTime } from "../../functions/checkedAvailableTables";
+import { checkedAvailableTables } from "../../functions/checkedAvailableTables";
+import { IAvailableTime } from "../../models/IAvailableTime";
 import { IBooking } from "../../models/IBooking";
 import { IBookingCustomer } from "../../models/IBookingCustomer";
 import { IBookingsAdmin } from "../../models/IBookingsAdmin";
@@ -35,27 +36,21 @@ const [booking, setBooking] = useState<IBooking>({
   customer: {name: "", lastname: "", email: "", phone: ""},
 });
 const [isTableAvailable, setIsTableAvailable] = useState<boolean>(true);
-const [availableTimes, setAvailableTimes] = useState<IAvailableTime[]>([{bookingTime:"17:00", isAvailable:true},{bookingTime:"21:00", isAvailable:true}]);
+// const [availableTimes, setAvailableTimes] = useState<IAvailableTime[]>([{bookingTime:"17:00", isAvailable:true},{bookingTime:"21:00", isAvailable:true}]);
 
 
   const {id} = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    let newBooking = {...booking};
-    newBooking.date = bookedTable.date;
-    newBooking.time = bookedTable.time;
-    newBooking.numberOfGuests = bookedTable.numberOfGuests;
-    setBooking(newBooking);
     let bookingsCopy = [...bookings];
     let filteredList = bookingsCopy.filter((booking) => booking._id != bookedTable._id);
-    let status = checkedAvailableTables(filteredList, newBooking);
-    setIsTableAvailable(status);
-    let list = checkedAvailableTablesTest(filteredList, newBooking);
-    setAvailableTimes(list);
-    
-    setIsTableAvailable(status);
+    let availableTimes: IAvailableTime[] = checkedAvailableTables(filteredList, bookedTable.date, bookedTable.numberOfGuests);
+    let status = availableTimes.filter((item) => item.bookingTime === bookedTable.time);
+
+    status.length > 0 ? setIsTableAvailable(status[0].isAvailable) : setIsTableAvailable(true);
   }, [bookedTable]);
+
   useEffect(() => {
     const getBookings = async () => {
       if (id !== undefined) {
@@ -220,13 +215,13 @@ const handleSubmit = (e: FormEvent) => {
       ) : (
         <>
         <H4>Kundinformation:</H4>
-        <p>Namn: {bookedCustomer.name} {bookedCustomer.lastname}</p>
-        <p>E-post: {bookedCustomer.email}</p>
-        <p>Telefon: {bookedCustomer.phone}</p>
+        <InputWrapper>Namn: {bookedCustomer.name} {bookedCustomer.lastname}</InputWrapper>
+        <InputWrapper>E-post: {bookedCustomer.email}</InputWrapper>
+        <InputWrapper>Telefon: {bookedCustomer.phone}</InputWrapper>
         <SubmitButtonWrapper onClick={handleEditCustomerClick}>Redigera kund</SubmitButtonWrapper>
       </>
       )}
-      {isTableAvailable ? (<SubmitButtonWrapper onClick={handleUpdateClick}>Uppdatera bokning</SubmitButtonWrapper>) : (<SubmitButtonWrapper style={{color: "red"}}>Det finns inga lediga bord den tiden</SubmitButtonWrapper>)}
+      {isTableAvailable ? (<SubmitButtonWrapper onClick={handleUpdateClick}>Uppdatera bokning</SubmitButtonWrapper>) : (<SubmitButtonWrapper style={{background:"white", color: "black"}}>Det finns inga lediga bord den tiden</SubmitButtonWrapper>)}
       <SubmitButtonWrapper onClick={handleDeleteClick}>Ta bort bokning</SubmitButtonWrapper>
     </FormWrapper>
     </>
