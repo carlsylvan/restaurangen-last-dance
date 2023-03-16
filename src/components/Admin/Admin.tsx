@@ -61,7 +61,6 @@ export const Admin = () => {
     let bookingsByDate = foundBookings
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
       .map((booking: IBookingsAdmin) => {
-        console.log(booking.date);
 
         return (
           <AdminBookingWrapper
