@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import "./App.css";
 import { Nav } from "./components/Nav/Nav";
 import { Outlet } from "react-router-dom";
@@ -11,13 +11,10 @@ import {
   NavWrapper,
   PageWrapper,
 } from "./components/styled/Wrappers";
-import { IoIosArrowDown } from "react-icons/io";
+
 
 import { getBookings } from "./services/bookingService";
-import { IBooking } from "./models/IBooking";
-import { H1, H4 } from "./components/styled/Booking";
 import { IBookingsAdmin } from "./models/IBookingsAdmin";
-import { IAvailableTimes } from "./models/IAvailableTimes";
 
 export interface IRestaurantContext {
   bookings: IBookingsAdmin[];

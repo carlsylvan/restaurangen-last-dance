@@ -1,5 +1,4 @@
 import { IAvailableTime } from "../models/IAvailableTime";
-import { IBooking } from "../models/IBooking";
 import { IBookingsAdmin } from "../models/IBookingsAdmin";
 export const checkedAvailableTables = (bookings: IBookingsAdmin[], date: string, numberOfGuests: number)=>{
     let numberOfTablesAtFive = 0;
