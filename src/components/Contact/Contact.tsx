@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Button, H1, H4, Input, Label } from "../styled/Booking";
-import { FormWrapper, InputWrapper } from "../styled/Wrappers";
+import { Button, H1, H3, H4, Input, Label } from "../styled/Booking";
+import { FormWrapper, InputWrapper, SubmitButtonWrapper } from "../styled/Wrappers";
 
 const Textarea = styled.textarea`
   width: 70vw;
@@ -23,9 +23,9 @@ export const Contact = () => {
     <>
       <H1>Last Dance</H1>
       <H4>restaurang</H4>
-      <h3>Kontakta oss</h3>
+      <H3>Kontakta oss</H3>
       <FormWrapper onSubmit={handleSubmit}>
-        <InputWrapper>
+        {/* <InputWrapper>
           <Label>Namn</Label>
           <Input type="text" required />
         </InputWrapper>
@@ -41,7 +41,24 @@ export const Contact = () => {
           <Label>Meddelande</Label>
           <Textarea required></Textarea>
         </InputWrapper>
-        <Button type="submit">Send</Button>
+        <Button type="submit">Send</Button> */}
+        <InputWrapper>
+          <label>Namn</label>
+          <input type="text" required />
+        {/* </InputWrapper>
+        <InputWrapper> */}
+          <label>Email</label>
+          <input type="email" required />
+        {/* </InputWrapper>
+        <InputWrapper> */}
+          <label>Bokningsnummer</label>
+          <input type="text" required />
+        {/* </InputWrapper>
+        <InputWrapper> */}
+          <label>Meddelande</label>
+          <textarea required></textarea>
+        </InputWrapper>
+        <SubmitButtonWrapper type="submit">Send</SubmitButtonWrapper>
       </FormWrapper>
     </>
   );

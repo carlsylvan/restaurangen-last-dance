@@ -8,7 +8,6 @@ interface IBookingTime {
 
 interface ISelectBookingTimeProps {
     handleBookingTime(bookingTime:string):void,
-    isTableAvailable:boolean,
     isAvailableAtFive: boolean,
     isAvailableAtNine: boolean
 }
@@ -40,8 +39,7 @@ export const SelectBookingTime = (props: ISelectBookingTimeProps) => {
                         key={i} 
                         onClick={()=>{handleClick(item)}} 
                         selected = {item.isSelected} 
-                        isAvailable = {props.isTableAvailable}
-                        isAvailableTable = {props.isAvailableAtFive}>
+                        isTableAvailable = {props.isAvailableAtFive}>
                         {item.bookingTime}
                     </BookingTimeWrapper>
                 )
@@ -52,8 +50,7 @@ export const SelectBookingTime = (props: ISelectBookingTimeProps) => {
                     <BookingTimeWrapper 
                         key={i} 
                         selected = {false} 
-                        isAvailable = {false}
-                        isAvailableTable = {props.isAvailableAtFive}>
+                        isTableAvailable = {props.isAvailableAtFive}>
                         {item.bookingTime}
                     </BookingTimeWrapper>
                 )
@@ -67,8 +64,7 @@ export const SelectBookingTime = (props: ISelectBookingTimeProps) => {
                         key={i} 
                         onClick={()=>{handleClick(item)}} 
                         selected = {item.isSelected} 
-                        isAvailable = {props.isTableAvailable}
-                        isAvailableTable = {props.isAvailableAtNine}>
+                        isTableAvailable = {props.isAvailableAtNine}>
                         {item.bookingTime}
                     </BookingTimeWrapper>
                 )
@@ -79,8 +75,7 @@ export const SelectBookingTime = (props: ISelectBookingTimeProps) => {
                     <BookingTimeWrapper 
                         key={i} 
                         selected = {false} 
-                        isAvailable = {false}
-                        isAvailableTable = {props.isAvailableAtNine}>
+                        isTableAvailable = {props.isAvailableAtNine}>
                         {item.bookingTime}
                     </BookingTimeWrapper>
                 )

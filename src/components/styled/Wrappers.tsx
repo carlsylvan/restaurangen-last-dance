@@ -4,18 +4,19 @@ import myImage from "../../assets/images/landingPage.jpg";
 interface IWrappersProps {
   open: boolean;
 }
-interface IWrappersNumberOfGuestsProps {
+interface IAmountGuestsNumberWrapperProps {
   selected: boolean;
 }
-interface IWrappersBookingTimeProps {
+interface IBookingTimeWrapperProps {
   selected: boolean,
-  isAvailable: boolean,
-  isAvailableTable: boolean,
+  isTableAvailable: boolean,
 }
 
 
 export const HeaderWrapper = styled.header`
-  /* padding-top: 25%; */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 `;
 export const NavWrapper = styled.nav`
   @media screen and (max-width: 768px) {
@@ -79,15 +80,25 @@ export const NavWrapper = styled.nav`
     }
   }
 `;
+export const PWrapper = styled.p`
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+`;
+export const PCursiveWrapper = styled(PWrapper)`
+  font-style: italic;
+  font-size: 10px;
+`;
+
 export const HamburgerWrapper = styled.div`
   position: absolute;
-  right: 2rem;
-  top: 3rem;
+  right: 1rem;
+  top: 1rem;
   z-index: 5;
 `;
 
 export const PageWrapper = styled.main`
   width: 100%;
+  min-height: 100vh;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -95,8 +106,8 @@ export const PageWrapper = styled.main`
 `;
 
 export const StartPageWrapper = styled.div`
-  height: 75vh;
   width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -113,12 +124,12 @@ export const FooterWrapper = styled.footer`
   align-items: center;
   background-color: #525252;
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
   flex-direction: column;
-  padding: 3rem 0;
   margin-bottom: auto;
+  height:20vh;
   span {
-    font-size: 18px;
+    font-size: 12px;
     color: white;
   }
   div {
@@ -129,7 +140,7 @@ export const FooterWrapper = styled.footer`
   }
 `;
 export const SocialIconWrapper = styled.div`
-  font-size: 40px;
+  font-size: 24px;
   &:hover {
     color: white;
     cursor: pointer;
@@ -156,9 +167,9 @@ export const AmountGuestsNumberWrapper = styled.div`
   border-radius: 2px;
   padding: 0.4rem 0;
   text-align: center;
-  background-color: ${(props: IWrappersNumberOfGuestsProps) =>
+  background-color: ${(props: IAmountGuestsNumberWrapperProps) =>
     props.selected ? "black" : "none"};
-  color: ${(props: IWrappersNumberOfGuestsProps) =>
+  color: ${(props: IAmountGuestsNumberWrapperProps) =>
     props.selected ? "white" : "black"};
   &:hover {
     transform: scale(1.01);
@@ -179,30 +190,25 @@ export const BookingTimeWrapper = styled.div`
   border: 1px solid black;
   border-radius: 2px;
   text-align: center;
-  background-color: ${(props: IWrappersBookingTimeProps) => props.isAvailableTable ?  (props.selected ? "black" : "none") :"none"};
-  border: ${(props: IWrappersBookingTimeProps)=> props.isAvailableTable ? "1px solid black" : "1px solid gray"};
-  color: ${(props: IWrappersBookingTimeProps)=> props.isAvailableTable ? (props.selected ? "white" : "black") : "gray"};
-  /* border: 1px solid black;
-  color: ${(props: IWrappersBookingTimeProps) => 
-    props.selected ? "white" : "black"}; */
+  background-color: ${(props: IBookingTimeWrapperProps) => props.isTableAvailable ?  (props.selected ? "black" : "none") :"none"};
+  border: ${(props: IBookingTimeWrapperProps)=> props.isTableAvailable ? "1px solid black" : "1px solid gray"};
+  color: ${(props: IBookingTimeWrapperProps)=> props.isTableAvailable ? (props.selected ? "white" : "black") : "gray"};
   padding: 0.5rem 0;
   &:hover {
-    cursor: ${(props: IWrappersBookingTimeProps)=> props.isAvailableTable ? "pointer" : "auto"};
-    box-shadow: ${(props: IWrappersBookingTimeProps)=> props.isAvailableTable ? "0 0 5px rgba(0, 0, 0, 0.7)" : "none"};
-    transform: ${(props: IWrappersBookingTimeProps)=> props.isAvailableTable ? "scale(1.01)pointer" : "scale(1)"};
-    /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
-    transform: scale(1.01); */
+    cursor: ${(props: IBookingTimeWrapperProps)=> props.isTableAvailable ? "pointer" : "auto"};
+    box-shadow: ${(props: IBookingTimeWrapperProps)=> props.isTableAvailable ? "0 0 5px rgba(0, 0, 0, 0.7)" : "none"};
+    transform: ${(props: IBookingTimeWrapperProps)=> props.isTableAvailable ? "scale(1.01)pointer" : "scale(1)"};
   }
 `;
 
 export const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   width: 90%;
-  padding: 0.5rem;
   gap: 1rem;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
   @media screen and (min-width: 768px) {
     width: 60%;
   }
@@ -216,16 +222,40 @@ export const InputWrapper = styled.div`
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
+  padding: 2rem 0;
   gap: 0.5rem;
   width: 100%;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
-  padding: 1rem 0;
   label {
     width: 30%;
     padding: 0.2rem;
+    text-align: end;
+    font-size: 12px;
+    @media screen and (min-width: 768px) {
+      font-size: 18px;
+    }
   }
+  
   input {
     width: 60%;
+    padding: 0.2rem;
+    position: relative;
+    &::-webkit-calendar-picker-indicator {
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-25%);
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      padding-left: 100%;
+      
+      cursor: pointer;
+    }
+  }
+  textarea {
+    width: 60%;
+    height: 100px;
     padding: 0.2rem;
   }
   select {

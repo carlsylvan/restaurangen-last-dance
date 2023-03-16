@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { IBooking } from "../../models/IBooking";
-import { BookingWrapper, H1, H3, H4 } from "../styled/Booking";
+import { H1, H3, H4 } from "../styled/Booking";
 import { ICustomer } from "../../models/ICustomer";
 import { sendBooking } from "../../services/bookingService";
 import { useOutletContext } from "react-router";
@@ -14,12 +14,13 @@ import {
 } from "../styled/Wrappers";
 import { SelectGuestsAmount } from "../SelectGuestsAmount/SelectGuestsAmount";
 import { SelectBookingTime } from "../SelectBookingTime/SelectBookingTime";
-import { IAvailableTimes } from "../../models/IAvailableTimes";
 import { checkedAvailableTables } from "../../functions/checkedAvailableTables";
 import { useNavigate } from "react-router-dom";
 import { IAvailableTime } from "../../models/IAvailableTime";
+import { getStartDate } from "../../functions/getStartDate";
 
 export const Booking = () => {
+  let startDate = getStartDate();
   const startValueCustomer: ICustomer = {
     name: "",
     lastname: "",
@@ -28,18 +29,16 @@ export const Booking = () => {
   };
   const startValueBooking: IBooking = {
     restaurantId: "6408a12376187b915f68e171",
-    date: "",
-    time: "17:00",
+    date: startDate,
+    time: "",
     numberOfGuests: 1,
     customer: startValueCustomer,
   };
   const [customer, setCustomer] = useState<ICustomer>(startValueCustomer);
   const [booking, setBooking] = useState<IBooking>(startValueBooking);
   const { bookings, changeLoadedFromApi } = useOutletContext<IRestaurantContext>();
-  const [isTableAvailable, setIsTableAvailable] = useState<boolean>(true);
   const [availableTimes, setAvailableTimes] = useState<IAvailableTime[]>([{bookingTime:"17:00", isAvailable:true},{bookingTime:"21:00", isAvailable:true}]);
   const navigate = useNavigate();
-
 
   useEffect(()=>{
     let list = checkedAvailableTables(bookings,booking.date, booking.numberOfGuests);
@@ -105,11 +104,10 @@ export const Booking = () => {
         <BookingTimeDivWrapper>
           <SelectBookingTime 
             handleBookingTime={handleBookingTime} 
-            isTableAvailable = {isTableAvailable} 
             isAvailableAtFive = {availableTimes[0].isAvailable}
             isAvailableAtNine = {availableTimes[1].isAvailable}/>
         </BookingTimeDivWrapper>
-        {isTableAvailable ?
+        {(availableTimes[0].isAvailable || availableTimes[1].isAvailable) ?
           <>
           <InputWrapper>
             <label htmlFor="firstname">Förnamn</label>
@@ -117,6 +115,7 @@ export const Booking = () => {
               type="text"
               id="firstname"
               placeholder="Förnamn"
+              autoComplete ="off"
               name="name"
               value={customer.name}
               onChange={handleChange}
@@ -127,6 +126,7 @@ export const Booking = () => {
               type="text"
               id="lastname"
               placeholder="Efternamn"
+              autoComplete ="off"
               name="lastname"
               value={customer.lastname}
               onChange={handleChange}
@@ -137,6 +137,7 @@ export const Booking = () => {
               type="email"
               id="epost"
               placeholder="Epost"
+              autoComplete ="off"
               name="email"
               value={customer.email}
               onChange={handleChange}
@@ -147,6 +148,7 @@ export const Booking = () => {
               <input
                 type="tel"
                 id="phone"
+                autoComplete ="off"
                 placeholder="Tel-xxxxxxxxxx"
                 name="phone"
                 value={customer.phone}

@@ -13,7 +13,7 @@ export const HamburgerLogoLabel = styled.label`
       background-color: black;
       height: 2px;
       position: relative;
-      transition: all 0.3s ease-in-out;
+      transition: all 0.2s ease-in-out;
       &:nth-child(1) {
         transform: ${(props: IHamburgerLogoLabelProps) =>
           props.open ? "rotate(-45deg)" : "rotate(0deg)"};

@@ -25,9 +25,11 @@ export const H4 = styled.h4`
 `;
 
 export const H3 = styled.h3`
-  font-size: 18px;
+  font-size: 21px;
   font-weight: 700;
   text-align: center;
+  text-transform: uppercase;
+  padding-top: 1rem;
 `;
 
 export const Input = styled.input`
