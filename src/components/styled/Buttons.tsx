@@ -46,3 +46,16 @@ export const SubmitButton = styled.button`
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
   }
 `;
+export const NotAvailableButton = styled(SubmitButton)`
+  width: 100%;
+  background-color: white;
+  color: gray;
+  border-radius: 2px;
+  padding: 1rem;
+  border: 1px solid gray;
+  &:hover {
+    cursor: auto;
+    transform: scale(1);
+    box-shadow: none;
+  }
+`;
