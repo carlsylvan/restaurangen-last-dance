@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { IRestaurantContext } from "../../App";
 import { checkedAvailableTables } from "../../functions/checkedAvailableTables";
+import { getStartDate } from "../../functions/getStartDate";
 import { IAvailableTime } from "../../models/IAvailableTime";
 import { IBookingsAdmin } from "../../models/IBookingsAdmin";
 import { AdminBookingButton } from "../styled/Buttons";
@@ -12,7 +13,8 @@ import { AdminBookingInputWrapper, AdminBookingsWrapper, AdminBookingWrapper, Ad
 
 
 export const Admin = () => {
-
+  const startDate = getStartDate();
+  const [activeDate, setActiveDate] = useState<string>(startDate);
   const { bookings } = useOutletContext<IRestaurantContext>();
   const [filteredBookings, setfilteredBookings] = useState<JSX.Element[]>([]);
   const [availableTables, setAvailableTables] = useState<IAvailableTime[]>([
@@ -20,9 +22,13 @@ export const Admin = () => {
     { bookingTime: "21:00", numOfAvailableTables: 0, isAvailable: true },
   ]);
   const navigate = useNavigate();
+  useEffect(()=>{
+    let response = checkedAvailableTables(bookings, activeDate, 0);
+    setAvailableTables(response);
+  },[activeDate])
 
   useEffect(() => {
-    handleFilter("");
+    handleFilter(activeDate);
   }, [bookings]);
 
   const handleClick = (booking: IBookingsAdmin) => {
@@ -52,10 +58,11 @@ export const Admin = () => {
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const findMatchingDates = e.target.value;
-    let response = checkedAvailableTables(bookings, e.target.value, 0);
-    setAvailableTables(response);
+    setActiveDate(e.target.value);
     handleFilter(findMatchingDates);
+    
   };
+
   function handleFilter(findMatchingDates: string) {
     const foundBookings =
       findMatchingDates === ""
@@ -94,6 +101,7 @@ export const Admin = () => {
             onChange={handleOnChange}
             type="date"
             name="date"
+            value= {activeDate}
             ></Dateinput>
           <AdminBookingInputWrapper>
             <AdminBookingInput
