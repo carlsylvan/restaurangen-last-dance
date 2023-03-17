@@ -1,21 +1,12 @@
 import styled from "styled-components";
 
 
-export const Input = styled.input`
-  width: 45%;
-  height: 1.8em;
-  outline: none;
-  border-radius: 18px;
-  outline-color: black;
-  color: black;
-  border: 6px solid black;
-  font-size: 16px;
-`;
 
 
-export const AdminBookingInput = styled(Input)`
-  height: 1.4em;
+
+export const AdminBookingInput = styled.input`
   width: 60%;
+  padding: 0.2rem;
   text-align: center;
 
   @media screen and (min-width: 768px) {
@@ -31,4 +22,31 @@ export const AdminBookingInput = styled(Input)`
 
 export const HamburgerLogoInput = styled.input`
     display: none;
+`;
+
+
+export const Dateinput = styled.input`
+  width: 60%;
+  padding: 0.2rem;
+  position: relative;
+  &::-webkit-calendar-picker-indicator {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-25%);
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    padding-left: 100%;
+    cursor: pointer;
+  }
+  @media screen and (min-width: 768px) {
+    width: 35%;
+  }
+  @media screen and (min-width: 1000px) {
+    width: 30%;
+  }
+  @media screen and (min-width: 1400px) {
+    width: 25%;
+  }
 `;

@@ -7,12 +7,12 @@ import { IBookingsAdmin } from "../../models/IBookingsAdmin";
 import { AdminBookingButton } from "../styled/Buttons";
 import { AdminForm } from "../styled/Forms";
 import { H1, H3, H4 } from "../styled/Headings";
-import { AdminBookingInput } from "../styled/Inputs";
-import { AdminWrapper } from "../styled/Mains";
-import { AdminBookingInputWrapper, AdminBookingsWrapper, AdminBookingWrapper, AvailableTablesWrapper } from "../styled/Wrappers";
+import { AdminBookingInput, Dateinput } from "../styled/Inputs";
+import { AdminBookingInputWrapper, AdminBookingsWrapper, AdminBookingWrapper, AdminWrapper, AvailableTablesWrapper } from "../styled/Wrappers";
 
 
 export const Admin = () => {
+
   const { bookings } = useOutletContext<IRestaurantContext>();
   const [filteredBookings, setfilteredBookings] = useState<JSX.Element[]>([]);
   const [availableTables, setAvailableTables] = useState<IAvailableTime[]>([
@@ -93,7 +93,8 @@ export const Admin = () => {
           <Dateinput
             onChange={handleOnChange}
             type="date"
-            name="date"></Dateinput>
+            name="date"
+            ></Dateinput>
           <AdminBookingInputWrapper>
             <AdminBookingInput
               type="text"

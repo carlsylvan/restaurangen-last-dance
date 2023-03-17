@@ -165,7 +165,7 @@ export const Booking = () => {
             </InputWrapper>
             <SubmitButton type="submit">Boka</SubmitButton>
           </>
-        ) : (
+        ) : 
           <h4>Det finns inga lediga bord</h4>
         }
       </Form>
