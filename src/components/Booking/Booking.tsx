@@ -70,7 +70,7 @@ export const Booking = () => {
     localStorage.setItem("booking", JSON.stringify(booking));
     navigate(`/booking/${id}`);
   };
-  console.log(availableTimes);
+
   
   return (
     <>

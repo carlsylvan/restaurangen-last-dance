@@ -30,15 +30,8 @@ export const AdminBookingDetails = () => {
 })
 const { bookings, changeLoadedFromApi } = useOutletContext<IRestaurantContext>();
 const [editCustomer, setEditCustomer] = useState(false);
-const [booking, setBooking] = useState<IBooking>({
-  restaurantId: "6408a12376187b915f68e171",
-  date: "",
-  time: "",
-  numberOfGuests: 1,
-  customer: {name: "", lastname: "", email: "", phone: ""},
-});
 const [isTableAvailable, setIsTableAvailable] = useState<boolean>(true);
-// const [availableTimes, setAvailableTimes] = useState<IAvailableTime[]>([{bookingTime:"17:00", isAvailable:true},{bookingTime:"21:00", isAvailable:true}]);
+
 
 
   const {id} = useParams();

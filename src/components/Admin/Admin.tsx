@@ -80,7 +80,7 @@ export const Admin = () => {
       });
     setfilteredBookings(bookingsByDate);
   }
-  console.log(availableTables);
+
   return (
     <>
       <AdminWrapper>
