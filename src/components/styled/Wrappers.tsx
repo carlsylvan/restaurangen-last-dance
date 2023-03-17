@@ -103,6 +103,20 @@ export const InputWrapper = styled.div`
   gap: 0.5rem;
   width: 100%;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  span {
+    font-size: 12px;
+    @media screen and (min-width: 768px) {
+      font-size: 18px;
+    } 
+    :nth-child(1) {
+      text-align: end;
+      width: 30%;
+    }
+    :nth-child(2) {
+      text-align: start;
+      width: 60%;
+    }
+    }
   label {
     width: 30%;
     padding: 0.2rem;
