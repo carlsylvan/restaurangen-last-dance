@@ -7,7 +7,7 @@ import { IBooking } from "../../models/IBooking";
 import { IBookingCustomer } from "../../models/IBookingCustomer";
 import { IBookingsAdmin } from "../../models/IBookingsAdmin";
 import { deleteBookingById, getBookedTableById, getCustomerById, RESTAURANT_ID, updateBookingById, updateCustomerById } from "../../services/bookingService";
-import { SubmitButton } from "../styled/Buttons";
+import { NotAvailableButton, SubmitButton } from "../styled/Buttons";
 import { Form } from "../styled/Forms";
 import { H1, H3, H4 } from "../styled/Headings";
 import { InputWrapper } from "../styled/Wrappers";
@@ -216,7 +216,7 @@ const handleSubmit = (e: FormEvent) => {
         <SubmitButton onClick={handleEditCustomerClick}>Redigera kund</SubmitButton>
       </>
       )}
-      {isTableAvailable ? (<SubmitButton onClick={handleUpdateClick}>Uppdatera bokning</SubmitButton>) : (<SubmitButton style={{background:"white", color: "black"}}>Det finns inga lediga bord den tiden</SubmitButton>)}
+      {isTableAvailable ? (<SubmitButton onClick={handleUpdateClick}>Uppdatera bokning</SubmitButton>) : (<NotAvailableButton>Det finns inga lediga bord den tiden</NotAvailableButton>)}
       <SubmitButton onClick={handleDeleteClick}>Ta bort bokning</SubmitButton>
     </Form>
     </>
