@@ -118,7 +118,7 @@ const handleSubmit = (e: FormEvent) => {
     <H4>restaurang</H4>
     <Form onSubmit={handleSubmit}>
       <SubmitButton type="button" onClick={() => {navigate("/admin")}}>Tillbaka till listan över bokningar</SubmitButton>
-      <H3>Redigera bokning med bokningsnummer: {bookedTable._id}</H3>
+      <h3>Redigera bokning med bokningsnummer: {bookedTable._id}</h3>
       <H4>Bokningsinformation:</H4>
       <InputWrapper>
       <label htmlFor="date">Datum:</label>
