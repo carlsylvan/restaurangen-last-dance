@@ -1,6 +1,6 @@
 import { ChangeEvent } from "react";
-import { HamburgerLogoInput } from "../styled/HamburgerLogoInput";
-import { HamburgerLogoLabel } from "../styled/HamburgerLogoLabel";
+import { HamburgerLogoInput } from "../styled/Inputs";
+import { HamburgerLogoLabel } from "../styled/Labels";
 
 interface IHamburgerLogoProps {
     handleOpenMenu(status:boolean): void;

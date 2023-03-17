@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { H1, H4 } from "../styled/Booking";
-import { HomeBookingButton, RestaurantSlogan } from "../styled/StartPage";
+import { HomeBookingButton } from "../styled/Buttons";
+import { H1, H4, RestaurantSlogan } from "../styled/Headings";
 
 export const Home = () => {
   return (

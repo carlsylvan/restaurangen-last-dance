@@ -1,20 +1,19 @@
 import  { useEffect, useState } from "react";
 import "./App.css";
-import { Nav } from "./components/Nav/Nav";
 import { Outlet } from "react-router-dom";
 import { Footer } from "./components/Footer/Footer";
 import { HamburgerLogo } from "./components/HamburgerLogo/HamburgerLogo";
 import {
-  FooterWrapper,
-  HamburgerWrapper,
-  HeaderWrapper,
-  NavWrapper,
-  PageWrapper,
+  HamburgerWrapper
 } from "./components/styled/Wrappers";
-
+import { FooterStyle } from "./components/styled/FooterStyle";
 
 import { getBookings } from "./services/bookingService";
 import { IBookingsAdmin } from "./models/IBookingsAdmin";
+import { PageWrapper } from "./components/styled/Mains";
+import { Header } from "./components/styled/Header";
+import { HamburgerMenu } from "./components/HamburgerMenu/HamburgerMenu";
+import { Nav } from "./components/styled/Nav";
 
 export interface IRestaurantContext {
   bookings: IBookingsAdmin[];
@@ -50,20 +49,20 @@ function App() {
   }
   return (
     <div className="App">
-      <HeaderWrapper>
-        <NavWrapper open={open}>
-          <Nav handleOpenMenu={handleOpenMenu} open={open}></Nav>
-        </NavWrapper>
+      <Header>
+        <Nav open={open}>
+          <HamburgerMenu handleOpenMenu={handleOpenMenu} open={open}></HamburgerMenu>
+        </Nav>
         <HamburgerWrapper>
           <HamburgerLogo handleOpenMenu={handleOpenMenu} open={open} />
         </HamburgerWrapper>
-      </HeaderWrapper>
+      </Header>
       <PageWrapper onClick={handleClick}>
         <Outlet context={{ bookings, changeLoadedFromApi }}></Outlet>
       </PageWrapper>
-      <FooterWrapper>
+      <FooterStyle>
         <Footer></Footer>
-      </FooterWrapper>
+      </FooterStyle>
     </div>
   );
 }

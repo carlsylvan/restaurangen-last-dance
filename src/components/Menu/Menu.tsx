@@ -1,7 +1,7 @@
 import { Course, menu, MenuSection } from "../../assets/menu";
-import { H1, H3, H4 } from "../styled/Booking";
-import { MenuWrapper } from "../styled/Menu";
-import { PCursiveWrapper, PWrapper } from "../styled/Wrappers";
+import { H1, H3, H4 } from "../styled/Headings";
+import { P, PCursive } from "../styled/TextTags";
+import { MenuWrapper } from "../styled/Wrappers";
 
 export const Menu = () => {
   return (
@@ -16,8 +16,8 @@ export const Menu = () => {
             <div>
               {section.courses.map((course: Course) => (
                 <div key={course.name}>
-                  <PWrapper>{course.name}</PWrapper>
-                  <PCursiveWrapper>{course.description}</PCursiveWrapper>
+                  <P>{course.name}</P>
+                  <PCursive>{course.description}</PCursive>
                   <div>{course.price}:-</div>
                 </div>
               ))}
