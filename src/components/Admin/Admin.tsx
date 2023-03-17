@@ -4,17 +4,12 @@ import { IRestaurantContext } from "../../App";
 import { checkedAvailableTables } from "../../functions/checkedAvailableTables";
 import { IAvailableTime } from "../../models/IAvailableTime";
 import { IBookingsAdmin } from "../../models/IBookingsAdmin";
-import {
-  AdminBookingButton,
-  AdminBookingInput,
-  AdminBookingInputWrapper,
-  AdminBookingsWrapper,
-  AdminBookingWrapper,
-  AdminForm,
-  AdminWrapper,
-  AvailableTables,
-} from "../styled/Admin";
-import { H1, H3, H4 } from "../styled/Booking";
+import { AdminBookingButton } from "../styled/Buttons";
+import { AdminForm } from "../styled/Forms";
+import { H1, H3, H4 } from "../styled/Headings";
+import { AdminBookingInput } from "../styled/Inputs";
+import { AdminWrapper } from "../styled/Mains";
+import { AdminBookingInputWrapper, AdminBookingsWrapper, AdminBookingWrapper, AvailableTablesWrapper } from "../styled/Wrappers";
 
 
 export const Admin = () => {
@@ -106,7 +101,7 @@ export const Admin = () => {
             <AdminBookingButton type="submit">Sök</AdminBookingButton>
           </AdminBookingInputWrapper>
         </AdminForm>
-        <AvailableTables>
+        <AvailableTablesWrapper>
           <H4>Tilgängliga bord</H4>
         <div>
           <span>17:00 -</span>
@@ -116,7 +111,7 @@ export const Admin = () => {
           <span>21:00 -</span>
           <span> {availableTables[1].numOfAvailableTables}st</span>
         </div>
-        </AvailableTables>
+        </AvailableTablesWrapper>
         <AdminBookingsWrapper>
           {filteredBookings.length > 0 ? (
             filteredBookings

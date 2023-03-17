@@ -4,6 +4,7 @@ interface IHamburgerMenuProps {
     handleOpenMenu(status:boolean): void;
     open: boolean;
 }
+
 export const HamburgerMenu = (props:IHamburgerMenuProps) => {
     const handleClick = () => {
         props.handleOpenMenu(false);

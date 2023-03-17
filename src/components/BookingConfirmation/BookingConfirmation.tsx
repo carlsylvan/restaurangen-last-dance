@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { IBooking } from "../../models/IBooking";
-import { H1, H3, H4 } from "../styled/Booking";
+import { H1, H3, H4 } from "../styled/Headings";
 
 export const BookingConfirmation = () => {
   const [booking, setBooking] = useState<IBooking>();

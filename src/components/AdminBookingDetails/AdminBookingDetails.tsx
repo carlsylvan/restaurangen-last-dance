@@ -7,8 +7,10 @@ import { IBooking } from "../../models/IBooking";
 import { IBookingCustomer } from "../../models/IBookingCustomer";
 import { IBookingsAdmin } from "../../models/IBookingsAdmin";
 import { deleteBookingById, getBookedTableById, getCustomerById, RESTAURANT_ID, updateBookingById, updateCustomerById } from "../../services/bookingService";
-import { H1, H3, H4 } from "../styled/Booking";
-import { FormWrapper, InputWrapper, SubmitButtonWrapper } from "../styled/Wrappers";
+import { SubmitButton } from "../styled/Buttons";
+import { Form } from "../styled/Forms";
+import { H1, H3, H4 } from "../styled/Headings";
+import { InputWrapper } from "../styled/Wrappers";
 
 export const AdminBookingDetails = () => {
   const [bookedTable, setBookedTable] = useState<IBookingsAdmin>({
@@ -121,8 +123,8 @@ const handleSubmit = (e: FormEvent) => {
     <>
     <H1>Last Dance</H1>
     <H4>restaurang</H4>
-    <FormWrapper onSubmit={handleSubmit}>
-      <SubmitButtonWrapper type="button" onClick={() => {navigate("/admin")}}>Tillbaka till listan över bokningar</SubmitButtonWrapper>
+    <Form onSubmit={handleSubmit}>
+      <SubmitButton type="button" onClick={() => {navigate("/admin")}}>Tillbaka till listan över bokningar</SubmitButton>
       <H3>Redigera bokning med bokningsnummer: {bookedTable._id}</H3>
       <H4>Bokningsinformation:</H4>
       <InputWrapper>
@@ -210,7 +212,7 @@ const handleSubmit = (e: FormEvent) => {
           onChange={handleInputChange}
         />
         </InputWrapper>
-      <SubmitButtonWrapper type="button" onClick={handleUpdateCustomerClick}>Uppdatera kundinformation</SubmitButtonWrapper>
+      <SubmitButton type="button" onClick={handleUpdateCustomerClick}>Uppdatera kundinformation</SubmitButton>
       </>
       ) : (
         <>
@@ -218,12 +220,12 @@ const handleSubmit = (e: FormEvent) => {
         <InputWrapper>Namn: {bookedCustomer.name} {bookedCustomer.lastname}</InputWrapper>
         <InputWrapper>E-post: {bookedCustomer.email}</InputWrapper>
         <InputWrapper>Telefon: {bookedCustomer.phone}</InputWrapper>
-        <SubmitButtonWrapper onClick={handleEditCustomerClick}>Redigera kund</SubmitButtonWrapper>
+        <SubmitButton onClick={handleEditCustomerClick}>Redigera kund</SubmitButton>
       </>
       )}
-      {isTableAvailable ? (<SubmitButtonWrapper onClick={handleUpdateClick}>Uppdatera bokning</SubmitButtonWrapper>) : (<SubmitButtonWrapper style={{background:"white", color: "black"}}>Det finns inga lediga bord den tiden</SubmitButtonWrapper>)}
-      <SubmitButtonWrapper onClick={handleDeleteClick}>Ta bort bokning</SubmitButtonWrapper>
-    </FormWrapper>
+      {isTableAvailable ? (<SubmitButton onClick={handleUpdateClick}>Uppdatera bokning</SubmitButton>) : (<SubmitButton style={{background:"white", color: "black"}}>Det finns inga lediga bord den tiden</SubmitButton>)}
+      <SubmitButton onClick={handleDeleteClick}>Ta bort bokning</SubmitButton>
+    </Form>
     </>
   );
 };
