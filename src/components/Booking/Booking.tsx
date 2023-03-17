@@ -36,12 +36,20 @@ export const Booking = () => {
   };
   const [customer, setCustomer] = useState<ICustomer>(startValueCustomer);
   const [booking, setBooking] = useState<IBooking>(startValueBooking);
-  const { bookings, changeLoadedFromApi } = useOutletContext<IRestaurantContext>();
-  const [availableTimes, setAvailableTimes] = useState<IAvailableTime[]>([{bookingTime:"17:00", numOfAvailableTables: 0,  isAvailable:true},{bookingTime:"21:00",numOfAvailableTables: 0, isAvailable:true}]);
+  const { bookings, changeLoadedFromApi } =
+    useOutletContext<IRestaurantContext>();
+  const [availableTimes, setAvailableTimes] = useState<IAvailableTime[]>([
+    { bookingTime: "17:00", numOfAvailableTables: 0, isAvailable: true },
+    { bookingTime: "21:00", numOfAvailableTables: 0, isAvailable: true },
+  ]);
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    let list = checkedAvailableTables(bookings,booking.date, booking.numberOfGuests);
+  useEffect(() => {
+    let list = checkedAvailableTables(
+      bookings,
+      booking.date,
+      booking.numberOfGuests
+    );
     setAvailableTimes(list);
   }, [booking]);
 
@@ -71,7 +79,7 @@ export const Booking = () => {
     navigate(`/booking/${id}`);
   };
   console.log(availableTimes);
-  
+
   return (
     <>
       <H1>Last Dance</H1>
@@ -99,53 +107,54 @@ export const Booking = () => {
           />
         </InputWrapper>
         <BookingTimeDivWrapper>
-          <SelectBookingTime 
-            handleBookingTime={handleBookingTime} 
-            isAvailableAtFive = {availableTimes[0].isAvailable}
-            isAvailableAtNine = {availableTimes[1].isAvailable}/>
+          <SelectBookingTime
+            handleBookingTime={handleBookingTime}
+            isAvailableAtFive={availableTimes[0].isAvailable}
+            isAvailableAtNine={availableTimes[1].isAvailable}
+          />
         </BookingTimeDivWrapper>
-        {(availableTimes[0].isAvailable || availableTimes[1].isAvailable) ?
+        {availableTimes[0].isAvailable || availableTimes[1].isAvailable ? (
           <>
-          <InputWrapper>
-            <label htmlFor="firstname">Förnamn</label>
-            <input
-              type="text"
-              id="firstname"
-              placeholder="Förnamn"
-              autoComplete ="off"
-              name="name"
-              value={customer.name}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor="lastname">Efternamn</label>
-            <input
-              type="text"
-              id="lastname"
-              placeholder="Efternamn"
-              autoComplete ="off"
-              name="lastname"
-              value={customer.lastname}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor="epost">Email</label>
-            <input
-              type="email"
-              id="epost"
-              placeholder="Epost"
-              autoComplete ="off"
-              name="email"
-              value={customer.email}
-              onChange={handleChange}
-              required
-            />
+            <InputWrapper>
+              <label htmlFor="firstname">Förnamn</label>
+              <input
+                type="text"
+                id="firstname"
+                placeholder="Förnamn"
+                autoComplete="off"
+                name="name"
+                value={customer.name}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="lastname">Efternamn</label>
+              <input
+                type="text"
+                id="lastname"
+                placeholder="Efternamn"
+                autoComplete="off"
+                name="lastname"
+                value={customer.lastname}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="epost">Email</label>
+              <input
+                type="email"
+                id="epost"
+                placeholder="Epost"
+                autoComplete="off"
+                name="email"
+                value={customer.email}
+                onChange={handleChange}
+                required
+              />
 
               <label htmlFor="phone">Mobil</label>
               <input
                 type="tel"
                 id="phone"
-                autoComplete ="off"
+                autoComplete="off"
                 placeholder="Tel-xxxxxxxxxx"
                 name="phone"
                 value={customer.phone}
@@ -153,13 +162,12 @@ export const Booking = () => {
                 pattern="[0-9]{10}"
                 required
               />
-            
             </InputWrapper>
             <SubmitButtonWrapper type="submit">Boka</SubmitButtonWrapper>
           </>
-         : 
+        ) : (
           <h4>Det finns inga lediga bord</h4>
-        }
+        )}
       </FormWrapper>
     </>
   );
