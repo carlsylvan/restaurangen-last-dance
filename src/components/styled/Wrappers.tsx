@@ -273,21 +273,15 @@ export const GdprWrapper = styled.div`
   gap: 20px;
   justify-content: center;
   align-items: center;
-  padding: 1rem 0.6rem;
+  padding: 1rem;
   @media screen and (min-width: 768px) {
     flex-direction: row;
-    width: 100%;
   }
   span {
-    width:100%;
     font-size: 12px;
-    @media screen and (min-width: 768px) {
-    width: 80%;
-    }
   }
 `;
 export const GdprInputWrapper = styled.div`
-  width:100%;
   @media screen and (min-width: 768px) {
     width: 20%;
     }
