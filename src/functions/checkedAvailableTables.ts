@@ -3,7 +3,7 @@ import { IBookingsAdmin } from "../models/IBookingsAdmin";
 export const checkedAvailableTables = (bookings: IBookingsAdmin[], date: string, numberOfGuests: number)=>{
     let numberOfTablesAtFive = 0;
     let numberOfTablesAtNine = 0;
-    const numOfTables = 2;
+    const numOfTables = 15;
     let tables = Math.ceil(numberOfGuests/6);
       let availableTablesList:IAvailableTime[] = [{bookingTime:"17:00", numOfAvailableTables: 0, isAvailable:true}, {bookingTime:"21:00", numOfAvailableTables: 0, isAvailable:true}];
       bookings.map((item)=>{
