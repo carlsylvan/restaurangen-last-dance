@@ -210,9 +210,9 @@ const handleSubmit = (e: FormEvent) => {
       ) : (
         <>
         <H4>Kundinformation:</H4>
-        <InputWrapper>Namn: {bookedCustomer.name} {bookedCustomer.lastname}</InputWrapper>
-        <InputWrapper>E-post: {bookedCustomer.email}</InputWrapper>
-        <InputWrapper>Telefon: {bookedCustomer.phone}</InputWrapper>
+        <InputWrapper><span>Namn:</span><span>{bookedCustomer.name} {bookedCustomer.lastname}</span></InputWrapper>
+        <InputWrapper><span>E-post:</span><span>{bookedCustomer.email}</span></InputWrapper>
+        <InputWrapper><span>Telefon:</span><span>{bookedCustomer.phone}</span></InputWrapper>
         <SubmitButton onClick={handleEditCustomerClick}>Redigera kund</SubmitButton>
       </>
       )}
