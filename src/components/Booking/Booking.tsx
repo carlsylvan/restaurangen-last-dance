@@ -6,6 +6,7 @@ import { useOutletContext } from "react-router";
 import { IRestaurantContext } from "../../App";
 import {
   BookingTimeDivWrapper,
+  GdprWrapper,
   InputWrapper,
   NumberOfGuestsWrapper,
 } from "../styled/Wrappers";
@@ -18,6 +19,7 @@ import { getStartDate } from "../../functions/getStartDate";
 import { H1, H3, H4 } from "../styled/Headings";
 import { SubmitButton } from "../styled/Buttons";
 import { Form } from "../styled/Forms";
+import { Gdpr } from "../gdpr/Gdpr";
 
 export const Booking = () => {
   let startDate = getStartDate();
@@ -42,6 +44,7 @@ export const Booking = () => {
     { bookingTime: "17:00", numOfAvailableTables: 0, isAvailable: true },
     { bookingTime: "21:00", numOfAvailableTables: 0, isAvailable: true },
   ]);
+  // const [showGdpr, setShowGdpr] = useState<boolean>(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -61,7 +64,9 @@ export const Booking = () => {
       setBooking({ ...booking, [e.target.name]: e.target.value });
     }
   };
-
+  // const changeGdprStatus = () =>{
+  //   setShowGdpr(false);
+  // }
   const handleGuestsNum = (item: number) => {
     setBooking({ ...booking, numberOfGuests: item });
   };
@@ -169,6 +174,9 @@ export const Booking = () => {
           <h4>Det finns inga lediga bord</h4>
         }
       </Form>
+      {/* <GdprWrapper showGdpr = {showGdpr}>
+        <Gdpr changeGdprStatus = {changeGdprStatus}/>
+      </GdprWrapper> */}
     </>
   );
 };

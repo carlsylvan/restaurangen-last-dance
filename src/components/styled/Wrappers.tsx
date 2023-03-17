@@ -9,6 +9,9 @@ interface IBookingTimeWrapperProps {
   selected: boolean,
   isTableAvailable: boolean,
 }
+interface IGdprWrapperProps {
+  showGdpr: boolean
+}
 
 export const HamburgerWrapper = styled.div`
   position: absolute;
@@ -257,4 +260,16 @@ export const AdminWrapper = styled.div`
       opacity: 0.75;
     }
   }
+`;
+
+export const GdprWrapper = styled.div`
+  box-shadow: 0 0 5px rgba(0,0,0,0.4);
+  background-color: white;
+  display:${(props:IGdprWrapperProps)=>props.showGdpr ? "block" : "none"};
+  position: absolute;
+  bottom: 0;
+  z-index: 6;
+  width: 100%;
+`;
+export const GdprInputWrapper = styled.div`
 `;
