@@ -9,6 +9,9 @@ interface IBookingTimeWrapperProps {
   selected: boolean,
   isTableAvailable: boolean,
 }
+interface IGdprWrapperProps {
+  showGdpr: boolean
+}
 
 export const HamburgerWrapper = styled.div`
   position: absolute;
@@ -257,4 +260,42 @@ export const AdminWrapper = styled.div`
       opacity: 0.75;
     }
   }
+`;
+
+export const GdprWrapper = styled.div`
+  display:${(props:IGdprWrapperProps)=>props.showGdpr ? "flex" : "none"};
+  flex-direction: column;
+  position: absolute;
+  box-shadow: 0 0 5px rgba(0,0,0,0.4);
+  background-color: white;
+  bottom: 0;
+  z-index: 6;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0.6rem;
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    width: 100%;
+  }
+  span {
+    width:100%;
+    font-size: 12px;
+    @media screen and (min-width: 768px) {
+    width: 80%;
+    }
+  }
+`;
+export const GdprInputWrapper = styled.div`
+  width:100%;
+  @media screen and (min-width: 768px) {
+    width: 20%;
+    }
+ label {
+  box-shadow: 0 0 5px rgba(0,0,0,0.4);
+  padding: 0.6rem;
+ }
+ input {
+  display: none;
+ }
 `;

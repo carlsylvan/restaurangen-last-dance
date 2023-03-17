@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import { Footer } from "./components/Footer/Footer";
 import { HamburgerLogo } from "./components/HamburgerLogo/HamburgerLogo";
 import {
+  GdprWrapper,
   HamburgerWrapper
 } from "./components/styled/Wrappers";
 import { FooterStyle } from "./components/styled/FooterStyle";
@@ -14,6 +15,7 @@ import { PageWrapper } from "./components/styled/Mains";
 import { Header } from "./components/styled/Header";
 import { HamburgerMenu } from "./components/HamburgerMenu/HamburgerMenu";
 import { Nav } from "./components/styled/Nav";
+import { Gdpr } from "./components/gdpr/Gdpr";
 
 export interface IRestaurantContext {
   bookings: IBookingsAdmin[];
@@ -24,7 +26,7 @@ function App() {
   const [open, setOpen] = useState<boolean>(false);
   const [bookings, setBookings] = useState<IBookingsAdmin[]>([]);
   const [loadedFromApi, setLoadedFromApi] = useState<boolean>(false);
-
+  const [showGdpr, setShowGdpr] = useState<boolean>(true);
 
   useEffect(() => {
     const getBookingData = async () => {
@@ -43,7 +45,9 @@ function App() {
   const changeLoadedFromApi = () => {
     setLoadedFromApi(false);
   };
-
+  const changeGdprStatus = () =>{
+    setShowGdpr(false);
+  }
   const handleClick = () => {
     setOpen(false);
   }
@@ -63,6 +67,9 @@ function App() {
       <FooterStyle>
         <Footer></Footer>
       </FooterStyle>
+      <GdprWrapper showGdpr = {showGdpr}>
+          <Gdpr changeGdprStatus = {changeGdprStatus}/>
+      </GdprWrapper>
     </div>
   );
 }
