@@ -13,16 +13,18 @@ import {
   AdminForm,
   AdminWrapper,
   AvailableTables,
+  Dateinput,
 } from "../styled/Admin";
 import { H1, H3, H4 } from "../styled/Booking";
-
 
 export const Admin = () => {
   const { bookings } = useOutletContext<IRestaurantContext>();
   const [filteredBookings, setfilteredBookings] = useState<JSX.Element[]>([]);
-  const [availableTables, setAvailableTables] = useState<IAvailableTime[]>([{bookingTime:"17:00", numOfAvailableTables: 0, isAvailable: true},{bookingTime:"21:00", numOfAvailableTables: 0, isAvailable: true}]);
+  const [availableTables, setAvailableTables] = useState<IAvailableTime[]>([
+    { bookingTime: "17:00", numOfAvailableTables: 0, isAvailable: true },
+    { bookingTime: "21:00", numOfAvailableTables: 0, isAvailable: true },
+  ]);
   const navigate = useNavigate();
-
 
   useEffect(() => {
     handleFilter("");
@@ -68,7 +70,6 @@ export const Admin = () => {
     let bookingsByDate = foundBookings
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
       .map((booking: IBookingsAdmin) => {
-
         return (
           <AdminBookingWrapper
             onClick={() => {
@@ -94,10 +95,10 @@ export const Admin = () => {
         <H3>Administration</H3>
         <button onClick={handleClickLink}>Boka nytt bord</button>
         <AdminForm onSubmit={handleSubmit}>
-          <AdminBookingInput
+          <Dateinput
             onChange={handleOnChange}
             type="date"
-            name="date"></AdminBookingInput>
+            name="date"></Dateinput>
           <AdminBookingInputWrapper>
             <AdminBookingInput
               type="text"
@@ -107,15 +108,15 @@ export const Admin = () => {
           </AdminBookingInputWrapper>
         </AdminForm>
         <AvailableTables>
-          <H4>Tilgängliga bord</H4>
-        <div>
-          <span>17:00 -</span>
-          <span> {availableTables[0].numOfAvailableTables}st</span>
-        </div>
-        <div>
-          <span>21:00 -</span>
-          <span> {availableTables[1].numOfAvailableTables}st</span>
-        </div>
+          <H4>Tillgängliga bord</H4>
+          <div>
+            <span>17:00 -</span>
+            <span> {availableTables[0].numOfAvailableTables} st</span>
+          </div>
+          <div>
+            <span>21:00 -</span>
+            <span> {availableTables[1].numOfAvailableTables} st</span>
+          </div>
         </AvailableTables>
         <AdminBookingsWrapper>
           {filteredBookings.length > 0 ? (
