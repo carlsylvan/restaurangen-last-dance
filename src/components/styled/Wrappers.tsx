@@ -1,9 +1,7 @@
 import styled from "styled-components";
 import myImage from "../../assets/images/landingPage.jpg";
 
-interface IWrappersProps {
-  open: boolean;
-}
+
 interface IAmountGuestsNumberWrapperProps {
   selected: boolean;
 }
@@ -12,97 +10,11 @@ interface IBookingTimeWrapperProps {
   isTableAvailable: boolean,
 }
 
-
-export const HeaderWrapper = styled.header`
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-`;
-export const NavWrapper = styled.nav`
-  @media screen and (max-width: 768px) {
-    width: 35%;
-
-    position: absolute;
-    transition: all 0.3s ease-in-out;
-    opacity: ${(props: IWrappersProps) => (props.open ? "1" : "0")};
-    top: ${(props: IWrappersProps) => (props.open ? "0" : "-1000px")};
-    width: 100%;
-    background-color: #525252;
-    z-index: 5;
-    padding-top: 3rem;
-    ul {
-      display: flex;
-      flex-direction: column;
-      padding: 18px 0;
-      gap: 10px;
-      li {
-        list-style-type: none;
-        text-align: center;
-
-        a {
-          color: white;
-          text-decoration: none;
-          font-size: 22px;
-          transition: all 0.2s ease-in;
-          &:hover {
-            cursor: pointer;
-            opacity: 0.75;
-          }
-        }
-      }
-    }
-  }
-  @media screen and (min-width: 769px) {
-    background-color: #525252;
-    height: 75px;
-    ul {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
-      align-items: center;
-      height: 100%;
-      margin: 0;
-      gap: 25px;
-      li {
-        list-style: none;
-
-        a {
-          text-decoration: none;
-          color: white;
-          font-size: 19px;
-          transition: all 0.2s ease-in;
-          &:hover {
-            cursor: pointer;
-            opacity: 0.75;
-          }
-        }
-      }
-    }
-  }
-`;
-export const PWrapper = styled.p`
-  font-family: 'Montserrat', sans-serif;
-  font-size: 14px;
-`;
-export const PCursiveWrapper = styled(PWrapper)`
-  font-style: italic;
-  font-size: 10px;
-`;
-
 export const HamburgerWrapper = styled.div`
   position: absolute;
   right: 1rem;
   top: 1rem;
   z-index: 5;
-`;
-
-export const PageWrapper = styled.main`
-  width: 100%;
-  min-height: 100vh;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `;
 
 export const StartPageWrapper = styled.div`
@@ -118,27 +30,6 @@ export const StartPageWrapper = styled.div`
   filter: grayscale(100%);
 `;
 
-export const FooterWrapper = styled.footer`
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  background-color: #525252;
-  display: flex;
-  gap: 1rem;
-  flex-direction: column;
-  margin-bottom: auto;
-  height:20vh;
-  span {
-    font-size: 12px;
-    color: white;
-  }
-  div {
-    display: flex;
-    gap: 2rem;
-    width: 30%;
-    justify-content: center;
-  }
-`;
 export const SocialIconWrapper = styled.div`
   font-size: 24px;
   &:hover {
@@ -201,21 +92,7 @@ export const BookingTimeWrapper = styled.div`
   }
 `;
 
-export const FormWrapper = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-  gap: 1rem;
-  justify-content: center;
-  padding: 1rem;
-  text-align: center;
-  @media screen and (min-width: 768px) {
-    width: 60%;
-  }
-  @media screen and (min-width: 1000px) {
-    width: 45%;
-  }
-`;
+
 
 export const InputWrapper = styled.div`
   display: flex;
@@ -264,16 +141,83 @@ export const InputWrapper = styled.div`
   }
 `;
 
-export const SubmitButtonWrapper = styled.button`
+
+
+
+export const AdminBookingsWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   width: 100%;
-  background-color: black;
-  color: white;
-  border-radius: 2px;
-  transition: all 0.1s linear;
-  padding: 1rem;
+  gap: 25px;
+`;
+
+export const AdminBookingWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  margin-bottom: 15px;
+  box-shadow: 1px 0px 20px rgba(151, 149, 149, 0.8),
+    0px 10px 5px rgba(151, 149, 149, 0.1);
+  border-radius: 18px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
   &:hover {
-    cursor: pointer;
-    transform: scale(1.01);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+    scale: calc(1.05);
+  }
+  @media screen and (min-width: 768px) {
+    width: 45%;
+  }
+  @media screen and (min-width: 1000px) {
+    width: 30%;
+  }
+  @media screen and (min-width: 1400px) {
+    width: 25%;
+  }
+`;
+
+export const AdminBookingInputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 18px 0px 5px 0px;
+`;
+
+export const AvailableTablesWrapper = styled.div `
+  width: 100%;
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  padding: 1rem 0;
+  h4 {
+    width: 100%;
+    padding: 1rem 0;
+  }
+  div {
+    width: 100%;
+    @media screen and (min-width: 768px) {
+      width: 20%;
+    }
+    span {
+      font-size: 24px;
+    }
+  }
+`;
+
+export const MenuWrapper = styled.div`
+  margin: 2rem 0;
+  padding: 1rem 0;
+  text-align: center;
+  @media screen and (min-width: 768px) {
+    width: 50%;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  }
+  h4 {
+    letter-spacing: 1px;
   }
 `;

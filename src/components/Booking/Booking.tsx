@@ -1,16 +1,13 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { IBooking } from "../../models/IBooking";
-import { H1, H3, H4 } from "../styled/Booking";
 import { ICustomer } from "../../models/ICustomer";
 import { sendBooking } from "../../services/bookingService";
 import { useOutletContext } from "react-router";
 import { IRestaurantContext } from "../../App";
 import {
   BookingTimeDivWrapper,
-  FormWrapper,
   InputWrapper,
   NumberOfGuestsWrapper,
-  SubmitButtonWrapper,
 } from "../styled/Wrappers";
 import { SelectGuestsAmount } from "../SelectGuestsAmount/SelectGuestsAmount";
 import { SelectBookingTime } from "../SelectBookingTime/SelectBookingTime";
@@ -18,6 +15,9 @@ import { checkedAvailableTables } from "../../functions/checkedAvailableTables";
 import { useNavigate } from "react-router-dom";
 import { IAvailableTime } from "../../models/IAvailableTime";
 import { getStartDate } from "../../functions/getStartDate";
+import { H1, H3, H4 } from "../styled/Headings";
+import { SubmitButton } from "../styled/Buttons";
+import { Form } from "../styled/Forms";
 
 export const Booking = () => {
   let startDate = getStartDate();
@@ -78,14 +78,14 @@ export const Booking = () => {
     localStorage.setItem("booking", JSON.stringify(booking));
     navigate(`/booking/${id}`);
   };
-  console.log(availableTimes);
 
+  
   return (
     <>
       <H1>Last Dance</H1>
       <H4>restaurang</H4>
       <H3>Bokning</H3>
-      <FormWrapper onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <NumberOfGuestsWrapper>
           <H4>Antal personer</H4>
           <SelectGuestsAmount
@@ -163,12 +163,12 @@ export const Booking = () => {
                 required
               />
             </InputWrapper>
-            <SubmitButtonWrapper type="submit">Boka</SubmitButtonWrapper>
+            <SubmitButton type="submit">Boka</SubmitButton>
           </>
         ) : (
           <h4>Det finns inga lediga bord</h4>
-        )}
-      </FormWrapper>
+        }
+      </Form>
     </>
   );
 };
