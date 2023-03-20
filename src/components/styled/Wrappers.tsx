@@ -269,6 +269,8 @@ export const GdprWrapper = styled.div`
   box-shadow: 0 0 5px rgba(0,0,0,0.4);
   background-color: white;
   bottom: 0;
+  left: 0;
+  right: 0;
   z-index: 6;
   gap: 20px;
   justify-content: center;
@@ -282,12 +284,20 @@ export const GdprWrapper = styled.div`
   }
 `;
 export const GdprInputWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
   @media screen and (min-width: 768px) {
     width: 20%;
     }
  label {
   box-shadow: 0 0 5px rgba(0,0,0,0.4);
   padding: 0.6rem;
+  font-size: 12px;
+  @media screen and (min-width: 768px) {
+    font-size: 18px;
+    }
  }
  input {
   display: none;
