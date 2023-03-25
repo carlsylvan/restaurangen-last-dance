@@ -27,6 +27,7 @@ function App() {
   const [bookings, setBookings] = useState<IBookingsAdmin[]>([]);
   const [loadedFromApi, setLoadedFromApi] = useState<boolean>(false);
   const [showGdpr, setShowGdpr] = useState<boolean>(true);
+  
 
   useEffect(() => {
     const getBookingData = async () => {
